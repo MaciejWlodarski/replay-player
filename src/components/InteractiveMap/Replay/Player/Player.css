@@ -1,0 +1,26 @@
+circle.player {
+  stroke: rgb(255, 255, 255);
+}
+
+.t circle.player {
+  fill: rgb(255, 207, 46);
+}
+
+.ct circle.player {
+  fill: rgb(59, 105, 220);
+}
+
+polygon.yaw {
+  fill: rgb(255, 255, 255);
+}
+
+text.nickname {
+  fill: rgb(255, 255, 255);
+  opacity: 0.8;
+  text-anchor: middle;
+}
+
+circle.health {
+  fill: transparent;
+  stroke: rgb(230, 50, 45);
+}

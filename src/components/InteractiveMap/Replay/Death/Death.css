@@ -1,0 +1,11 @@
+circle.death {
+  stroke: rgb(255, 255, 255);
+}
+
+.t circle.death {
+  fill: rgb(255, 207, 46);
+}
+
+.ct circle.death {
+  fill: rgb(59, 105, 220);
+}

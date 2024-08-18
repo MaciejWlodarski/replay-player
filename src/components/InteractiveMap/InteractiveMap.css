@@ -1,0 +1,51 @@
+.map-container {
+  flex-grow: 1;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  transition: all 1s;
+}
+
+.wrapper.blur {
+  filter: blur(4px);
+}
+
+.map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.map svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-events.dimmed {
+  opacity: 0.15;
+}
+
+@media (max-width: 1000px) {
+  .wrapper {
+    border-width: 0px 0px 0px 1px;
+  }
+}

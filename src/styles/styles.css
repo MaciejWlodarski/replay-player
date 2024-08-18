@@ -1,0 +1,83 @@
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(35, 35, 35);
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.title {
+  background-color: rgb(35, 35, 35);
+  border-color: rgb(133, 133, 133);
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
+  height: 32px;
+  border-radius: 5px;
+  border-style: solid;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounds {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  justify-content: safe center;
+  align-items: center;
+  height: 50px;
+  min-height: 50px;
+  background-color: rgb(23, 23, 23);
+}
+
+.rounds .round {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+
+.round-index {
+  display: flex;
+  justify-content: center;
+}
+
+.round-winner {
+  display: flex;
+  justify-content: center;
+  font-size: 7px;
+}
+
+.round-winner.t {
+  color: rgb(255, 207, 46);
+}
+
+.round-winner.ct {
+  color: rgb(59, 105, 220);
+}
+
+.main {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  border-color: rgb(133, 133, 133);
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+}
