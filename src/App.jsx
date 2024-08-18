@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import Settings from "/src/components/Settings/Settings.jsx";
 import InteractiveMap from "/src/components/InteractiveMap/InteractiveMap";
 import Hud from "/src/components/Hud/Hud";
 import Slider from "/src/components/Slider/Slider";
