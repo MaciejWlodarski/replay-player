@@ -9,19 +9,20 @@ import "./styles/sliders.css";
 import "./styles/styles.css";
 
 function App() {
-  const mapData = maps["de_anubis"];
+  const mapData = maps["de_ancient"];
 
   const [data, setData] = useState(null);
   const [currTick, setCurrTick] = useState(0);
-  const [endTick, setEndTick] = useState(null);
+  const [lastTick, setLastTick] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [marks, setMarks] = useState({});
 
   const fps = 64;
   const animationRef = useRef(null);
 
   useEffect(() => {
-    createReplayData(setData, setEndTick);
+    createReplayData(setData, setLastTick, setMarks);
   }, []);
 
   useEffect(() => {
@@ -36,8 +37,8 @@ function App() {
       if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         setCurrTick((prevTick) => {
-          if (prevTick < endTick) {
-            return Math.min(prevTick + 1 * Math.max(speed, 1), endTick);
+          if (prevTick < lastTick) {
+            return Math.min(prevTick + 1 * Math.max(speed, 1), lastTick);
           } else {
             setIsPlaying(() => false);
             return prevTick;
@@ -61,7 +62,7 @@ function App() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [endTick, isPlaying, speed]);
+  }, [lastTick, isPlaying, speed]);
 
   return (
     <div className="app">
@@ -71,13 +72,14 @@ function App() {
         <Hud data={data} tick={currTick} tSide={false} />
       </div>
       <Slider
-        endTick={endTick}
+        lastTick={lastTick}
         currTick={currTick}
         setCurrTick={setCurrTick}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
         speed={speed}
         setSpeed={setSpeed}
+        marks={marks}
       />
     </div>
   );

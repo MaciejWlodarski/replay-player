@@ -1,21 +1,22 @@
 import React from "react";
 import { CirclePause, CirclePlay } from "lucide-react";
-import RangeSlider from "rc-slider";
+import RCSlider from "rc-slider";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
 import { tickToTime } from "/src/utils/utils.js";
 import "./Slider.css";
 
 const Slider = ({
-  endTick,
+  lastTick,
   currTick,
   setCurrTick,
   isPlaying,
   setIsPlaying,
   speed,
   setSpeed,
+  marks,
 }) => {
   const togglePlay = () => {
-    if (currTick >= endTick) return;
+    if (currTick >= lastTick) return;
     setIsPlaying((prev) => !prev);
   };
 
@@ -38,13 +39,11 @@ const Slider = ({
           />
         </div>
         <div className="slider-component">
-          <RangeSlider
-            max={endTick}
+          <RCSlider
+            max={lastTick}
             value={currTick}
-            onChange={(e) => {
-              setCurrTick(() => e);
-              console.log(e);
-            }}
+            onChange={(e) => setCurrTick(() => e)}
+            marks={marks}
           />
         </div>
         <div className="slider-panel">

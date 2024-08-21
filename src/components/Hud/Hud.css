@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: end;
+  align-items: start;
   width: 30%;
   min-width: 280px;
   height: 100%;
@@ -12,20 +12,22 @@
   gap: 10px;
   border-style: dashed;
   border-color: rgb(133, 133, 133);
-  border-width: 0px 0px 0px 1px;
+  border-width: 0px 1px 0px 0px;
   color: rgb(255, 255, 255);
   font-family: Poppins;
 }
 
-.hud.t {
+.hud.ct {
   transform: scaleX(-1);
 }
 
-.hud.t span {
+.hud.ct span {
   transform: scaleX(-1);
 }
 
 .hud .player {
+  display: flex;
+  flex-direction: column;
   position: relative;
   height: 60px;
   width: 100%;
@@ -42,24 +44,28 @@
   display: flex;
   align-items: center;
   height: 50%;
-  justify-content: end;
+  justify-content: start;
   z-index: 1;
 }
 
 .top .nickname {
   display: flex;
   height: 100%;
-  justify-content: start;
+  justify-content: end;
   align-items: center;
   font-weight: 500;
+}
+
+.top .health-container {
+  display: flex;
+  height: 100%;
+  width: 26px;
+  padding: 0px 10px;
 }
 
 .top .health {
   display: flex;
   height: 100%;
-  width: 30px;
-  padding: 0px 10px;
-  justify-content: center;
   align-items: center;
   font-weight: 800;
 }
@@ -78,4 +84,27 @@
 
 .ct .health-bar {
   background-color: rgb(59, 105, 220);
+}
+
+.player .bottom {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 50%;
+  padding: 0 10px;
+  gap: 10px;
+}
+
+.bottom .armor,
+.bottom .kit {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+}
+
+span.kit {
+  color: white;
+  fill: white;
 }

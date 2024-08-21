@@ -9,6 +9,13 @@ const Replay = ({ data, mapData, factor, tick }) => {
   const { deaths, shots, players } = data;
   return (
     <>
+      <defs>
+        <linearGradient id="shotGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+          <stop offset="0%" stopColor="white" stopOpacity={1} />
+          <stop offset="100%" stopColor="white" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+
       <g className="deaths">
         {deaths.map((death, idx) => (
           <Death
@@ -22,7 +29,13 @@ const Replay = ({ data, mapData, factor, tick }) => {
       </g>
       <g className="shots">
         {shots[tick]?.map((shot, idx) => (
-          <Shot key={idx} shot={shot} mapData={mapData} factor={factor} />
+          <Shot
+            key={idx}
+            shot={shot}
+            mapData={mapData}
+            factor={factor}
+            gradient={"shotGradient"}
+          />
         ))}
       </g>
       <g className="players">

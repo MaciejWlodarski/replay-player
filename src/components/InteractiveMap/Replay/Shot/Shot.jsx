@@ -1,9 +1,8 @@
 import React from "react";
 import "./Shot.css";
 
-const Shot = ({ shot, mapData, factor, tick }) => {
+const Shot = ({ shot, mapData, factor, gradient }) => {
   const { pos, yaw } = shot;
-  console.log(yaw);
 
   const shotPos = {
     x: (pos.x - mapData.start.x) * factor,
@@ -11,17 +10,18 @@ const Shot = ({ shot, mapData, factor, tick }) => {
   };
 
   return (
-    <svg className="shot-component">
+    <g>
       <line
         className="shot"
         x1={shotPos.x}
         y1={shotPos.y}
         x2={shotPos.x + 1000 * factor}
-        y2={shotPos.y}
+        y2={shotPos.y + 1000 * factor}
+        stroke={`url(#${gradient})`}
         strokeWidth={5 * factor}
-        transform={`rotate(${yaw + 180}, ${shotPos.x}, ${shotPos.y})`}
+        transform={`rotate(${-yaw - 45}, ${shotPos.x}, ${shotPos.y})`}
       />
-    </svg>
+    </g>
   );
 };
 

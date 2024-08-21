@@ -13,7 +13,7 @@ const Death = ({ death, mapData, factor, tick }) => {
   const team = side == 2 ? "t" : "ct";
 
   return (
-    <svg className={`death-component ${team}`}>
+    <g className={`death-component ${team}`}>
       <circle
         className="death"
         cx={deathPos.x}
@@ -21,7 +21,7 @@ const Death = ({ death, mapData, factor, tick }) => {
         r={30 * factor}
         strokeWidth={8 * factor}
       />
-    </svg>
+    </g>
   );
 };
 

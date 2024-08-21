@@ -26,7 +26,7 @@ const Player = ({ player, mapData, factor, tick }) => {
   const hpValue = (100 - status.hp) / 100;
 
   return (
-    <svg className={`player-component ${team}`}>
+    <g className={`player-component ${team}`}>
       <polygon
         className="yaw"
         points={`0,0 ${arrowLength},${arrowHeight / 2} 0,${arrowHeight}`}
@@ -41,7 +41,6 @@ const Player = ({ player, mapData, factor, tick }) => {
         r={30 * factor}
         strokeWidth={8 * factor}
       />
-
       <circle
         className="health"
         cx={playerPos.x}
@@ -53,7 +52,6 @@ const Player = ({ player, mapData, factor, tick }) => {
         }`}
         strokeDashoffset={circumference * 0.25}
       />
-
       <text
         className="nickname"
         x={playerPos.x}
@@ -63,7 +61,7 @@ const Player = ({ player, mapData, factor, tick }) => {
       >
         {`${name}`}
       </text>
-    </svg>
+    </g>
   );
 };
 

@@ -68,9 +68,6 @@ import WeaponUspSilencerN from "./svg/svg_normal/weapon_usp_silencer.svg?react";
 import WeaponXm1014N from "./svg/svg_normal/weapon_xm1014.svg?react";
 import WeaponZeusN from "./svg/svg_normal/weapon_zeus.svg?react";
 
-import Info from "./svg/info_icon.svg?react";
-import Cross from "./svg/cross_icon.svg?react";
-
 import Headshot from "./svg/svg_killfeed/headshot.svg?react";
 import Wallbang from "./svg/svg_killfeed/wallbang.svg?react";
 
@@ -154,7 +151,6 @@ const icons = {
     headshot: Headshot,
     wallbang: Wallbang,
   },
-  cross: Cross,
 };
 
 export default icons;

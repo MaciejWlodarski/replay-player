@@ -1,11 +1,19 @@
 export const fetchData = async () => {
   try {
-    const response = await fetch("http://localhost:8000/13.json");
+    const response = await fetch("http://localhost:8000/18.json");
     return await response.json();
   } catch (error) {
     console.error(error);
     return null;
   }
+};
+
+const getMarks = (data) => {
+  const marks = {
+    [data.end]: "End",
+  };
+
+  return marks;
 };
 
 const setPose = (player, event) => {
@@ -72,10 +80,13 @@ const setStatus = (player, event) => {
     if (t < totalTicks) {
       player.states[lastStatusTick + t].status = { ...lastStatus };
     } else {
-      const { tick, id, pos = null, yaw = null, ...newStatus } = event;
+      const { tick, id, pos, yaw, ...newStatus } = event;
       const updatedStatus = { ...lastStatus, ...newStatus };
       if (id === 3) {
         updatedStatus.hp = 0;
+        updatedStatus.armor = false;
+        updatedStatus.helmet = false;
+        updatedStatus.kit = false;
       }
       player.states[lastStatusTick + t].status = updatedStatus;
     }
@@ -84,18 +95,20 @@ const setStatus = (player, event) => {
 };
 
 const eventSpawn = (player, event) => {
+  const { id, tick, side, pos, yaw, ...status } = event;
   player.lastState = {
-    pose: event.tick,
-    status: event.tick,
+    pose: tick,
+    status: tick,
   };
-  player.side = event.side;
-  player.states[event.tick] = {
+  player.side = side;
+
+  player.states[tick] = {
     pose: {
-      pos: event.pos,
-      yaw: event.yaw,
+      pos: pos,
+      yaw: yaw,
     },
     status: {
-      hp: event.hp,
+      ...status,
     },
   };
 };
@@ -119,11 +132,12 @@ const eventShot = (event, shots) => {
   });
 };
 
-export const createReplayData = async (setData, setEndTick) => {
+export const createReplayData = async (setData, setLastTick, setMarks) => {
   const data = await fetchData();
   if (!data) return;
 
-  setEndTick(() => data.end);
+  setLastTick(() => data.last);
+  setMarks(() => getMarks(data));
 
   const players = [];
   const deaths = [];
@@ -155,7 +169,6 @@ export const createReplayData = async (setData, setEndTick) => {
           setPose(player, event);
           setStatus(player, event);
           eventShot(event, shots);
-          console.log(event.tick, pl.name);
           break;
         default:
       }
