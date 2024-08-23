@@ -155,7 +155,7 @@ const icons = {
 
 export default icons;
 
-export const WepSvg = ({ wep }) => {
+export const WepSvg = (wep) => {
   const IconComponent = icons.normal[wep];
   if (IconComponent) {
     return <IconComponent />;

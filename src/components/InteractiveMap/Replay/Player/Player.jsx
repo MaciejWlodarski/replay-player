@@ -1,14 +1,13 @@
 import React from "react";
 import "./Player.css";
+import { getPlayerPose, getPlayerStatus } from "/src/utils/utils";
 
 const Player = ({ player, mapData, factor, tick }) => {
-  const playerState = player.states[tick];
-  if (!playerState) return;
-
   const { name, side } = player;
-  const { pose, status } = playerState;
-  if (status.hp <= 0) return;
+  const status = getPlayerStatus(player, tick);
+  if (!status.hp) return;
 
+  const pose = getPlayerPose(player, tick);
   const { pos, yaw } = pose;
 
   const playerPos = {

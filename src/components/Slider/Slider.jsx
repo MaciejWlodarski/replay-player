@@ -11,12 +11,11 @@ const Slider = ({
   setCurrTick,
   isPlaying,
   setIsPlaying,
-  speed,
-  setSpeed,
   marks,
+  setPrevRender,
 }) => {
   const togglePlay = () => {
-    if (currTick >= lastTick) return;
+    if (currTick >= lastTick) setCurrTick(() => 0);
     setIsPlaying((prev) => !prev);
   };
 
@@ -35,7 +34,10 @@ const Slider = ({
               </div>
             }
             isChecked={false}
-            onButtonDown={() => togglePlay()}
+            onButtonDown={() => {
+              togglePlay();
+              setPrevRender(() => Date.now());
+            }}
           />
         </div>
         <div className="slider-component">

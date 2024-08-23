@@ -1,6 +1,6 @@
 export const fetchData = async () => {
   try {
-    const response = await fetch("http://localhost:8000/18.json");
+    const response = await fetch("http://localhost:8000/17.json");
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -17,100 +17,34 @@ const getMarks = (data) => {
 };
 
 const setPose = (player, event) => {
-  const lastPoseTick = player.lastState.pose;
-
-  const totalTicks = event.tick - lastPoseTick;
-  const startPose = player.states[lastPoseTick].pose;
-
-  const startPos = startPose.pos;
-  const endPos = event.pos;
-
-  const startYaw = startPose.yaw;
-  const endYaw = event.yaw;
-
-  let yawDifference = endYaw - startYaw;
-  if (yawDifference > 180) {
-    yawDifference -= 360;
-  } else if (yawDifference < -180) {
-    yawDifference += 360;
-  }
-
-  for (let t = 1; t <= totalTicks; t++) {
-    const ratio = t / totalTicks;
-
-    const interpolatedX = startPos.x + (endPos.x - startPos.x) * ratio;
-    const interpolatedY = startPos.y + (endPos.y - startPos.y) * ratio;
-    const interpolatedZ = startPos.z + (endPos.z - startPos.z) * ratio;
-
-    const interpolatedYaw = startYaw + yawDifference * ratio;
-
-    let normalizedYaw = interpolatedYaw;
-    if (normalizedYaw > 180) {
-      normalizedYaw -= 360;
-    } else if (normalizedYaw < -180) {
-      normalizedYaw += 360;
-    }
-
-    if (!player.states[lastPoseTick + t]) {
-      player.states[lastPoseTick + t] = {};
-    }
-
-    player.states[lastPoseTick + t].pose = {
-      pos: {
-        x: interpolatedX,
-        y: interpolatedY,
-        z: interpolatedZ,
-      },
-      yaw: normalizedYaw,
-    };
-    player.lastState.pose = event.tick;
-  }
+  player.pose.push({
+    tick: event.tick,
+    pos: event.pos,
+    yaw: event.yaw,
+  });
 };
 
 const setStatus = (player, event) => {
-  const lastStatusTick = player.lastState.status;
-
-  const totalTicks = event.tick - lastStatusTick;
-  const lastStatus = player.states[lastStatusTick].status;
-
-  for (let t = 0; t <= totalTicks; t++) {
-    if (!player.states[lastStatusTick + t]) {
-      player.states[lastStatusTick + t] = {};
-    }
-    if (t < totalTicks) {
-      player.states[lastStatusTick + t].status = { ...lastStatus };
-    } else {
-      const { tick, id, pos, yaw, ...newStatus } = event;
-      const updatedStatus = { ...lastStatus, ...newStatus };
-      if (id === 3) {
-        updatedStatus.hp = 0;
-        updatedStatus.armor = false;
-        updatedStatus.helmet = false;
-        updatedStatus.kit = false;
-      }
-      player.states[lastStatusTick + t].status = updatedStatus;
-    }
-  }
-  player.lastState.status = event.tick;
+  const status = player.status[player.status.length - 1];
+  const { id, pos, yaw, ...eventStatus } = event;
+  const newStatus = { ...status, ...eventStatus };
+  player.status.push(id !== 3 ? newStatus : { tick: event.tick });
 };
 
 const eventSpawn = (player, event) => {
   const { id, tick, side, pos, yaw, ...status } = event;
-  player.lastState = {
-    pose: tick,
-    status: tick,
-  };
   player.side = side;
 
-  player.states[tick] = {
-    pose: {
-      pos: pos,
-      yaw: yaw,
-    },
-    status: {
-      ...status,
-    },
-  };
+  player.pose.push({
+    tick: tick,
+    pos: pos,
+    yaw: yaw,
+  });
+
+  player.status.push({
+    tick: tick,
+    ...status,
+  });
 };
 
 const eventDeath = (player, event, deaths) => {
@@ -145,7 +79,8 @@ export const createReplayData = async (setData, setLastTick, setMarks) => {
   Object.entries(data.players).forEach(([plId, pl]) => {
     const player = {
       name: pl.name,
-      states: {},
+      pose: [],
+      status: [],
     };
 
     pl.events.forEach((event) => {
@@ -155,7 +90,6 @@ export const createReplayData = async (setData, setLastTick, setMarks) => {
           break;
         case 1:
           setPose(player, event);
-          setStatus(player, event);
           break;
         case 2:
           setStatus(player, event);

@@ -9,16 +9,16 @@ import "./styles/sliders.css";
 import "./styles/styles.css";
 
 function App() {
-  const mapData = maps["de_ancient"];
+  const mapData = maps["de_anubis"];
 
   const [data, setData] = useState(null);
   const [currTick, setCurrTick] = useState(0);
   const [lastTick, setLastTick] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState(1);
   const [marks, setMarks] = useState({});
 
-  const fps = 64;
+  const [prevRender, setPrevRender] = useState(0);
+
   const animationRef = useRef(null);
 
   useEffect(() => {
@@ -26,35 +26,36 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let fpsInterval = 1000 / fps;
-    if (speed < 1) fpsInterval = fpsInterval / speed;
-    let then = performance.now();
+    let prevRenderTime = prevRender;
 
-    const startAnimation = (timestamp) => {
-      const now = timestamp;
-      const elapsed = now - then;
+    const renderFrame = () => {
+      setCurrTick((prevTick) => {
+        if (prevTick < lastTick) {
+          const newRender = Date.now();
+          const delta = newRender - prevRenderTime;
 
-      if (elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);
-        setCurrTick((prevTick) => {
-          if (prevTick < lastTick) {
-            return Math.min(prevTick + 1 * Math.max(speed, 1), lastTick);
-          } else {
-            setIsPlaying(() => false);
-            return prevTick;
-          }
-        });
-      }
+          const tickDurationMs = 1000 / 64;
+          const tickIncrement = delta / tickDurationMs;
 
-      if (isPlaying) {
-        animationRef.current = requestAnimationFrame(startAnimation);
-      }
+          const newTick = Math.min(prevTick + tickIncrement, lastTick);
+
+          setPrevRender(() => {
+            prevRenderTime = newRender;
+            return newRender;
+          });
+
+          return newTick;
+        } else {
+          setIsPlaying(() => false);
+          return prevTick;
+        }
+      });
+
+      animationRef.current = requestAnimationFrame(renderFrame);
     };
 
     if (isPlaying) {
-      animationRef.current = requestAnimationFrame(startAnimation);
-    } else if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
+      animationRef.current = requestAnimationFrame(renderFrame);
     }
 
     return () => {
@@ -62,7 +63,7 @@ function App() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [lastTick, isPlaying, speed]);
+  }, [lastTick, isPlaying]);
 
   return (
     <div className="app">
@@ -77,9 +78,8 @@ function App() {
         setCurrTick={setCurrTick}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        speed={speed}
-        setSpeed={setSpeed}
         marks={marks}
+        setPrevRender={setPrevRender}
       />
     </div>
   );

@@ -7,6 +7,7 @@ import "./Replay.css";
 const Replay = ({ data, mapData, factor, tick }) => {
   if (!data) return;
   const { deaths, shots, players } = data;
+  console.log(tick);
   return (
     <>
       <defs>
@@ -28,7 +29,7 @@ const Replay = ({ data, mapData, factor, tick }) => {
         ))}
       </g>
       <g className="shots">
-        {shots[tick]?.map((shot, idx) => (
+        {shots[Math.floor(tick)]?.map((shot, idx) => (
           <Shot
             key={idx}
             shot={shot}
@@ -39,15 +40,17 @@ const Replay = ({ data, mapData, factor, tick }) => {
         ))}
       </g>
       <g className="players">
-        {players.map((player, idx) => (
-          <Player
-            key={idx}
-            player={player}
-            mapData={mapData}
-            factor={factor}
-            tick={tick}
-          />
-        ))}
+        {players.map((player, idx) => {
+          return (
+            <Player
+              key={idx}
+              player={player}
+              mapData={mapData}
+              factor={factor}
+              tick={tick}
+            />
+          );
+        })}
       </g>
     </>
   );
