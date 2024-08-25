@@ -96,6 +96,21 @@ export const getPlayerStatus = (player, targetTick) => {
   return { ...status, tick: targetTick };
 };
 
+export const getGrenadePose = (grenade, targetTick) => {
+  const [start, end] = findSurroundingEventsBinary(grenade.pose, targetTick);
+  if (start === end) return start;
+  if (!start) return end;
+  if (!end) return start;
+
+  const t = (targetTick - start.tick) / (end.tick - start.tick);
+
+  const x = start.pos.x + t * (end.pos.x - start.pos.x);
+  const y = start.pos.y + t * (end.pos.y - start.pos.y);
+  const z = start.pos.z + t * (end.pos.z - start.pos.z);
+
+  return { tick: targetTick, pos: { x, y, z } };
+};
+
 export const equipmentTypeMap = {
   1: "hkp2000",
   2: "glock",

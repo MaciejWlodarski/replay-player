@@ -50,6 +50,7 @@ const Slider = ({
         </div>
         <div className="slider-panel">
           <div className="slider-time">{tickToTime(currTick)}</div>
+          <div className="slider-time">{Math.round(currTick)}</div>
         </div>
       </div>
     </div>

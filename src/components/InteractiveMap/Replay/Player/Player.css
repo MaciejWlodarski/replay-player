@@ -3,11 +3,11 @@ circle.player {
 }
 
 .t circle.player {
-  fill: rgb(255, 207, 46);
+  fill: rgb(231, 180, 44);
 }
 
 .ct circle.player {
-  fill: rgb(59, 105, 220);
+  fill: rgb(17, 116, 255);
 }
 
 polygon.yaw {

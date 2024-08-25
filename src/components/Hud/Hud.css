@@ -97,11 +97,11 @@
 }
 
 .t .health-bar {
-  background-color: rgb(255, 207, 46);
+  background-color: rgb(231, 180, 44);
 }
 
 .ct .health-bar {
-  background-color: rgb(59, 105, 220);
+  background-color: rgb(17, 116, 255);
 }
 
 .player .bottom {
@@ -123,28 +123,41 @@
   align-items: center;
 }
 
-.armor .shield {
-  height: 19px;
+.bottom .left span {
+  width: 22px;
 }
 
-.kit .kit-icon {
+.left span.armor {
+  width: 20px;
+}
+
+.armor .shield {
+  width: 20px;
+}
+
+.spec svg {
   height: 22px;
+  width: 100%;
 }
 
 span.grenade {
-  justify-content: center;
-  width: 25%;
+  width: 20px;
 }
 
-span.grenade.flash {
-  transform: translateX(-0.5px);
-}
-
-.grenade .grenade-icon {
-  justify-content: center;
-  height: 22px;
+.grenade svg {
+  height: 23px;
 }
 
 .top .right svg {
   max-height: 90%;
+}
+
+.bottom .secondary {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.secondary svg {
+  height: 19px;
 }

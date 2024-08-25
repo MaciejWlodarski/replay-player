@@ -55,11 +55,18 @@ const Hud = ({ data, tick, tSide }) => {
                     <Shield className="shield" />
                   ) : null}
                 </span>
-                <span className="kit">
-                  {status.kit ? (
-                    <icons.normal.item_defuser className="kit-icon" />
+                <span className="spec">
+                  {status.spec ? (
+                    tSide ? (
+                      <icons.normal.c4 className="spec-icon" />
+                    ) : (
+                      <icons.normal.item_defuser className="spec-icon" />
+                    )
                   ) : null}
                 </span>
+                <div className="secondary">
+                  {status.prime && WepSvg(equipmentTypeMap[status.sec])}
+                </div>
               </div>
               <div className="right">
                 {Object.entries(grenades).map(([key, val]) => {

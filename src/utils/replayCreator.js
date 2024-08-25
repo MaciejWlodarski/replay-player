@@ -1,6 +1,6 @@
 export const fetchData = async () => {
   try {
-    const response = await fetch("http://localhost:8000/17.json");
+    const response = await fetch("http://localhost:8000/04.json");
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -66,6 +66,25 @@ const eventShot = (event, shots) => {
   });
 };
 
+const eventDrop = (player, event) => {
+  const status = player.status[player.status.length - 1];
+  const { id, pos, yaw, ...eventStatus } = event;
+  const newStatus = { ...status, ...eventStatus };
+
+  const { prime, sec } = event;
+  if (prime) {
+    if (status.prime !== prime) return;
+    newStatus.prime = null;
+  }
+
+  if (sec) {
+    if (status.sec !== sec) return;
+    newStatus.sec = null;
+  }
+
+  player.status.push(newStatus);
+};
+
 export const createReplayData = async (setData, setLastTick, setMarks) => {
   const data = await fetchData();
   if (!data) return;
@@ -76,6 +95,7 @@ export const createReplayData = async (setData, setLastTick, setMarks) => {
   const players = [];
   const deaths = [];
   const shots = {};
+
   Object.entries(data.players).forEach(([plId, pl]) => {
     const player = {
       name: pl.name,
@@ -104,11 +124,38 @@ export const createReplayData = async (setData, setLastTick, setMarks) => {
           setStatus(player, event);
           eventShot(event, shots);
           break;
+        case 5:
+          eventDrop(player, event);
         default:
       }
     });
     players.push(player);
   });
 
-  setData(() => ({ players, deaths, shots }));
+  const grenades = [];
+
+  Object.entries(data.grenades).forEach(([gndId, gnd]) => {
+    let grenade;
+
+    gnd.events.forEach((event, idx) => {
+      switch (event.id) {
+        case 0:
+          if (idx > 0) grenades.push(grenade);
+          grenade = { type: event.type, pose: [] };
+          grenade.pose.push({
+            tick: event.tick,
+            pos: event.pos,
+          });
+          return;
+        case 1:
+          grenade.pose.push({
+            tick: event.tick,
+            pos: event.pos,
+          });
+      }
+    });
+    grenades.push(grenade);
+  });
+
+  setData(() => ({ players, deaths, shots, grenades }));
 };

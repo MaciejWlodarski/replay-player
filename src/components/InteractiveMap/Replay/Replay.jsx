@@ -3,11 +3,11 @@ import Death from "./Death/Death";
 import Shot from "./Shot/Shot";
 import Player from "./Player/Player";
 import "./Replay.css";
+import Grenade from "./Grenade/Grenade";
 
 const Replay = ({ data, mapData, factor, tick }) => {
   if (!data) return;
-  const { deaths, shots, players } = data;
-  console.log(tick);
+  const { players, deaths, shots, grenades } = data;
   return (
     <>
       <defs>
@@ -28,6 +28,21 @@ const Replay = ({ data, mapData, factor, tick }) => {
           />
         ))}
       </g>
+
+      <g className="grenades">
+        {grenades.map((grenade, idx) => {
+          return (
+            <Grenade
+              key={idx}
+              grenade={grenade}
+              mapData={mapData}
+              factor={factor}
+              tick={tick}
+            />
+          );
+        })}
+      </g>
+
       <g className="shots">
         {shots[Math.floor(tick)]?.map((shot, idx) => (
           <Shot
@@ -39,6 +54,7 @@ const Replay = ({ data, mapData, factor, tick }) => {
           />
         ))}
       </g>
+
       <g className="players">
         {players.map((player, idx) => {
           return (
