@@ -7,34 +7,53 @@ export const tickToTime = (tick) => {
   ).padStart(2, "0")}`;
 };
 
-const findSurroundingEventsBinary = (array, targetTick) => {
-  let low = 0;
-  let high = array.length - 1;
+const findSurroundingEventsBinary = (object, targetTick) => {
+  if (targetTick < object.start || targetTick > object.end) return;
 
-  if (targetTick <= array[low].tick) {
-    return [null, array[low]];
+  const events = object.pose;
+  let low = 0;
+  let high = events.length - 1;
+
+  if (targetTick <= events[low].tick) {
+    return {
+      start: null,
+      end: events[low],
+      index: 0,
+    };
   }
-  if (targetTick >= array[high].tick) {
-    return [array[high], null];
+  if (targetTick >= events[high].tick) {
+    return {
+      start: events[high],
+      end: null,
+      index: high,
+    };
   }
 
   while (low <= high) {
     const mid = Math.floor((low + high) / 2);
 
-    if (array[mid].tick === targetTick) {
-      return [array[mid], array[mid]];
-    } else if (array[mid].tick < targetTick) {
+    if (events[mid].tick === targetTick) {
+      return {
+        start: events[mid],
+        end: events[mid],
+        index: mid,
+      };
+    } else if (events[mid].tick < targetTick) {
       low = mid + 1;
     } else {
       high = mid - 1;
     }
   }
 
-  return [array[high], array[low]];
+  return {
+    start: events[high],
+    end: events[low],
+    index: high,
+  };
 };
 
 export const getPlayerPose = (player, targetTick) => {
-  const [start, end] = findSurroundingEventsBinary(player.pose, targetTick);
+  const { start, end } = findSurroundingEventsBinary(player, targetTick);
   if (start === end) return start;
   if (!start) return end;
   if (!end) return start;
@@ -97,18 +116,33 @@ export const getPlayerStatus = (player, targetTick) => {
 };
 
 export const getGrenadePose = (grenade, targetTick) => {
-  const [start, end] = findSurroundingEventsBinary(grenade.pose, targetTick);
-  if (start === end) return start;
-  if (!start) return end;
-  if (!end) return start;
+  const events = findSurroundingEventsBinary(grenade, targetTick);
+  if (!events) return;
 
-  const t = (targetTick - start.tick) / (end.tick - start.tick);
+  let { start, end, index } = events;
+  if (!start) {
+    if (targetTick < end.tick) return;
+    start = end;
+  }
+  if (!end) {
+    if (targetTick > start.tick) return;
+    end = start;
+  }
+
+  const t = (targetTick - start.tick) / (end.tick - start.tick || 1);
 
   const x = start.pos.x + t * (end.pos.x - start.pos.x);
   const y = start.pos.y + t * (end.pos.y - start.pos.y);
   const z = start.pos.z + t * (end.pos.z - start.pos.z);
+  const pos = { x, y, z };
 
-  return { tick: targetTick, pos: { x, y, z } };
+  const trajectory = grenade.pose.slice(0, index + 1).map((pose) => pose.pos);
+  const lastPos = trajectory[trajectory.length - 1];
+  if (lastPos.x !== pos.x || lastPos.y !== pos.y || lastPos.z !== pos.z) {
+    trajectory.push(pos);
+  }
+
+  return { tick: targetTick, pos, trajectory };
 };
 
 export const equipmentTypeMap = {
@@ -149,4 +183,41 @@ export const equipmentTypeMap = {
   309: "awp",
   310: "scar20",
   311: "g3sg1",
+};
+
+export const grenadeTypeMap = {
+  501: "decoy",
+  502: "molotov",
+  503: "incgrenade",
+  504: "flashbang",
+  505: "smokegrenade",
+  506: "hegrenade",
+};
+
+export const mapRange = (value, fromMin, fromMax, toMin, toMax) => {
+  return toMin + ((value - fromMin) * (toMax - toMin)) / (fromMax - fromMin);
+};
+
+export const easeInOut = (t) => {
+  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+};
+
+export const easeIn = (t) => {
+  return t * t;
+};
+
+export const easeOut = (t) => {
+  return t * (2 - t);
+};
+
+export const easeInCubic = (t) => {
+  return t * t * t;
+};
+
+export const getTeam = (roundData, sideName) => {
+  for (let i = 0; i < 2; i++) {
+    const team = roundData.teams[i];
+    if (sideName === team.side) return team;
+  }
+  return null;
 };

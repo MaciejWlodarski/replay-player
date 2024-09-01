@@ -1,11 +1,14 @@
 import React from "react";
 import icons, { WepSvg } from "/src/assets/icons";
-import { Shield, ShieldPlus } from "lucide-react";
+import { Shield, ShieldPlus, Skull } from "lucide-react";
+import { getPlayerStatus, equipmentTypeMap, getTeam } from "/src/utils/utils";
 import "./Hud.css";
-import { getPlayerStatus, equipmentTypeMap } from "../../utils/utils";
 
-const Hud = ({ data, tick, tSide }) => {
+const Hud = ({ matchData, roundId, replayData, tick, tSide }) => {
+  if (!matchData) return;
+  const roundData = matchData.rounds[roundId - 1];
   const sideName = tSide ? "t" : "ct";
+  const team = getTeam(roundData, sideName);
 
   const grenades = {
     fire: tSide ? (
@@ -21,7 +24,13 @@ const Hud = ({ data, tick, tSide }) => {
 
   return (
     <div className={`hud ${sideName}`}>
-      {data?.players.map((player, idx) => {
+      <div className="team">
+        <div className="team-name">
+          <span className="name">{team.name}</span>
+        </div>
+        <span className="score">{team.score}</span>
+      </div>
+      {replayData?.players.map((player, idx) => {
         const side = tSide ? 2 : 3;
         if (player.side !== side) return;
 
@@ -34,17 +43,26 @@ const Hud = ({ data, tick, tSide }) => {
 
         return (
           <div key={idx} className={`player ${!hp ? "dead" : ""}`}>
+            {!hp && (
+              <div className="death">
+                <span>
+                  <Skull className="skull" />
+                </span>
+              </div>
+            )}
             <div className="top">
               <div className="left">
                 <div className="health-bar" style={{ width: `${hp}%` }} />
                 <div className="health-container">
-                  <span className="health">{hp}</span>
+                  <span className="health">{hp ? hp : ""}</span>
                 </div>
                 <span className="nickname">{`${player.name}`}</span>
               </div>
-              <div className="right">
-                {WepSvg(equipmentTypeMap[status.prime || status.sec])}
-              </div>
+              {!!hp && (
+                <div className="right">
+                  {WepSvg(equipmentTypeMap[status.prime || status.sec])}
+                </div>
+              )}
             </div>
             <div className="bottom">
               <div className="left">

@@ -6,19 +6,32 @@ const CheckboxButton = ({
   isChecked,
   isDisabled,
   onButtonDown,
+  onRightClick,
   buttonId,
   additionalClassName,
   tooltipId,
   onMouseEnter,
   onMouseLeave,
 }) => {
+  const handleClick = (event) => {
+    if (!isDisabled) {
+      if (event.type === "click") {
+        onButtonDown();
+      } else if (event.type === "contextmenu" && onRightClick) {
+        event.preventDefault();
+        onRightClick();
+      }
+    }
+  };
+
   return (
     <div
       className={`checkbox-button ${isChecked ? "checked " : "unchecked "}${
         isDisabled ? "disabled " : ""
       }${additionalClassName ? additionalClassName : ""}`}
       id={buttonId}
-      onClick={!isDisabled ? onButtonDown : undefined}
+      onClick={handleClick}
+      onContextMenu={handleClick}
       role="button"
       aria-pressed={isChecked}
       tabIndex={isDisabled ? -1 : 0}
@@ -29,7 +42,11 @@ const CheckboxButton = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {typeof label === "string" ? <span>{label}</span> : label}
+      {typeof label === "string" ? (
+        <span className="label">{label}</span>
+      ) : (
+        label
+      )}
     </div>
   );
 };

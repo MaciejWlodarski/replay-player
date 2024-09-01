@@ -49,6 +49,7 @@ import WeaponM4a1SilencerN from "./svg/svg_normal/weapon_m4a1_silencer.svg?react
 import WeaponMac10N from "./svg/svg_normal/weapon_mac10.svg?react";
 import WeaponMag7N from "./svg/svg_normal/weapon_mag7.svg?react";
 import WeaponMolotovN from "./svg/svg_normal/weapon_molotov.svg?react";
+import WeaponMp5sdN from "./svg/svg_normal/weapon_mp5sd.svg?react";
 import WeaponMp7N from "./svg/svg_normal/weapon_mp7.svg?react";
 import WeaponMp9N from "./svg/svg_normal/weapon_mp9.svg?react";
 import WeaponNegevN from "./svg/svg_normal/weapon_negev.svg?react";
@@ -66,7 +67,6 @@ import WeaponTec9N from "./svg/svg_normal/weapon_tec9.svg?react";
 import WeaponUmp45N from "./svg/svg_normal/weapon_ump45.svg?react";
 import WeaponUspSilencerN from "./svg/svg_normal/weapon_usp_silencer.svg?react";
 import WeaponXm1014N from "./svg/svg_normal/weapon_xm1014.svg?react";
-import WeaponZeusN from "./svg/svg_normal/weapon_zeus.svg?react";
 
 import Headshot from "./svg/svg_killfeed/headshot.svg?react";
 import Wallbang from "./svg/svg_killfeed/wallbang.svg?react";
@@ -113,6 +113,7 @@ const icons = {
     mac10: WeaponMac10N,
     mag7: WeaponMag7N,
     molotov: WeaponMolotovN,
+    mp5sd: WeaponMp5sdN,
     mp7: WeaponMp7N,
     mp9: WeaponMp9N,
     negev: WeaponNegevN,
@@ -131,7 +132,7 @@ const icons = {
     ump45: WeaponUmp45N,
     usp_silencer: WeaponUspSilencerN,
     xm1014: WeaponXm1014N,
-    zeus: WeaponZeusN,
+    zeus: WeaponTaserN,
   },
   outline: {
     smokegrenade: SmokeO,

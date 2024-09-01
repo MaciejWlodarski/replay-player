@@ -5,6 +5,9 @@
   height: 50px;
   min-height: 50px;
   background-color: rgb(23, 23, 23);
+  border-color: rgb(133, 133, 133);
+  border-width: 1px 0px 0px 0px;
+  border-style: solid;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -27,20 +30,26 @@
 .slider-panel {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100px;
   color: white;
   font-size: 14px;
+  margin: 0px 10px;
 }
 
-.slider-time {
-  transform: translateY(-1px);
+.slider-panel .timer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
 }
 
 .slider-panel .checkbox-button {
   position: relative;
+  align-items: center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -57,5 +66,4 @@
 .slider-panel .pause {
   stroke: rgb(245, 245, 245);
   width: 22px;
-  transform: translateY(1px);
 }

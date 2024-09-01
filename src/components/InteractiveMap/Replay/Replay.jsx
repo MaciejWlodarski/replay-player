@@ -2,12 +2,13 @@ import React from "react";
 import Death from "./Death/Death";
 import Shot from "./Shot/Shot";
 import Player from "./Player/Player";
-import "./Replay.css";
 import Grenade from "./Grenade/Grenade";
+import "./Replay.css";
+import Inferno from "./Inferno/Inferno";
 
 const Replay = ({ data, mapData, factor, tick }) => {
   if (!data) return;
-  const { players, deaths, shots, grenades } = data;
+  const { players, deaths, shots, grenades, infernos } = data;
   return (
     <>
       <defs>
@@ -16,6 +17,18 @@ const Replay = ({ data, mapData, factor, tick }) => {
           <stop offset="100%" stopColor="white" stopOpacity={0} />
         </linearGradient>
       </defs>
+
+      <g className="infernos">
+        {infernos.map((inferno, idx) => (
+          <Inferno
+            key={idx}
+            inferno={inferno}
+            mapData={mapData}
+            factor={factor}
+            tick={tick}
+          />
+        ))}
+      </g>
 
       <g className="deaths">
         {deaths.map((death, idx) => (
@@ -27,20 +40,6 @@ const Replay = ({ data, mapData, factor, tick }) => {
             tick={tick}
           />
         ))}
-      </g>
-
-      <g className="grenades">
-        {grenades.map((grenade, idx) => {
-          return (
-            <Grenade
-              key={idx}
-              grenade={grenade}
-              mapData={mapData}
-              factor={factor}
-              tick={tick}
-            />
-          );
-        })}
       </g>
 
       <g className="shots">
@@ -61,6 +60,20 @@ const Replay = ({ data, mapData, factor, tick }) => {
             <Player
               key={idx}
               player={player}
+              mapData={mapData}
+              factor={factor}
+              tick={tick}
+            />
+          );
+        })}
+      </g>
+
+      <g className="grenades">
+        {grenades.map((grenade, idx) => {
+          return (
+            <Grenade
+              key={idx}
+              grenade={grenade}
               mapData={mapData}
               factor={factor}
               tick={tick}

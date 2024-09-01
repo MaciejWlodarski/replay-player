@@ -1,0 +1,43 @@
+.rounds {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  justify-content: safe center;
+  align-items: center;
+  height: 40px;
+  min-height: 40px;
+  background-color: rgb(35, 35, 35);
+  border-color: rgb(133, 133, 133);
+  border-width: 1px 0px 0px 0px;
+  border-style: dashed;
+}
+
+.rounds .round {
+  height: 100%;
+  width: 40px;
+  border: 0px;
+  border-radius: 0px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.round .round-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.round-content .team {
+  height: 16px;
+}
+
+.round .t {
+  color: rgb(231, 180, 44);
+}
+
+.round .ct {
+  color: rgb(17, 116, 255);
+}

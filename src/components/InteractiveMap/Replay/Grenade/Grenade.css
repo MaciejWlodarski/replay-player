@@ -1,0 +1,60 @@
+.decoy circle {
+  fill: rgb(98, 240, 48);
+}
+
+.molotov circle,
+.incgrenade circle {
+  fill: rgb(244, 175, 45);
+}
+
+.flashbang circle {
+  fill: rgb(45, 206, 245);
+}
+
+.smokegrenade circle {
+  fill: rgb(228, 228, 238);
+}
+
+.hegrenade circle {
+  fill: rgb(230, 50, 45);
+}
+
+.grenade-component.t polyline {
+  stroke: rgb(231, 180, 44);
+}
+
+.grenade-component.ct polyline {
+  stroke: rgb(17, 116, 255);
+}
+
+.grenade-component polyline {
+  fill: none;
+}
+
+.smokegrenade-smoke circle.smoke {
+  stroke-width: 0;
+  opacity: 0.4;
+}
+
+.t .smokegrenade-smoke circle.stroke {
+  stroke: rgb(231, 180, 44);
+}
+
+.ct .smokegrenade-smoke circle.stroke {
+  stroke: rgb(17, 116, 255);
+}
+
+.smokegrenade-smoke circle.stroke {
+  fill: none;
+}
+
+.smokegrenade-smoke text {
+  font-weight: 300;
+  fill: rgb(255, 255, 255);
+  opacity: 0.8;
+  text-anchor: middle;
+}
+
+circle.flash-explosion {
+  opacity: 0.8;
+}

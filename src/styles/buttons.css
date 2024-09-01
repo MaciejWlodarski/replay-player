@@ -255,3 +255,14 @@
 .checkbox-button.bold {
   font-weight: bold;
 }
+
+.checkbox-button.round.unchecked {
+  background-color: rgb(35, 35, 35);
+  border: none;
+}
+
+.checkbox-button.round,
+.checkbox-button.round:hover,
+.checkbox-button.round:focus-visible {
+  background-color: rgb(73, 73, 73);
+}

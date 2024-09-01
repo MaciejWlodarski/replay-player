@@ -13,10 +13,27 @@ const Slider = ({
   setIsPlaying,
   marks,
   setPrevRender,
+  speed,
+  setSpeed,
+  speedArray,
 }) => {
   const togglePlay = () => {
     if (currTick >= lastTick) setCurrTick(() => 0);
     setIsPlaying((prev) => !prev);
+  };
+
+  const speedUp = () => {
+    setSpeed((prev) => {
+      if (prev === speedArray.length - 1) return 0;
+      return prev + 1;
+    });
+  };
+
+  const speedDown = () => {
+    setSpeed((prev) => {
+      if (prev === 0) return speedArray.length - 1;
+      return prev - 1;
+    });
   };
 
   return (
@@ -24,14 +41,19 @@ const Slider = ({
       <div className={`slider-content`}>
         <div className="slider-panel">
           <CheckboxButton
+            label={`${speedArray[speed]}x`}
+            isChecked={false}
+            onButtonDown={() => speedUp()}
+            onRightClick={() => speedDown()}
+            additionalClassName={"speed"}
+          />
+          <CheckboxButton
             label={
-              <div>
-                {isPlaying ? (
-                  <CirclePause className="pause" />
-                ) : (
-                  <CirclePlay className="pause" />
-                )}
-              </div>
+              isPlaying ? (
+                <CirclePause className="pause" />
+              ) : (
+                <CirclePlay className="pause" />
+              )
             }
             isChecked={false}
             onButtonDown={() => {
@@ -49,8 +71,10 @@ const Slider = ({
           />
         </div>
         <div className="slider-panel">
-          <div className="slider-time">{tickToTime(currTick)}</div>
-          <div className="slider-time">{Math.round(currTick)}</div>
+          <div className="timer">
+            <div className="slider-time">{tickToTime(currTick)}</div>
+            <div className="slider-time">{Math.round(currTick)}</div>
+          </div>
         </div>
       </div>
     </div>
