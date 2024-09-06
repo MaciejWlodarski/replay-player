@@ -1,25 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 import InteractiveMap from "/src/components/InteractiveMap/InteractiveMap";
 import Hud from "/src/components/Hud/Hud";
 import Rounds from "/src/components/Rounds/Rounds";
 import Slider from "/src/components/Slider/Slider";
-import { getReplayData, getMatchData } from "/src/replay/replay.js";
+import { getRoundData, getMatchData } from "/src/replay/replay.js";
 import "./styles/buttons.css";
 import "./styles/sliders.css";
 import "./styles/styles.css";
 
 function App() {
-  const matchId = 4124;
-
+  const { matchId } = useParams();
   const [matchData, setMatchData] = useState(null);
-  const [roundId, setRoundId] = useState(1);
-
-  const [replayData, setReplayData] = useState(null);
-  const [marks, setMarks] = useState({});
+  const [rounds, setRounds] = useState([]);
+  const [roundId, setRoundId] = useState(0);
 
   const [currTick, setCurrTick] = useState(0);
-  const [lastTick, setLastTick] = useState(null);
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const speedArray = [0.5, 1, 1.5, 2, 4, 8];
@@ -28,23 +24,25 @@ function App() {
   const animationRef = useRef(null);
 
   useEffect(() => {
-    getMatchData(setMatchData, matchId);
+    getMatchData(matchId, setMatchData);
   }, []);
 
   useEffect(() => {
-    getReplayData(setReplayData, setLastTick, setMarks, roundId);
-  }, [roundId]);
+    getRoundData(matchData, rounds, roundId, setRounds);
+  }, [matchData, roundId]);
 
   useEffect(() => {
     let prevRenderTime = prevRender;
     let dataAvailable;
+    const roundData = rounds[roundId];
 
     const renderFrame = () => {
-      if (!replayData) {
+      if (!roundData) {
         dataAvailable = false;
         return;
       }
 
+      const { lastTick } = roundData;
       setCurrTick((prevTick) => {
         if (prevTick < lastTick) {
           const newRender = Date.now();
@@ -80,45 +78,44 @@ function App() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [lastTick, isPlaying, speed, replayData]);
+  }, [isPlaying, speed, roundId, rounds]);
 
   return (
     <div className="app">
       <div className="main">
         <Hud
           matchData={matchData}
+          roundData={rounds[roundId]}
           roundId={roundId}
-          replayData={replayData}
           tick={currTick}
           tSide={true}
         />
         <InteractiveMap
           matchData={matchData}
-          replayData={replayData}
+          roundData={rounds[roundId]}
           tick={currTick}
         />
         <Hud
           matchData={matchData}
+          roundData={rounds[roundId]}
           roundId={roundId}
-          replayData={replayData}
           tick={currTick}
           tSide={false}
         />
       </div>
       <Rounds
         matchData={matchData}
+        rounds={rounds}
         roundId={roundId}
         setRoundId={setRoundId}
         setCurrTick={setCurrTick}
-        setData={setReplayData}
       />
       <Slider
-        lastTick={lastTick}
+        roundData={rounds[roundId]}
         currTick={currTick}
         setCurrTick={setCurrTick}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        marks={marks}
         setPrevRender={setPrevRender}
         speed={speed}
         setSpeed={setSpeed}

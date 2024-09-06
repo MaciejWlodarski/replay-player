@@ -1,6 +1,12 @@
 import React from "react";
+import { WepSvg } from "/src/assets/icons";
+import {
+  getPlayerPose,
+  getPlayerStatus,
+  equipmentTypeMap,
+  grenadeTypeMap,
+} from "/src/utils/utils";
 import "./Player.css";
-import { getPlayerPose, getPlayerStatus } from "/src/utils/utils";
 
 const Player = ({ player, mapData, factor, tick }) => {
   const { name, side } = player;
@@ -51,6 +57,23 @@ const Player = ({ player, mapData, factor, tick }) => {
         }`}
         strokeDashoffset={circumference * 0.25}
       />
+      <g className="weapon">
+        {status.active < 500 ? (
+          <WepSvg
+            wep={equipmentTypeMap[status.active]}
+            x={playerPos.x}
+            y={playerPos.y - factor * 180}
+            height={70 * factor}
+          />
+        ) : (
+          <WepSvg
+            wep={grenadeTypeMap[status.active]}
+            x={playerPos.x}
+            y={playerPos.y - factor * 210}
+            height={100 * factor}
+          />
+        )}
+      </g>
       <text
         className="nickname"
         x={playerPos.x}

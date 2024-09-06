@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Replay from "./Replay/Replay";
 import "./InteractiveMap.css";
 
-const InteractiveMap = ({ matchData, replayData, tick }) => {
+const InteractiveMap = ({ matchData, roundData, tick }) => {
   if (!matchData) return;
   const svgSize = 200;
   const mapData = matchData.mapData;
@@ -33,7 +33,7 @@ const InteractiveMap = ({ matchData, replayData, tick }) => {
                   height={svgSize}
                 />
                 <Replay
-                  data={replayData}
+                  data={roundData}
                   mapData={mapData}
                   factor={factor}
                   tick={tick}

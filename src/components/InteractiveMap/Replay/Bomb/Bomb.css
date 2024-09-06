@@ -1,0 +1,8 @@
+.bomb-component {
+  transform: translateX(-50%);
+  fill: rgb(230, 50, 45);
+}
+
+.bomb-component.defused {
+  fill: rgb(42, 206, 102);
+}

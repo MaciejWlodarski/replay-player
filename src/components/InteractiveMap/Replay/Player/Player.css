@@ -24,3 +24,9 @@ circle.health {
   fill: transparent;
   stroke: rgb(230, 50, 45);
 }
+
+.weapon {
+  transform: translateX(-50%);
+  fill: rgb(255, 255, 255);
+  opacity: 0.8;
+}

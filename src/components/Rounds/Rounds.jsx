@@ -2,26 +2,26 @@ import React from "react";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
 import "./Rounds.css";
 
-const Rounds = ({ matchData, roundId, setRoundId, setCurrTick, setData }) => {
+const Rounds = ({ matchData, rounds, roundId, setRoundId, setCurrTick }) => {
   if (!matchData) return;
   return (
     <div className="rounds">
       {matchData.rounds.map((round) => {
-        const { round_idx, winner_side } = round;
+        const { roundIdx, winnerSide } = round;
+        const loaded = !!rounds[roundIdx];
         return (
           <CheckboxButton
-            key={round_idx}
+            key={roundIdx}
             label={
               <div className="round-content">
-                <span className={`team ${winner_side}`}>{"•"}</span>
-                <span>{round_idx}</span>
+                <span className={`team ${winnerSide}`}>{"•"}</span>
+                <span className={loaded ? "loaded" : ""}>{roundIdx + 1}</span>
               </div>
             }
-            isChecked={round_idx === roundId}
+            isChecked={roundIdx === roundId}
             onButtonDown={() => {
-              if (round_idx !== roundId) {
-                setData(null);
-                setRoundId(round_idx);
+              if (roundIdx !== roundId) {
+                setRoundId(roundIdx);
                 setCurrTick(0);
               }
             }}

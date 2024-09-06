@@ -4,11 +4,17 @@ import { Shield, ShieldPlus, Skull } from "lucide-react";
 import { getPlayerStatus, equipmentTypeMap, getTeam } from "/src/utils/utils";
 import "./Hud.css";
 
-const Hud = ({ matchData, roundId, replayData, tick, tSide }) => {
-  if (!matchData) return;
-  const roundData = matchData.rounds[roundId - 1];
+const Hud = ({ matchData, roundData, roundId, tick, tSide }) => {
   const sideName = tSide ? "t" : "ct";
-  const team = getTeam(roundData, sideName);
+  if (!matchData || !roundData) return <div className={`hud ${sideName}`} />;
+
+  const roundContent = matchData.rounds[roundId];
+  const team = getTeam(roundContent, sideName);
+  let { score } = team;
+
+  if (tick < roundData.endTick && sideName === roundContent.winnerSide) {
+    score--;
+  }
 
   const grenades = {
     fire: tSide ? (
@@ -28,9 +34,9 @@ const Hud = ({ matchData, roundId, replayData, tick, tSide }) => {
         <div className="team-name">
           <span className="name">{team.name}</span>
         </div>
-        <span className="score">{team.score}</span>
+        <span className="score">{score}</span>
       </div>
-      {replayData?.players.map((player, idx) => {
+      {roundData?.players.map((player, idx) => {
         const side = tSide ? 2 : 3;
         if (player.side !== side) return;
 
@@ -60,7 +66,7 @@ const Hud = ({ matchData, roundId, replayData, tick, tSide }) => {
               </div>
               {!!hp && (
                 <div className="right">
-                  {WepSvg(equipmentTypeMap[status.prime || status.sec])}
+                  <WepSvg wep={equipmentTypeMap[status.prime || status.sec]} />
                 </div>
               )}
             </div>
@@ -83,7 +89,9 @@ const Hud = ({ matchData, roundId, replayData, tick, tSide }) => {
                   ) : null}
                 </span>
                 <div className="secondary">
-                  {status.prime && WepSvg(equipmentTypeMap[status.sec])}
+                  {status.prime && (
+                    <WepSvg wep={equipmentTypeMap[status.sec]} />
+                  )}
                 </div>
               </div>
               <div className="right">

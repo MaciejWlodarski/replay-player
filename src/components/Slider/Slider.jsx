@@ -6,17 +6,18 @@ import { tickToTime } from "/src/utils/utils.js";
 import "./Slider.css";
 
 const Slider = ({
-  lastTick,
+  roundData,
   currTick,
   setCurrTick,
   isPlaying,
   setIsPlaying,
-  marks,
   setPrevRender,
   speed,
   setSpeed,
   speedArray,
 }) => {
+  const { lastTick, marks } = roundData || {};
+
   const togglePlay = () => {
     if (currTick >= lastTick) setCurrTick(() => 0);
     setIsPlaying((prev) => !prev);

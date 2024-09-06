@@ -3,7 +3,9 @@ import { getInfernos } from "./inferno.js";
 import { getPlayerEvents } from "./player.js";
 import maps from "/src/assets/maps";
 
-const API_URL = "https://art.garnuchy.pl/matches/";
+const URL = "csanalyzer.gg";
+const API_URL = `https://art.${URL}/matches/`;
+const COLLECTOR_URL = `https://collector.${URL}`;
 
 const fetchMatchData = async (matchId) => {
   try {
@@ -15,7 +17,7 @@ const fetchMatchData = async (matchId) => {
   }
 };
 
-export const getMatchData = async (setMatchData, matchId) => {
+export const getMatchData = async (matchId, setMatchData) => {
   const data = await fetchMatchData(matchId);
   if (!data) return;
 
@@ -29,9 +31,9 @@ export const getMatchData = async (setMatchData, matchId) => {
   const roundsData = rounds.map((round) => {
     const { round_number, end_reason, winner_side, teams } = round;
     const roundData = {
-      round_idx: round_number,
-      end_reason,
-      winner_side,
+      roundIdx: round_number - 1,
+      endReason: end_reason,
+      winnerSide: winner_side,
     };
 
     const teamsData = teams.map((team) => {
@@ -44,17 +46,25 @@ export const getMatchData = async (setMatchData, matchId) => {
   });
 
   matchData.rounds = roundsData;
-  console.log(matchData);
   setMatchData(() => matchData);
 };
 
-const fetchReplayData = async (roundId) => {
+const fetchLocal = (roundId) => {
+  const formattedRoundId = String(roundId).padStart(2, "0");
+  return fetch(`http://localhost:8000/${formattedRoundId}.json`);
+};
+
+const fetchCollector = (matchData, roundId) => {
+  return fetch(`${COLLECTOR_URL}/demos/${matchData.demo}/replay/${roundId}`);
+};
+
+const fetchReplayData = async (matchData, roundId) => {
+  if (!matchData) return;
+
   try {
-    const formattedRoundId = String(roundId - 1).padStart(2, "0");
-    const response = await fetch(
-      `http://localhost:8000/${formattedRoundId}.json`
-    );
-    return await response.json();
+    const response = await fetchLocal(roundId);
+    // const response = await fetchCollector(matchData, roundId);
+    return response.json();
   } catch (error) {
     console.error(error);
     return null;
@@ -69,21 +79,35 @@ const getMarks = (data) => {
   return marks;
 };
 
-export const getReplayData = async (
-  setReplayData,
-  setLastTick,
-  setMarks,
-  roundId
-) => {
-  const replayData = await fetchReplayData(roundId);
-  if (!replayData) return;
+export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
+  let roundData = rounds[roundId];
+  if (roundData) return roundData;
+  roundData = await fetchReplayData(matchData, roundId);
+  if (!roundData) return;
 
-  setLastTick(() => replayData.last);
-  setMarks(() => getMarks(replayData));
+  const { last, end, plant, defuse } = roundData;
+  const { players, deaths, shots } = getPlayerEvents(roundData);
+  const grenades = getGrenades(roundData);
+  const infernos = getInfernos(roundData);
+  const marks = getMarks(roundData);
 
-  const { players, deaths, shots } = getPlayerEvents(replayData);
-  const grenades = getGrenades(replayData);
-  const infernos = getInfernos(replayData);
+  setRounds((rounds) => {
+    const updatedRounds = [...rounds];
+    updatedRounds[roundId] = {
+      players,
+      deaths,
+      shots,
+      grenades,
+      infernos,
 
-  setReplayData(() => ({ players, deaths, shots, grenades, infernos }));
+      plant,
+      defuse,
+
+      lastTick: last,
+      endTick: end,
+
+      marks,
+    };
+    return updatedRounds;
+  });
 };

@@ -3,12 +3,13 @@ import Death from "./Death/Death";
 import Shot from "./Shot/Shot";
 import Player from "./Player/Player";
 import Grenade from "./Grenade/Grenade";
-import "./Replay.css";
 import Inferno from "./Inferno/Inferno";
+import Bomb from "./Bomb/Bomb";
+import "./Replay.css";
 
 const Replay = ({ data, mapData, factor, tick }) => {
   if (!data) return;
-  const { players, deaths, shots, grenades, infernos } = data;
+  const { players, deaths, shots, grenades, infernos, plant, defuse } = data;
   return (
     <>
       <defs>
@@ -40,6 +41,16 @@ const Replay = ({ data, mapData, factor, tick }) => {
             tick={tick}
           />
         ))}
+      </g>
+
+      <g className="bomb">
+        <Bomb
+          plant={plant}
+          defuse={defuse}
+          mapData={mapData}
+          factor={factor}
+          tick={tick}
+        />
       </g>
 
       <g className="shots">
