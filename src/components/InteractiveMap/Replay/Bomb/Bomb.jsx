@@ -12,7 +12,7 @@ const Bomb = ({ plant, defuse, mapData, factor, tick }) => {
   };
 
   const bombHeight = 100 * factor;
-  const defused = defuse?.tick <= tick;
+  const defused = defuse && defuse <= tick;
 
   return (
     <g className={`bomb-component ${defused ? "defused" : ""}`}>

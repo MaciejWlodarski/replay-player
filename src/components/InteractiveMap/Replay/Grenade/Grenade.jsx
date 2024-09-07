@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  getGrenadePose,
-  grenadeTypeMap,
-  mapRange,
-  easeInOut,
-  easeOut,
-} from "/src/utils/utils";
+import { grenadeTypeMap, mapRange, easeInOut, easeOut } from "/src/utils/utils";
+import { getGrenadePose } from "/src/replay/grenade";
 import "./Grenade.css";
 
 const Grenade = ({ grenade, mapData, factor, tick }) => {

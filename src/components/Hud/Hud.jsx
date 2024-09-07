@@ -1,7 +1,8 @@
 import React from "react";
 import icons, { WepSvg } from "/src/assets/icons";
 import { Shield, ShieldPlus, Skull } from "lucide-react";
-import { getPlayerStatus, equipmentTypeMap, getTeam } from "/src/utils/utils";
+import { equipmentTypeMap, getTeam } from "/src/utils/utils";
+import { getPlayerStatus } from "/src/replay/player";
 import "./Hud.css";
 
 const Hud = ({ matchData, roundData, roundId, tick, tSide }) => {

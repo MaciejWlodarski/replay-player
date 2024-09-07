@@ -1,3 +1,5 @@
+import { findSurroundingEventsBinary } from "/src/utils/utils";
+
 const eventCreation = (event) => {
   return {
     side: event.side,
@@ -73,4 +75,34 @@ export const getGrenades = (data) => {
   });
 
   return grenades;
+};
+
+export const getGrenadePose = (grenade, targetTick) => {
+  const events = findSurroundingEventsBinary(grenade, targetTick);
+  if (!events) return;
+
+  let { start, end, index } = events;
+  if (!start) {
+    if (targetTick < end.tick) return;
+    start = end;
+  }
+  if (!end) {
+    if (targetTick > start.tick) return;
+    end = start;
+  }
+
+  const t = (targetTick - start.tick) / (end.tick - start.tick || 1);
+
+  const x = start.pos.x + t * (end.pos.x - start.pos.x);
+  const y = start.pos.y + t * (end.pos.y - start.pos.y);
+  const z = start.pos.z + t * (end.pos.z - start.pos.z);
+  const pos = { x, y, z };
+
+  const trajectory = grenade.pose.slice(0, index + 1).map((pose) => pose.pos);
+  const lastPos = trajectory[trajectory.length - 1];
+  if (lastPos.x !== pos.x || lastPos.y !== pos.y || lastPos.z !== pos.z) {
+    trajectory.push(pos);
+  }
+
+  return { tick: targetTick, pos, trajectory };
 };

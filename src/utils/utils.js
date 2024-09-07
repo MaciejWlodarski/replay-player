@@ -7,7 +7,7 @@ export const tickToTime = (tick) => {
   ).padStart(2, "0")}`;
 };
 
-const findSurroundingEventsBinary = (object, targetTick) => {
+export const findSurroundingEventsBinary = (object, targetTick) => {
   if (targetTick < object.start || targetTick > object.end) return;
 
   const events = object.pose;
@@ -52,38 +52,9 @@ const findSurroundingEventsBinary = (object, targetTick) => {
   };
 };
 
-export const getPlayerPose = (player, targetTick) => {
-  const { start, end } = findSurroundingEventsBinary(player, targetTick);
-  if (start === end) return start;
-  if (!start) return end;
-  if (!end) return start;
+export const findPreviousEventBinary = (array, targetTick) => {
+  if (!array.length) return null;
 
-  const t = (targetTick - start.tick) / (end.tick - start.tick);
-
-  const x = start.pos.x + t * (end.pos.x - start.pos.x);
-  const y = start.pos.y + t * (end.pos.y - start.pos.y);
-  const z = start.pos.z + t * (end.pos.z - start.pos.z);
-
-  let yawDifference = end.yaw - start.yaw;
-  if (yawDifference > 180) {
-    yawDifference -= 360;
-  } else if (yawDifference < -180) {
-    yawDifference += 360;
-  }
-
-  const interpolatedYaw = start.yaw + yawDifference * t;
-
-  let normalizedYaw = interpolatedYaw;
-  if (normalizedYaw > 180) {
-    normalizedYaw -= 360;
-  } else if (normalizedYaw < -180) {
-    normalizedYaw += 360;
-  }
-
-  return { tick: targetTick, pos: { x, y, z }, yaw: normalizedYaw };
-};
-
-const findPreviousEventBinary = (array, targetTick) => {
   let low = 0;
   let high = array.length - 1;
 
@@ -108,41 +79,6 @@ const findPreviousEventBinary = (array, targetTick) => {
   }
 
   return array[high];
-};
-
-export const getPlayerStatus = (player, targetTick) => {
-  const status = findPreviousEventBinary(player.status, targetTick);
-  return { ...status, tick: targetTick };
-};
-
-export const getGrenadePose = (grenade, targetTick) => {
-  const events = findSurroundingEventsBinary(grenade, targetTick);
-  if (!events) return;
-
-  let { start, end, index } = events;
-  if (!start) {
-    if (targetTick < end.tick) return;
-    start = end;
-  }
-  if (!end) {
-    if (targetTick > start.tick) return;
-    end = start;
-  }
-
-  const t = (targetTick - start.tick) / (end.tick - start.tick || 1);
-
-  const x = start.pos.x + t * (end.pos.x - start.pos.x);
-  const y = start.pos.y + t * (end.pos.y - start.pos.y);
-  const z = start.pos.z + t * (end.pos.z - start.pos.z);
-  const pos = { x, y, z };
-
-  const trajectory = grenade.pose.slice(0, index + 1).map((pose) => pose.pos);
-  const lastPos = trajectory[trajectory.length - 1];
-  if (lastPos.x !== pos.x || lastPos.y !== pos.y || lastPos.z !== pos.z) {
-    trajectory.push(pos);
-  }
-
-  return { tick: targetTick, pos, trajectory };
 };
 
 export const equipmentTypeMap = {
