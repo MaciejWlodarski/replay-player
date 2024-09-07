@@ -9,7 +9,7 @@ const eventCreation = (event) => {
   };
 };
 
-const eventBounce = (grenade, event, grenades) => {
+const eventBounce = (grenade, event) => {
   const lastPose = grenade.pose[grenade.pose.length - 1];
   grenade.pose.push({
     ...lastPose,
@@ -18,7 +18,7 @@ const eventBounce = (grenade, event, grenades) => {
   });
 };
 
-const eventExplosion = (grenade, event, grenades) => {
+const eventExplosion = (grenade, event) => {
   grenade.explode = event.tick;
 
   const lastPose = grenade.pose[grenade.pose.length - 1];
@@ -29,7 +29,7 @@ const eventExplosion = (grenade, event, grenades) => {
   });
 };
 
-const eventDestruction = (grenade, event, grenades) => {
+const eventDestruction = (grenade, event) => {
   grenade.end = event.tick;
 
   const lastPose = grenade.pose[grenade.pose.length - 1];
@@ -48,8 +48,6 @@ const eventDestruction = (grenade, event, grenades) => {
       pos: event.pos,
     });
   }
-
-  grenades.push(grenade);
 };
 
 const grenadeEvent = {
@@ -68,10 +66,22 @@ export const getGrenades = (data) => {
     gnd.events.forEach((event) => {
       if (event.id === 0) {
         grenade = grenadeEvent[event.id](event);
+        grenades.push(grenade);
       } else {
-        grenadeEvent[event.id](grenade, event, grenades);
+        grenadeEvent[event.id](grenade, event);
       }
     });
+  });
+
+  grenades.forEach((gnd) => {
+    if (!gnd.end) {
+      const lastPose = gnd.pose[gnd.pose.length - 1];
+      gnd.end = data.endTick;
+      gnd.pose.push({
+        ...lastPose,
+        tick: data.endTick,
+      });
+    }
   });
 
   return grenades;
