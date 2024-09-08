@@ -82,7 +82,15 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     const easedF = easeOut(f / 32);
     const r = mapRange(easedF, 0, 1, 150, 0) * factor;
 
-    return <circle className="flash-explosion" cx={pos.x} cy={pos.y} r={r} />;
+    return (
+      <circle
+        className="flash-explosion"
+        cx={pos.x}
+        cy={pos.y}
+        r={r}
+        strokeWidth={5 * factor}
+      />
+    );
   };
 
   const renderGrenadeEffect = {
@@ -94,8 +102,15 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     506: renderExplosion,
   };
 
+  const handleClick = () => {
+    if (!grenade.thrower) return;
+    const { pos, view } = grenade.thrower;
+    const setPos = `setpos ${pos.x} ${pos.y} ${pos.z};setang ${view.pitch} ${view.yaw}`;
+    navigator.clipboard.writeText(setPos);
+  };
+
   return (
-    <g className={`grenade-component ${name} ${team}`}>
+    <g className={`grenade-component ${name} ${team}`} onClick={handleClick}>
       {!exploded && (
         <g>
           <polyline
@@ -109,7 +124,7 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
             className="grenade"
             cx={grenadePos.x}
             cy={grenadePos.y}
-            strokeWidth={3 * factor}
+            strokeWidth={5 * factor}
             r={20 * factor}
           />
         </g>

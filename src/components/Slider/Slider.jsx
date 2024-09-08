@@ -16,7 +16,8 @@ const Slider = ({
   setSpeed,
   speedArray,
 }) => {
-  const { lastTick, marks } = roundData || {};
+  if (!roundData) return <div className="slider-container" />;
+  const { lastTick, marks } = roundData;
 
   const togglePlay = () => {
     if (currTick >= lastTick) setCurrTick(() => 0);
@@ -39,7 +40,7 @@ const Slider = ({
 
   return (
     <div className="slider-container">
-      <div className={`slider-content`}>
+      <div className="slider-content">
         <div className="slider-panel">
           <CheckboxButton
             label={`${speedArray[speed]}x`}

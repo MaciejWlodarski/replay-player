@@ -90,7 +90,7 @@ const eventPlantAbort = (player, event) => {
 
 const eventDefuseStart = (player, event) => {
   const { tick, kit } = event;
-  const time = kit ? 320 : 640;
+  const time = kit ? 319 : 639;
   player.defuses.push({ tick, time });
 };
 

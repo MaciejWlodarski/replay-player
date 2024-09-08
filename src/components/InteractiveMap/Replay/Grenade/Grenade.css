@@ -58,3 +58,19 @@
 circle.flash-explosion {
   opacity: 0.8;
 }
+
+.grenade-component:hover circle {
+  stroke: rgba(42, 206, 102);
+}
+
+.grenade-component:hover text {
+  fill: rgba(42, 206, 102);
+}
+
+.grenade-component:hover circle.stroke {
+  stroke: rgba(42, 206, 102);
+}
+
+.grenade-component:hover polyline {
+  stroke: rgba(42, 206, 102);
+}

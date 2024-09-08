@@ -5,6 +5,7 @@ const eventCreation = (event) => {
     side: event.side,
     type: event.type,
     start: event.tick,
+    thrower: event.thrower,
     pose: [{ tick: event.tick, pos: event.pos }],
   };
 };
@@ -71,17 +72,6 @@ export const getGrenades = (data) => {
         grenadeEvent[event.id](grenade, event);
       }
     });
-  });
-
-  grenades.forEach((gnd) => {
-    if (!gnd.end) {
-      const lastPose = gnd.pose[gnd.pose.length - 1];
-      gnd.end = data.endTick;
-      gnd.pose.push({
-        ...lastPose,
-        tick: data.endTick,
-      });
-    }
   });
 
   return grenades;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import InteractiveMap from "/src/components/InteractiveMap/InteractiveMap";
 import Hud from "/src/components/Hud/Hud";
 import Rounds from "/src/components/Rounds/Rounds";
@@ -10,12 +10,17 @@ import "./styles/sliders.css";
 import "./styles/styles.css";
 
 function App() {
-  const { matchId } = useParams();
+  const { matchId, roundId: paramRoundId } = useParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   const [matchData, setMatchData] = useState(null);
   const [rounds, setRounds] = useState([]);
-  const [roundId, setRoundId] = useState(0);
+  const [roundId, setRoundId] = useState(Number(paramRoundId - 1) || 0);
 
-  const [currTick, setCurrTick] = useState(0);
+  const [currTick, setCurrTick] = useState(
+    Number(searchParams.get("tick")) || 0
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const speedArray = [0.5, 1, 1.5, 2, 4, 8];
@@ -24,8 +29,18 @@ function App() {
   const animationRef = useRef(null);
 
   useEffect(() => {
+    navigate(`/match/${matchId}/${roundId + 1}`, { replace: true });
+  }, [matchId, roundId, navigate]);
+
+  useEffect(() => {
     getMatchData(matchId, setMatchData);
   }, []);
+
+  useEffect(() => {
+    const roundData = rounds[roundId];
+    if (roundData && currTick > roundData.lastTick)
+      setCurrTick(() => roundData.lastTick);
+  }, [rounds]);
 
   useEffect(() => {
     getRoundData(matchData, rounds, roundId, setRounds);
