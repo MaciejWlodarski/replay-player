@@ -16,12 +16,13 @@ polygon.yaw {
 
 text.nickname {
   fill: rgb(255, 255, 255);
-  opacity: 0.8;
+  font-weight: 400;
   text-anchor: middle;
+  opacity: 0.8;
 }
 
 circle.health {
-  fill: transparent;
+  fill: none;
   stroke: rgb(230, 50, 45);
 }
 
@@ -35,12 +36,22 @@ circle.blindness {
   fill: rgb(255, 255, 255);
 }
 
+circle.plant-border {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+}
+
 circle.plant {
-  fill: transparent;
+  fill: none;
   stroke: rgb(230, 50, 45);
 }
 
+circle.defuse-border {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+}
+
 circle.defuse {
-  fill: transparent;
+  fill: none;
   stroke: rgba(42, 206, 102);
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { grenadeTypeMap, mapRange, easeInOut, easeOut } from "/src/utils/utils";
 import { getGrenadePose } from "/src/replay/grenade";
 import "./Grenade.css";
+import { WepSvg } from "../../../../assets/icons";
 
 const Grenade = ({ grenade, mapData, factor, tick }) => {
   const pose = getGrenadePose(grenade, tick);
@@ -39,7 +40,7 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     if (delta <= 16) {
       const f = Math.min(delta);
       const easedF = easeInOut(f / 16);
-      r *= mapRange(easedF, 0, 1, 20, 150);
+      r *= mapRange(easedF, 0, 1, 0, 150);
     } else {
       r *= 150;
     }
@@ -102,6 +103,21 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     506: renderExplosion,
   };
 
+  const renderGrenade = () => {
+    const grenadeHeight = 100 * factor;
+
+    return (
+      <g className="grenade-icon">
+        <WepSvg
+          wep={grenadeTypeMap[type]}
+          x={grenadePos.x}
+          y={grenadePos.y - grenadeHeight / 2}
+          height={grenadeHeight}
+        />
+      </g>
+    );
+  };
+
   const handleClick = () => {
     if (!grenade.thrower) return;
     const { pos, view } = grenade.thrower;
@@ -117,16 +133,9 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
             className="grenade-trajectory"
             points={trajectoryPoints}
             strokeWidth={3 * factor}
-            strokeDasharray={`${30 * factor}, ${30 * factor}`}
           />
 
-          <circle
-            className="grenade"
-            cx={grenadePos.x}
-            cy={grenadePos.y}
-            strokeWidth={5 * factor}
-            r={20 * factor}
-          />
+          {renderGrenade()}
         </g>
       )}
 

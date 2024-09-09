@@ -5,7 +5,43 @@ const eventSpawn = (event) => {
     side,
     type,
     fires: new Array(16),
+    end: null,
   };
+};
+
+const eventFireStart = (inferno, event) => {
+  const { tick, idx, pos } = event;
+  inferno.fires[idx] = {
+    start: tick,
+    pos,
+  };
+};
+
+const eventFireExpire = (inferno, event) => {
+  const { tick, idx } = event;
+  inferno.fires[idx].end = tick;
+};
+
+const postProcessing = (inferno) => {
+  let totalX = 0;
+  let totalY = 0;
+  let validCount = 0;
+  let end = 0;
+
+  inferno.fires.forEach((fire) => {
+    if (fire) {
+      totalX += fire.pos.x;
+      totalY += fire.pos.y;
+      validCount++;
+      end = fire.end ? Math.max(end, fire.end) : Infinity;
+    }
+  });
+
+  if (!validCount) return;
+  const centroidX = totalX / validCount;
+  const centroidY = totalY / validCount;
+  inferno.centroid = { x: centroidX, y: centroidY };
+  inferno.end = end;
 };
 
 export const getInfernos = (data) => {
@@ -22,25 +58,20 @@ export const getInfernos = (data) => {
           break;
         }
         case 1: {
-          const { tick, idx, pos } = event;
-          inferno.fires[idx] = {
-            start: tick,
-            pos,
-          };
+          eventFireStart(inferno, event);
           break;
         }
         case 2: {
-          const { tick, idx } = event;
-          inferno.fires[idx].end = tick;
+          eventFireExpire(inferno, event);
           break;
         }
-        case 3: {
-          inferno.end = event.tick;
+        default:
           break;
-        }
       }
     });
   });
+
+  infernos.forEach((inferno) => postProcessing(inferno));
 
   return infernos;
 };

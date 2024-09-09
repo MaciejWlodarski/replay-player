@@ -95,6 +95,53 @@ function App() {
     };
   }, [isPlaying, speed, roundId, rounds]);
 
+  useEffect(() => {
+    if (!matchData) return;
+
+    const speedUp = () => {
+      setSpeed((prev) => {
+        if (prev === speedArray.length - 1) return 0;
+        return prev + 1;
+      });
+    };
+
+    const speedDown = () => {
+      setSpeed((prev) => {
+        if (prev === 0) return speedArray.length - 1;
+        return prev - 1;
+      });
+    };
+
+    const handleKeyDown = (event) => {
+      switch (event.code) {
+        case "Space":
+          setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+          break;
+        // case "ArrowRight":
+        //   setRoundId((prevRoundId) =>
+        //     Math.min(prevRoundId + 1, matchData.rounds.length)
+        //   );
+        //   setCurrTick(0);
+        //   break;
+        // case "ArrowLeft":
+        //   setRoundId((prevRoundId) => Math.max(prevRoundId - 1, 0));
+        //   setCurrTick(0);
+        //   break;
+        case "ArrowUp":
+          speedUp();
+          break;
+        case "ArrowDown":
+          speedDown();
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [matchData]);
+
   return (
     <div className="app">
       <div className="main">

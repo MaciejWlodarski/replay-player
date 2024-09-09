@@ -1,7 +1,36 @@
-.inferno-component {
+.inferno-component .fires {
   opacity: 0.66;
 }
 
 circle.fire {
   fill: rgb(244, 175, 45);
+}
+
+.inferno-component circle.timer-border {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+}
+
+.inferno-component circle.timer-progress {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+  opacity: 0.8;
+}
+
+.inferno-component.type-0 circle.timer-background {
+  fill: none;
+  stroke: rgb(231, 180, 44);
+}
+
+.inferno-component.type-1 circle.timer-background {
+  fill: none;
+  stroke: rgb(17, 116, 255);
+}
+
+.t .inferno circle {
+  fill: rgb(231, 180, 44);
+}
+
+.ct .inferno circle {
+  fill: rgb(17, 116, 255);
 }

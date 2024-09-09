@@ -63,8 +63,8 @@ const fetchReplayData = async (matchData, roundId) => {
   if (!matchData) return;
 
   try {
-    const response = await fetchLocal(roundId);
-    // const response = await fetchCollector(matchData, roundId);
+    // const response = await fetchLocal(roundId);
+    const response = await fetchCollector(matchData, roundId);
     return response.json();
   } catch (error) {
     console.error(error);

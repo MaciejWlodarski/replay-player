@@ -1,8 +1,23 @@
-.bomb-component {
+.bomb-component .bomb-icon {
   transform: translateX(-50%);
   fill: rgb(230, 50, 45);
 }
 
-.bomb-component.defused {
+.bomb-component .bomb-icon.defused {
   fill: rgb(42, 206, 102);
+}
+
+.bomb-component .timer-border {
+  fill: none;
+  stroke: rgb(0, 0, 0);
+}
+
+.bomb-component .timer-background {
+  fill: none;
+  stroke: rgb(23, 23, 23);
+}
+
+.bomb-component .timer {
+  fill: none;
+  stroke: rgb(230, 50, 45);
 }

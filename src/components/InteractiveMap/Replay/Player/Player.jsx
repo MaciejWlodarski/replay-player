@@ -25,9 +25,6 @@ const Player = ({ player, mapData, factor, tick }) => {
 
   const team = side == 2 ? "t" : "ct";
 
-  const arrowLength = 30 * factor;
-  const arrowHeight = 50 * factor;
-
   const renderBlindness = () => {
     const blindness = getPlayerBlindness(player, tick);
     if (!blindness) return;
@@ -52,17 +49,30 @@ const Player = ({ player, mapData, factor, tick }) => {
     const plantState = (200 - plant) / 200;
 
     return (
-      <circle
-        className="plant"
-        cx={playerPos.x}
-        cy={playerPos.y}
-        r={plantRadius}
-        strokeWidth={30 * factor}
-        strokeDasharray={`${circumference * plantState} ${
-          circumference * (1 - plantState)
-        }`}
-        strokeDashoffset={circumference * 0.25}
-      />
+      <>
+        <circle
+          className="plant-border"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={plantRadius}
+          strokeWidth={33 * factor}
+          strokeDasharray={`${circumference * plantState} ${
+            circumference * (1 - plantState)
+          }`}
+          strokeDashoffset={circumference * 0.25}
+        />
+        <circle
+          className="plant"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={plantRadius}
+          strokeWidth={30 * factor}
+          strokeDasharray={`${circumference * plantState} ${
+            circumference * (1 - plantState)
+          }`}
+          strokeDashoffset={circumference * 0.25}
+        />
+      </>
     );
   };
 
@@ -74,17 +84,54 @@ const Player = ({ player, mapData, factor, tick }) => {
     const circumference = 2 * Math.PI * defuseRadius;
 
     return (
-      <circle
-        className="defuse"
-        cx={playerPos.x}
-        cy={playerPos.y}
-        r={defuseRadius}
-        strokeWidth={30 * factor}
-        strokeDasharray={`${circumference * defuse} ${
-          circumference * (1 - defuse)
-        }`}
-        strokeDashoffset={circumference * 0.25}
-      />
+      <>
+        <circle
+          className="defuse-border"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={defuseRadius}
+          strokeWidth={33 * factor}
+          strokeDasharray={`${circumference * defuse} ${
+            circumference * (1 - defuse)
+          }`}
+          strokeDashoffset={circumference * 0.25}
+        />
+        <circle
+          className="defuse"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={defuseRadius}
+          strokeWidth={30 * factor}
+          strokeDasharray={`${circumference * defuse} ${
+            circumference * (1 - defuse)
+          }`}
+          strokeDashoffset={circumference * 0.25}
+        />
+      </>
+    );
+  };
+
+  const renderPlayer = () => {
+    const arrowLength = 30 * factor;
+    const arrowHeight = 50 * factor;
+
+    return (
+      <>
+        <polygon
+          className="yaw"
+          points={`0,0 ${arrowLength},${arrowHeight / 2} 0,${arrowHeight}`}
+          transform={`translate(${playerPos.x}, ${
+            playerPos.y
+          }) rotate(${-yaw}) translate(${23 * factor}, ${-arrowHeight / 2})`}
+        />
+        <circle
+          className="player"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={30 * factor}
+          strokeWidth={8 * factor}
+        />
+      </>
     );
   };
 
@@ -108,26 +155,8 @@ const Player = ({ player, mapData, factor, tick }) => {
     );
   };
 
-  return (
-    <g className={`player-component ${team}`}>
-      {renderPlant()}
-      {renderDefuse()}
-      <polygon
-        className="yaw"
-        points={`0,0 ${arrowLength},${arrowHeight / 2} 0,${arrowHeight}`}
-        transform={`translate(${playerPos.x}, ${
-          playerPos.y
-        }) rotate(${-yaw}) translate(${23 * factor}, ${-arrowHeight / 2})`}
-      />
-      <circle
-        className="player"
-        cx={playerPos.x}
-        cy={playerPos.y}
-        r={30 * factor}
-        strokeWidth={8 * factor}
-      />
-      {renderBlindness()}
-      {renderHealth()}
+  const renderWeapon = () => {
+    return (
       <g className="weapon">
         {status.active < 500 ? (
           <WepSvg
@@ -145,6 +174,11 @@ const Player = ({ player, mapData, factor, tick }) => {
           />
         )}
       </g>
+    );
+  };
+
+  const renderName = () => {
+    return (
       <text
         className="nickname"
         x={playerPos.x}
@@ -154,6 +188,18 @@ const Player = ({ player, mapData, factor, tick }) => {
       >
         {`${name}`}
       </text>
+    );
+  };
+
+  return (
+    <g className={`player-component ${team}`}>
+      {renderPlant()}
+      {renderDefuse()}
+      {renderPlayer()}
+      {renderBlindness()}
+      {renderHealth()}
+      {renderWeapon()}
+      {renderName()}
     </g>
   );
 };

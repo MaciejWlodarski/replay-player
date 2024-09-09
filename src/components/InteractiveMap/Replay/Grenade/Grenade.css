@@ -8,7 +8,7 @@
 }
 
 .flashbang circle {
-  fill: rgb(45, 206, 245);
+  fill: rgb(255, 255, 255);
 }
 
 .smokegrenade circle {
@@ -55,6 +55,18 @@
   text-anchor: middle;
 }
 
+.grenade-component.t .grenade-icon {
+  fill: rgb(231, 180, 44);
+}
+
+.grenade-component.ct .grenade-icon {
+  fill: rgb(17, 116, 255);
+}
+
+.grenade-icon svg path {
+  stroke: black;
+}
+
 circle.flash-explosion {
   opacity: 0.8;
 }
@@ -73,4 +85,8 @@ circle.flash-explosion {
 
 .grenade-component:hover polyline {
   stroke: rgba(42, 206, 102);
+}
+
+.grenade-component .grenade-icon {
+  transform: translateX(-50%);
 }
