@@ -133,32 +133,30 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
     const circumference = 2 * Math.PI * timerRadius;
     const progress = (start + duration - tick) / duration;
 
+    const strokeDasharray = circumference;
+    const strokeDashoffset = circumference * (1 - progress);
+
     return (
       <g className="timer">
-        <circle
-          className="timer-border"
-          cx={timerPos.x}
-          cy={timerPos.y}
-          r={timerRadius}
-          strokeWidth={15 * factor}
-        />
         <circle
           className="timer-background"
           cx={timerPos.x}
           cy={timerPos.y}
           r={timerRadius}
-          strokeWidth={10 * factor}
+          strokeWidth={9.5 * factor}
+          strokeDasharray={strokeDasharray}
+          strokeDashoffset={-strokeDashoffset}
+          transform={`rotate(-90 ${timerPos.x} ${timerPos.y})`}
         />
         <circle
           className="timer-progress"
           cx={timerPos.x}
           cy={timerPos.y}
           r={timerRadius}
-          strokeWidth={15 * factor}
-          strokeDasharray={`${circumference * (1 - progress)} ${
-            circumference * progress
-          }`}
-          strokeDashoffset={circumference * 0.25}
+          strokeWidth={7 * factor}
+          strokeDasharray={strokeDasharray}
+          strokeDashoffset={-strokeDashoffset}
+          transform={`rotate(-90 ${timerPos.x} ${timerPos.y})`}
         />
       </g>
     );

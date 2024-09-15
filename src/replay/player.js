@@ -80,23 +80,23 @@ const eventBlind = (player, event) => {
 
 const eventPlantStart = (player, event) => {
   const { tick } = event;
-  player.plants.push({ tick, time: 200 });
+  player.plants.push({ tick, time: 200, planting: true });
 };
 
 const eventPlantAbort = (player, event) => {
   const { tick } = event;
-  player.plants.push({ tick, time: 0 });
+  player.plants.push({ tick, time: 0, planting: false });
 };
 
 const eventDefuseStart = (player, event) => {
   const { tick, kit } = event;
   const time = kit ? 319 : 639;
-  player.defuses.push({ tick, time });
+  player.defuses.push({ tick, time, defusing: true });
 };
 
 const eventDefuseAbort = (player, event) => {
   const { tick } = event;
-  player.defuses.push({ tick, time: 0 });
+  player.defuses.push({ tick, time: 0, defusing: false });
 };
 
 export const getPlayerEvents = (data) => {
@@ -201,17 +201,17 @@ export const getPlayerBlindness = (player, targetTick) => {
   return blindness;
 };
 
-export const getPlayerPlantState = (player, targetTick) => {
+export const getPlayerPlantProgress = (player, targetTick) => {
   const plant = findPreviousEventBinary(player.plants, targetTick);
-  if (!plant) return 0;
+  if (!plant || !plant.planting) return 0;
   const plantState = plant.tick + plant.time - targetTick;
   if (plantState < 0) return 0;
-  return plantState;
+  return (200 - plantState) / 200;
 };
 
-export const getPlayerDefuseState = (player, targetTick) => {
+export const getPlayerDefuseProgress = (player, targetTick) => {
   const defuse = findPreviousEventBinary(player.defuses, targetTick);
-  if (!defuse) return 0;
+  if (!defuse || !defuse.defusing) return 0;
   const defuseState = defuse.tick + defuse.time - targetTick;
   if (defuseState < 0) return 0;
   return (defuse.time - defuseState) / defuse.time;

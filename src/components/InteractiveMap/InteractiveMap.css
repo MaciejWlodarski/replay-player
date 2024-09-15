@@ -1,4 +1,5 @@
 .map-container {
+  position: relative;
   flex-grow: 1;
   display: flex;
   height: 100%;
@@ -7,7 +8,6 @@
   align-items: center;
   overflow: hidden;
   position: relative;
-  font-family: Poppins;
 }
 
 .wrapper {
@@ -43,10 +43,4 @@
 
 .map-events.dimmed {
   opacity: 0.15;
-}
-
-@media (max-width: 1000px) {
-  .wrapper {
-    border-width: 0px 0px 0px 1px;
-  }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import icons from "/src/assets/icons";
+import { getStrokeDasharray } from "../../../../utils/utils";
 import "./Bomb.css";
 
 const Bomb = ({ plant, defuse, mapData, factor, tick }) => {
@@ -18,8 +19,8 @@ const Bomb = ({ plant, defuse, mapData, factor, tick }) => {
     if (defused) return;
 
     const timerRadius = 0.8 * bombHeight;
+    const timerProgress = (tick - plant.tick) / 2560;
     const circumference = 2 * Math.PI * timerRadius;
-    const timerState = (tick - plant.tick) / 2560;
 
     return (
       <>
@@ -43,9 +44,7 @@ const Bomb = ({ plant, defuse, mapData, factor, tick }) => {
           cy={bombPos.y}
           r={timerRadius}
           strokeWidth={0.3 * bombHeight}
-          strokeDasharray={`${circumference * timerState} ${
-            circumference * (1 - timerState)
-          }`}
+          strokeDasharray={getStrokeDasharray(circumference, timerProgress)}
           strokeDashoffset={circumference * 0.25}
         />
       </>

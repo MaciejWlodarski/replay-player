@@ -29,6 +29,7 @@
 
 .grenade-component polyline {
   fill: none;
+  stroke-linecap: round;
 }
 
 .smokegrenade-smoke circle.smoke {
@@ -64,6 +65,7 @@
 }
 
 .grenade-icon svg path {
+  stroke-width: 2.5%;
   stroke: black;
 }
 

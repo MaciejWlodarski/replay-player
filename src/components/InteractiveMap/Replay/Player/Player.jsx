@@ -1,12 +1,16 @@
 import React from "react";
-import { WepSvg } from "/src/assets/icons";
-import { equipmentTypeMap, grenadeTypeMap } from "/src/utils/utils";
+import icons, { WepSvg } from "/src/assets/icons";
+import {
+  equipmentTypeMap,
+  grenadeTypeMap,
+  getStrokeDasharray,
+} from "/src/utils/utils";
 import {
   getPlayerPose,
   getPlayerStatus,
   getPlayerBlindness,
-  getPlayerPlantState,
-  getPlayerDefuseState,
+  getPlayerPlantProgress,
+  getPlayerDefuseProgress,
 } from "/src/replay/player";
 import "./Player.css";
 
@@ -41,12 +45,12 @@ const Player = ({ player, mapData, factor, tick }) => {
   };
 
   const renderPlant = () => {
-    const plant = getPlayerPlantState(player, tick);
-    if (!plant) return;
+    const plantProgress = getPlayerPlantProgress(player, tick);
+    if (!plantProgress) return;
 
-    const plantRadius = 40 * factor;
+    const bombHeight = 60 * factor;
+    const plantRadius = 0.8 * bombHeight;
     const circumference = 2 * Math.PI * plantRadius;
-    const plantState = (200 - plant) / 200;
 
     return (
       <>
@@ -55,21 +59,22 @@ const Player = ({ player, mapData, factor, tick }) => {
           cx={playerPos.x}
           cy={playerPos.y}
           r={plantRadius}
-          strokeWidth={33 * factor}
-          strokeDasharray={`${circumference * plantState} ${
-            circumference * (1 - plantState)
-          }`}
-          strokeDashoffset={circumference * 0.25}
+          strokeWidth={0.35 * bombHeight}
         />
         <circle
-          className="plant"
+          className="plant-background"
           cx={playerPos.x}
           cy={playerPos.y}
           r={plantRadius}
-          strokeWidth={30 * factor}
-          strokeDasharray={`${circumference * plantState} ${
-            circumference * (1 - plantState)
-          }`}
+          strokeWidth={0.3 * bombHeight}
+        />
+        <circle
+          className="plant-progress"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={plantRadius}
+          strokeWidth={0.3 * bombHeight}
+          strokeDasharray={getStrokeDasharray(circumference, plantProgress)}
           strokeDashoffset={circumference * 0.25}
         />
       </>
@@ -77,10 +82,11 @@ const Player = ({ player, mapData, factor, tick }) => {
   };
 
   const renderDefuse = () => {
-    const defuse = getPlayerDefuseState(player, tick);
-    if (!defuse) return;
+    const defuseProgress = getPlayerDefuseProgress(player, tick);
+    if (!defuseProgress) return;
 
-    const defuseRadius = 40 * factor;
+    const bombHeight = 60 * factor;
+    const defuseRadius = 0.8 * bombHeight;
     const circumference = 2 * Math.PI * defuseRadius;
 
     return (
@@ -90,24 +96,63 @@ const Player = ({ player, mapData, factor, tick }) => {
           cx={playerPos.x}
           cy={playerPos.y}
           r={defuseRadius}
-          strokeWidth={33 * factor}
-          strokeDasharray={`${circumference * defuse} ${
-            circumference * (1 - defuse)
-          }`}
-          strokeDashoffset={circumference * 0.25}
+          strokeWidth={0.35 * bombHeight}
         />
         <circle
-          className="defuse"
+          className="defuse-background"
           cx={playerPos.x}
           cy={playerPos.y}
           r={defuseRadius}
-          strokeWidth={30 * factor}
-          strokeDasharray={`${circumference * defuse} ${
-            circumference * (1 - defuse)
-          }`}
+          strokeWidth={0.3 * bombHeight}
+        />
+        <circle
+          className="defuse-progress"
+          cx={playerPos.x}
+          cy={playerPos.y}
+          r={defuseRadius}
+          strokeWidth={0.3 * bombHeight}
+          strokeDasharray={getStrokeDasharray(circumference, defuseProgress)}
           strokeDashoffset={circumference * 0.25}
         />
       </>
+    );
+  };
+
+  const renderBomb = () => {
+    if (team == "ct" || !status.spec) return;
+    const bombSize = 50 * factor;
+
+    const renderBombBackground = () => {
+      const width = 0.85 * bombSize;
+      const height = 0.55 * bombSize;
+
+      return (
+        <rect
+          className="bomb-background"
+          x={playerPos.x - width / 2}
+          y={playerPos.y - height / 2}
+          width={width}
+          height={height}
+          rx={0.07 * bombSize}
+        />
+      );
+    };
+
+    return (
+      <g
+        className="bomb-eq"
+        transform={`rotate(${-yaw + 90}, ${playerPos.x}, ${
+          playerPos.y
+        }) translate(0, ${42 * factor})`}
+      >
+        {renderBombBackground()}
+        <icons.normal.c4
+          x={playerPos.x - bombSize / 2}
+          y={playerPos.y - bombSize / 2}
+          height={bombSize}
+          width={bombSize}
+        />
+      </g>
     );
   };
 
@@ -198,6 +243,7 @@ const Player = ({ player, mapData, factor, tick }) => {
       {renderPlayer()}
       {renderBlindness()}
       {renderHealth()}
+      {renderBomb()}
       {renderWeapon()}
       {renderName()}
     </g>

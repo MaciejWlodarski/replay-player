@@ -1,8 +1,8 @@
 import React from "react";
 import { grenadeTypeMap, mapRange, easeInOut, easeOut } from "/src/utils/utils";
 import { getGrenadePose } from "/src/replay/grenade";
-import "./Grenade.css";
 import { WepSvg } from "../../../../assets/icons";
+import "./Grenade.css";
 
 const Grenade = ({ grenade, mapData, factor, tick }) => {
   const pose = getGrenadePose(grenade, tick);
@@ -28,14 +28,14 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
   const team = side == 2 ? "t" : "ct";
   const exploded = tick >= explode;
 
-  const renderSmoke = (pos, exploded, factor, tick) => {
-    if (tick < exploded) return;
+  const renderSmoke = () => {
+    if (tick < explode) return;
 
     let r = factor;
-    const delta = tick - exploded;
+    const delta = tick - explode;
     const totalDuration = 1412;
     const remaining = totalDuration - delta;
-    const strokePercentage = remaining / totalDuration;
+    const progress = remaining / totalDuration;
 
     if (delta <= 16) {
       const f = Math.min(delta);
@@ -47,25 +47,25 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
 
     const circumference = 2 * Math.PI * r;
     const strokeDasharray = circumference;
-    const strokeDashoffset = circumference * (1 - strokePercentage);
+    const strokeDashoffset = circumference * (1 - progress);
 
     return (
       <g className="smokegrenade-smoke">
-        <circle className="smoke" cx={pos.x} cy={pos.y} r={r} />
+        <circle className="smoke" cx={grenadePos.x} cy={grenadePos.y} r={r} />
         <circle
           className="stroke"
-          cx={pos.x}
-          cy={pos.y}
+          cx={grenadePos.x}
+          cy={grenadePos.y}
           r={r}
           strokeWidth={5 * factor}
           strokeDasharray={strokeDasharray}
           strokeDashoffset={-strokeDashoffset}
-          transform={`rotate(-90 ${pos.x} ${pos.y})`}
+          transform={`rotate(-90 ${grenadePos.x} ${grenadePos.y})`}
         />
         <text
-          x={pos.x}
-          y={pos.y}
-          dominantBaseline={"middle"}
+          x={grenadePos.x}
+          y={grenadePos.y}
+          dominantBaseline={"central"}
           fontSize={r * 0.4}
         >
           {`${Math.ceil(remaining / 64)}`}
@@ -74,10 +74,10 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     );
   };
 
-  const renderExplosion = (pos, exploded, factor, tick) => {
-    if (tick < exploded) return;
+  const renderExplosion = () => {
+    if (tick < explode) return;
 
-    const delta = tick - exploded;
+    const delta = tick - explode;
     if (delta > 32) return;
     const f = Math.min(delta);
     const easedF = easeOut(f / 32);
@@ -86,8 +86,8 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     return (
       <circle
         className="flash-explosion"
-        cx={pos.x}
-        cy={pos.y}
+        cx={grenadePos.x}
+        cy={grenadePos.y}
         r={r}
         strokeWidth={5 * factor}
       />
@@ -103,7 +103,7 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     506: renderExplosion,
   };
 
-  const renderGrenade = () => {
+  const renderGrenadeIcon = () => {
     const grenadeHeight = 100 * factor;
 
     return (
@@ -118,6 +118,26 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
     );
   };
 
+  const renderTrajectory = () => {
+    return (
+      <polyline
+        className="grenade-trajectory"
+        points={trajectoryPoints}
+        strokeWidth={5 * factor}
+      />
+    );
+  };
+
+  const renderGrenade = () => {
+    if (exploded) return;
+    return (
+      <g>
+        {renderTrajectory()}
+        {renderGrenadeIcon()}
+      </g>
+    );
+  };
+
   const handleClick = () => {
     if (!grenade.thrower) return;
     const { pos, view } = grenade.thrower;
@@ -127,19 +147,8 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
 
   return (
     <g className={`grenade-component ${name} ${team}`} onClick={handleClick}>
-      {!exploded && (
-        <g>
-          <polyline
-            className="grenade-trajectory"
-            points={trajectoryPoints}
-            strokeWidth={3 * factor}
-          />
-
-          {renderGrenade()}
-        </g>
-      )}
-
-      {renderGrenadeEffect[type](grenadePos, explode, factor, tick)}
+      {renderGrenade()}
+      {renderGrenadeEffect[type]()}
     </g>
   );
 };

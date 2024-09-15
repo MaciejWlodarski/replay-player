@@ -1,3 +1,4 @@
+import { getEquipment } from "./equipment.js";
 import { getGrenades } from "./grenade.js";
 import { getInfernos } from "./inferno.js";
 import { getPlayerEvents } from "./player.js";
@@ -63,8 +64,8 @@ const fetchReplayData = async (matchData, roundId) => {
   if (!matchData) return;
 
   try {
-    // const response = await fetchLocal(roundId);
-    const response = await fetchCollector(matchData, roundId);
+    const response = await fetchLocal(roundId);
+    // const response = await fetchCollector(matchData, roundId);
     return response.json();
   } catch (error) {
     console.error(error);
@@ -86,10 +87,11 @@ export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
   roundData = await fetchReplayData(matchData, roundId);
   if (!roundData) return;
 
-  const { last, end, plant, defuse } = roundData;
+  const { last, end, plant, defuse, kills } = roundData;
   const { players, deaths, shots } = getPlayerEvents(roundData);
   const grenades = getGrenades(roundData);
   const infernos = getInfernos(roundData);
+  const equipment = getEquipment(roundData);
   const marks = getMarks(roundData);
 
   setRounds((rounds) => {
@@ -100,6 +102,8 @@ export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
       shots,
       grenades,
       infernos,
+      kills,
+      equipment,
 
       plant,
       defuse,

@@ -41,7 +41,13 @@ circle.plant-border {
   stroke: rgb(0, 0, 0);
 }
 
-circle.plant {
+circle.plant-background,
+circle.defuse-background {
+  fill: none;
+  stroke: rgb(23, 23, 23);
+}
+
+circle.plant-progress {
   fill: none;
   stroke: rgb(230, 50, 45);
 }
@@ -51,7 +57,11 @@ circle.defuse-border {
   stroke: rgb(0, 0, 0);
 }
 
-circle.defuse {
+circle.defuse-progress {
   fill: none;
   stroke: rgba(42, 206, 102);
+}
+
+.bomb-eq svg {
+  fill: rgb(230, 50, 45);
 }

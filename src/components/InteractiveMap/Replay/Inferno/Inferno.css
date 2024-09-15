@@ -3,26 +3,25 @@
 }
 
 circle.fire {
-  fill: rgb(244, 175, 45);
-}
-
-.inferno-component circle.timer-border {
-  fill: none;
-  stroke: rgb(0, 0, 0);
-}
-
-.inferno-component circle.timer-progress {
-  fill: none;
-  stroke: rgb(0, 0, 0);
-  opacity: 0.8;
+  fill: rgb(255, 130, 46);
 }
 
 .inferno-component.type-0 circle.timer-background {
   fill: none;
-  stroke: rgb(231, 180, 44);
+  stroke: hsl(44, 80%, 25%);
 }
 
 .inferno-component.type-1 circle.timer-background {
+  fill: none;
+  stroke: hsl(215, 100%, 25%);
+}
+
+.inferno-component.type-0 circle.timer-progress {
+  fill: none;
+  stroke: rgb(231, 180, 44);
+}
+
+.inferno-component.type-1 circle.timer-progress {
   fill: none;
   stroke: rgb(17, 116, 255);
 }

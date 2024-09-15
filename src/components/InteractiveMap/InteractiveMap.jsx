@@ -1,5 +1,6 @@
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
 import "./InteractiveMap.css";
 
@@ -11,6 +12,7 @@ const InteractiveMap = ({ matchData, roundData, tick }) => {
 
   return (
     <div className="map-container">
+      <KillFeed data={roundData} tick={tick} />
       <TransformWrapper
         smooth={false}
         wheel={{

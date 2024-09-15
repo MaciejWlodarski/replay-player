@@ -157,3 +157,11 @@ export const getTeam = (roundData, sideName) => {
   }
   return null;
 };
+
+export const getStrokeDasharray = (circumference, progress) => {
+  return `${circumference * progress} ${circumference * (1 - progress)}`;
+};
+
+export const getTeamFromBool = (val) => {
+  return val ? "ct" : "t";
+};
