@@ -1,5 +1,6 @@
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { ReactSketchCanvas } from "react-sketch-canvas";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
 import "./InteractiveMap.css";
@@ -15,6 +16,8 @@ const InteractiveMap = ({ matchData, roundData, tick }) => {
       <KillFeed data={roundData} tick={tick} />
       <TransformWrapper
         smooth={false}
+        disablePadding={true}
+        panning={{ velocityDisabled: true }}
         wheel={{
           step: 0.3,
         }}
@@ -41,6 +44,15 @@ const InteractiveMap = ({ matchData, roundData, tick }) => {
                   tick={tick}
                 />
               </svg>
+              {/* <ReactSketchCanvas
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                canvasColor="none"
+                strokeColor="white"
+                strokeWidth={4}
+              /> */}
             </div>
           </TransformComponent>
         </div>

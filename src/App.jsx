@@ -11,8 +11,8 @@ import "./styles/styles.css";
 
 function App() {
   const { matchId, roundId: paramRoundId } = useParams();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [matchData, setMatchData] = useState(null);
   const [rounds, setRounds] = useState([]);

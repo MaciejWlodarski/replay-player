@@ -87,7 +87,9 @@ export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
   roundData = await fetchReplayData(matchData, roundId);
   if (!roundData) return;
 
-  const { last, end, plant, defuse, kills } = roundData;
+  const { ver, last, end, plant, defuse, kills } = roundData;
+  console.log(ver);
+
   const { players, deaths, shots } = getPlayerEvents(roundData);
   const grenades = getGrenades(roundData);
   const infernos = getInfernos(roundData);
