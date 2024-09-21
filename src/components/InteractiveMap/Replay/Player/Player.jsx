@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import icons, { WepSvg } from "/src/assets/icons";
+import { RoundContext, MapContext } from "../../../../hooks/context";
 import {
   equipmentTypeMap,
   grenadeTypeMap,
@@ -14,7 +15,9 @@ import {
 } from "/src/replay/player";
 import "./Player.css";
 
-const Player = ({ player, mapData, factor, tick }) => {
+const Player = ({ player }) => {
+  const { map, factor, tick } = useContext(MapContext);
+
   const { name, side } = player;
   const status = getPlayerStatus(player, tick);
   if (!status.hp) return;
@@ -23,8 +26,8 @@ const Player = ({ player, mapData, factor, tick }) => {
   const { pos, yaw } = pose;
 
   const playerPos = {
-    x: (pos.x - mapData.start.x) * factor,
-    y: (mapData.start.y - pos.y) * factor,
+    x: (pos.x - map.start.x) * factor,
+    y: (map.start.y - pos.y) * factor,
   };
 
   const team = side == 2 ? "t" : "ct";
@@ -250,4 +253,16 @@ const Player = ({ player, mapData, factor, tick }) => {
   );
 };
 
-export default Player;
+const Players = () => {
+  const { players } = useContext(RoundContext);
+
+  return (
+    <g className="players">
+      {players.map((player, idx) => {
+        return <Player key={idx} player={player} />;
+      })}
+    </g>
+  );
+};
+
+export default Players;

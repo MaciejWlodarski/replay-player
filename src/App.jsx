@@ -10,13 +10,13 @@ import "./styles/sliders.css";
 import "./styles/styles.css";
 
 function App() {
-  const { matchId, roundId: paramRoundId } = useParams();
+  const { matchId, roundNo } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [matchData, setMatchData] = useState(null);
   const [rounds, setRounds] = useState([]);
-  const [roundId, setRoundId] = useState(Number(paramRoundId - 1) || 0);
+  const [roundId, setRoundId] = useState(roundNo - 1 || 0);
 
   const [currTick, setCurrTick] = useState(
     Number(searchParams.get("tick")) || 0

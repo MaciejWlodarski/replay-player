@@ -7,7 +7,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Router>
     <Routes>
-      <Route path="/match/:matchId/:roundId" element={<App />} />
+      <Route path="/match/:matchId/:roundNo" element={<App />} />
       <Route path="/match/:matchId" element={<App />} />
     </Routes>
   </Router>

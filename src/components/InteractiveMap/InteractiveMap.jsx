@@ -1,15 +1,15 @@
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { ReactSketchCanvas } from "react-sketch-canvas";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
 import "./InteractiveMap.css";
+import { RoundContext, MapContext } from "../../hooks/context";
 
 const InteractiveMap = ({ matchData, roundData, tick }) => {
   if (!matchData) return;
   const svgSize = 200;
-  const mapData = matchData.mapData;
-  const factor = svgSize / (1024 * mapData.scale);
+  const map = matchData.map;
+  const factor = svgSize / (1024 * map.scale);
 
   return (
     <div className="map-container">
@@ -32,17 +32,12 @@ const InteractiveMap = ({ matchData, roundData, tick }) => {
           >
             <div className="map">
               <svg viewBox={`0 0 ${svgSize} ${svgSize}`}>
-                <mapData.src
-                  className="map-svg"
-                  width={svgSize}
-                  height={svgSize}
-                />
-                <Replay
-                  data={roundData}
-                  mapData={mapData}
-                  factor={factor}
-                  tick={tick}
-                />
+                <map.src className="map-svg" width={svgSize} height={svgSize} />
+                <RoundContext.Provider value={roundData}>
+                  <MapContext.Provider value={{ map: map, factor, tick }}>
+                    <Replay />
+                  </MapContext.Provider>
+                </RoundContext.Provider>
               </svg>
               {/* <ReactSketchCanvas
                 style={{

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { RoundContext, MapContext } from "../../../../hooks/context";
 import "./Inferno.css";
 
-const Inferno = ({ inferno, mapData, factor, tick }) => {
+const Inferno = ({ inferno }) => {
+  const { map, factor, tick } = useContext(MapContext);
+
   const { start, end, side, type, fires, centroid } = inferno;
   if (tick < start || tick > end) return;
+
   const team = side == 2 ? "t" : "ct";
 
   const fireRadius = 55;
@@ -24,8 +28,8 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
                 if (tick < start || tick > end) return;
 
                 const firePos = {
-                  x: (pos.x - mapData.start.x) * factor,
-                  y: (mapData.start.y - pos.y) * factor,
+                  x: (pos.x - map.start.x) * factor,
+                  y: (map.start.y - pos.y) * factor,
                 };
 
                 return (
@@ -46,8 +50,8 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
                 if (tick < start || tick > end) return;
 
                 const firePos = {
-                  x: (pos.x - mapData.start.x) * factor,
-                  y: (mapData.start.y - pos.y) * factor,
+                  x: (pos.x - map.start.x) * factor,
+                  y: (map.start.y - pos.y) * factor,
                 };
 
                 return (
@@ -72,8 +76,8 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
             if (tick < start || tick > end) return;
 
             const firePos = {
-              x: (pos.x - mapData.start.x) * factor,
-              y: (mapData.start.y - pos.y) * factor,
+              x: (pos.x - map.start.x) * factor,
+              y: (map.start.y - pos.y) * factor,
             };
 
             return (
@@ -100,8 +104,8 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
           if (tick < start || tick > end) return;
 
           const firePos = {
-            x: (pos.x - mapData.start.x) * factor,
-            y: (mapData.start.y - pos.y) * factor,
+            x: (pos.x - map.start.x) * factor,
+            y: (map.start.y - pos.y) * factor,
           };
 
           return (
@@ -125,8 +129,8 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
     if (start + duration < tick) return;
 
     const timerPos = {
-      x: (centroid.x - mapData.start.x) * factor,
-      y: (mapData.start.y - centroid.y) * factor,
+      x: (centroid.x - map.start.x) * factor,
+      y: (map.start.y - centroid.y) * factor,
     };
 
     const timerRadius = 20 * factor;
@@ -171,4 +175,16 @@ const Inferno = ({ inferno, mapData, factor, tick }) => {
   );
 };
 
-export default Inferno;
+const Infernos = () => {
+  const { infernos } = useContext(RoundContext);
+
+  return (
+    <g className="infernos">
+      {infernos?.map((inferno, idx) => (
+        <Inferno key={idx} inferno={inferno} />
+      ))}
+    </g>
+  );
+};
+
+export default Infernos;

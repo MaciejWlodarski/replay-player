@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { WepSvg } from "/src/assets/icons";
 import { equipmentTypeMap, grenadeTypeMap } from "../../../../utils/utils";
 import { getEquipmentPose } from "../../../../replay/equipment";
+import { RoundContext, MapContext } from "../../../../hooks/context";
 import "./Equipment.css";
 
-const Equipment = ({ equipment, mapData, factor, tick }) => {
-  const pose = getEquipmentPose(equipment, tick);
+const Item = ({ item }) => {
+  const { map, factor, tick } = useContext(MapContext);
+
+  const pose = getEquipmentPose(item, tick);
   if (!pose) return;
-  const { type } = equipment;
+
+  const { type } = item;
   const { pos } = pose;
 
   const equipmentPos = {
-    x: (pos.x - mapData.start.x) * factor,
-    y: (mapData.start.y - pos.y) * factor,
+    x: (pos.x - map.start.x) * factor,
+    y: (map.start.y - pos.y) * factor,
   };
 
   const renderEquipment = () => {
@@ -36,6 +40,18 @@ const Equipment = ({ equipment, mapData, factor, tick }) => {
   };
 
   return <g className="equipment-component">{renderEquipment()}</g>;
+};
+
+const Equipment = () => {
+  const { equipment } = useContext(RoundContext);
+
+  return (
+    <g className="equipment">
+      {equipment?.map((item, idx) => (
+        <Item key={idx} item={item} />
+      ))}
+    </g>
+  );
 };
 
 export default Equipment;

@@ -11,7 +11,7 @@ const COLLECTOR_URL = `https://collector.${URL}`;
 const fetchMatchData = async (matchId) => {
   try {
     const response = await fetch(`${API_URL}${matchId}/rounds`);
-    // const response = await fetch(`http://localhost:8000/rounds.json`);
+    // const response = await fetch(`http://localhost:8000/${matchId}.json`);
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -25,8 +25,8 @@ export const getMatchData = async (matchId, setMatchData) => {
 
   const { map, metadata, rounds } = data;
   const matchData = {
-    map,
-    mapData: maps[map],
+    id: matchId,
+    map: maps[map],
     demo: metadata.collector.demo_id,
   };
 
@@ -64,8 +64,8 @@ const fetchReplayData = async (matchData, roundId) => {
   if (!matchData) return;
 
   try {
-    const response = await fetchLocal(roundId);
-    // const response = await fetchCollector(matchData, roundId);
+    // const response = await fetchLocal(roundId);
+    const response = await fetchCollector(matchData, roundId);
     return response.json();
   } catch (error) {
     console.error(error);

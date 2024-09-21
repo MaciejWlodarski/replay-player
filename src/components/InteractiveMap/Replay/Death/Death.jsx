@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { RoundContext, MapContext } from "../../../../hooks/context";
 import "./Death.css";
 
-const Death = ({ death, mapData, factor, tick }) => {
+const Death = ({ death }) => {
+  const { map, factor, tick } = useContext(MapContext);
+
   if (death.tick > tick) return;
   const { pos, side } = death;
 
   const deathPos = {
-    x: (pos.x - mapData.start.x) * factor,
-    y: (mapData.start.y - pos.y) * factor,
+    x: (pos.x - map.start.x) * factor,
+    y: (map.start.y - pos.y) * factor,
   };
 
   const team = side == 2 ? "t" : "ct";
@@ -25,4 +28,16 @@ const Death = ({ death, mapData, factor, tick }) => {
   );
 };
 
-export default Death;
+const Deaths = () => {
+  const { deaths } = useContext(RoundContext);
+
+  return (
+    <g className="deaths">
+      {deaths.map((death, idx) => (
+        <Death key={idx} death={death} />
+      ))}
+    </g>
+  );
+};
+
+export default Deaths;

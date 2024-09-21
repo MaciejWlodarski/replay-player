@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { grenadeTypeMap, mapRange, easeInOut, easeOut } from "/src/utils/utils";
 import { getGrenadePose } from "/src/replay/grenade";
 import { WepSvg } from "../../../../assets/icons";
+import { RoundContext, MapContext } from "../../../../hooks/context";
 import "./Grenade.css";
 
-const Grenade = ({ grenade, mapData, factor, tick }) => {
+const Grenade = ({ grenade }) => {
+  const { map, factor, tick } = useContext(MapContext);
+
   const pose = getGrenadePose(grenade, tick);
   if (!pose) return;
 
   const { pos, trajectory } = pose;
 
   const grenadePos = {
-    x: (pos.x - mapData.start.x) * factor,
-    y: (mapData.start.y - pos.y) * factor,
+    x: (pos.x - map.start.x) * factor,
+    y: (map.start.y - pos.y) * factor,
   };
 
   const trajectoryPoints = trajectory
     .map((point) => {
-      const x = (point.x - mapData.start.x) * factor;
-      const y = (mapData.start.y - point.y) * factor;
+      const x = (point.x - map.start.x) * factor;
+      const y = (map.start.y - point.y) * factor;
       return `${x},${y}`;
     })
     .join(" ");
@@ -153,4 +156,16 @@ const Grenade = ({ grenade, mapData, factor, tick }) => {
   );
 };
 
-export default Grenade;
+const Grenades = () => {
+  const { grenades } = useContext(RoundContext);
+
+  return (
+    <g className="grenades">
+      {grenades.map((grenade, idx) => {
+        return <Grenade key={idx} grenade={grenade} />;
+      })}
+    </g>
+  );
+};
+
+export default Grenades;
