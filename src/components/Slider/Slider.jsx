@@ -6,44 +6,24 @@ import { tickToTime } from "/src/utils/utils.js";
 import "./Slider.css";
 
 const Slider = ({
-  roundData,
-  currTick,
-  setCurrTick,
+  round,
+  tick,
+  setTick,
   isPlaying,
-  setIsPlaying,
-  setPrevRender,
   speed,
-  setSpeed,
-  speedArray,
+  togglePlay,
+  speedUp,
+  speedDown,
 }) => {
-  if (!roundData) return <div className="slider-container" />;
-  const { lastTick, marks } = roundData;
-
-  const togglePlay = () => {
-    if (currTick >= lastTick) setCurrTick(() => 0);
-    setIsPlaying((prev) => !prev);
-  };
-
-  const speedUp = () => {
-    setSpeed((prev) => {
-      if (prev === speedArray.length - 1) return 0;
-      return prev + 1;
-    });
-  };
-
-  const speedDown = () => {
-    setSpeed((prev) => {
-      if (prev === 0) return speedArray.length - 1;
-      return prev - 1;
-    });
-  };
+  if (!round) return <div className="slider-container" />;
+  const { lastTick, marks } = round;
 
   return (
     <div className="slider-container">
       <div className="slider-content">
         <div className="slider-panel">
           <CheckboxButton
-            label={`${speedArray[speed]}x`}
+            label={`${speed}x`}
             isChecked={false}
             onButtonDown={() => speedUp()}
             onRightClick={() => speedDown()}
@@ -58,24 +38,21 @@ const Slider = ({
               )
             }
             isChecked={false}
-            onButtonDown={() => {
-              togglePlay();
-              setPrevRender(() => Date.now());
-            }}
+            onButtonDown={() => togglePlay()}
           />
         </div>
         <div className="slider-component">
           <RCSlider
             max={lastTick}
-            value={currTick}
-            onChange={(e) => setCurrTick(() => e)}
+            value={tick}
+            onChange={(e) => setTick(() => e)}
             marks={marks}
           />
         </div>
         <div className="slider-panel">
           <div className="timer">
-            <div className="slider-time">{tickToTime(currTick)}</div>
-            <div className="slider-time">{Math.round(currTick)}</div>
+            <div className="slider-time">{tickToTime(tick)}</div>
+            <div className="slider-time">{Math.round(tick)}</div>
           </div>
         </div>
       </div>

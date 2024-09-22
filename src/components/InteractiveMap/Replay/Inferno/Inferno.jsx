@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { RoundContext, MapContext } from "../../../../hooks/context";
+import { RoundContext, MapContext } from "../../../../hooks/context/context";
 import "./Inferno.css";
 
 const Inferno = ({ inferno }) => {

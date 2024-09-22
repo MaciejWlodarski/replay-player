@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { WepSvg } from "/src/assets/icons";
 import { equipmentTypeMap, grenadeTypeMap } from "../../../../utils/utils";
 import { getEquipmentPose } from "../../../../replay/equipment";
-import { RoundContext, MapContext } from "../../../../hooks/context";
+import { RoundContext, MapContext } from "../../../../hooks/context/context";
 import "./Equipment.css";
 
 const Item = ({ item }) => {

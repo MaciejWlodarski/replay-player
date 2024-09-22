@@ -1,5 +1,5 @@
 import React, { useContext, memo } from "react";
-import { RoundContext } from "../../../hooks/context";
+import { RoundContext } from "../../../hooks/context/context";
 import Deaths from "./Death/Death";
 import Shots from "./Shot/Shot";
 import Players from "./Player/Player";

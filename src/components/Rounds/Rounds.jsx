@@ -1,9 +1,13 @@
-import React from "react";
+import React, { memo, useContext } from "react";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
+import { SetTickContext } from "../../hooks/context/context";
 import "./Rounds.css";
 
-const Rounds = ({ matchData, rounds, roundId, setRoundId, setCurrTick }) => {
+const Rounds = ({ matchData, rounds, roundId, setRoundId }) => {
   if (!matchData) return;
+
+  const setTick = useContext(SetTickContext);
+
   return (
     <div className="rounds">
       {matchData.rounds.map((round) => {
@@ -22,7 +26,7 @@ const Rounds = ({ matchData, rounds, roundId, setRoundId, setCurrTick }) => {
             onButtonDown={() => {
               if (roundIdx !== roundId) {
                 setRoundId(roundIdx);
-                setCurrTick(0);
+                setTick(0);
               }
             }}
             additionalClassName={"round noborder"}
@@ -33,4 +37,4 @@ const Rounds = ({ matchData, rounds, roundId, setRoundId, setCurrTick }) => {
   );
 };
 
-export default Rounds;
+export default memo(Rounds);

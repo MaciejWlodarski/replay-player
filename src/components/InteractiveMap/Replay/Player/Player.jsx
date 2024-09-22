@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import icons, { WepSvg } from "/src/assets/icons";
-import { RoundContext, MapContext } from "../../../../hooks/context";
+import { RoundContext, MapContext } from "../../../../hooks/context/context";
 import {
   equipmentTypeMap,
   grenadeTypeMap,

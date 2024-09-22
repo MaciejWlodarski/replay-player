@@ -1,23 +1,19 @@
-import { useEffect, useState, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useRef, useState, useMemo } from "react";
 
-const useSetTick = (round) => {
-  const [params] = useSearchParams();
-
-  const [tick, setTick] = useState(Number(params.get("tick")) || 0);
+const usePlaybackControl = (round, tick, setTick) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
-  const speedArray = [0.5, 1, 1.5, 2, 4, 8];
+
+  const speedArray = useMemo(() => [0.5, 1, 1.5, 2, 4, 8], []);
+
+  const prevRenderRef = useRef(0);
+  const animationRef = useRef(null);
 
   useEffect(() => {
     if (round && tick > round.lastTick) setTick(() => round.lastTick);
   }, [round]);
 
-  const [prevRender, setPrevRender] = useState(0);
-  const animationRef = useRef(null);
-
   useEffect(() => {
-    let prevRenderTime = prevRender;
     let dataAvailable;
 
     const renderFrame = () => {
@@ -30,7 +26,7 @@ const useSetTick = (round) => {
       setTick((prevTick) => {
         if (prevTick < lastTick) {
           const newRender = Date.now();
-          const delta = dataAvailable ? newRender - prevRenderTime : 0;
+          const delta = dataAvailable ? newRender - prevRenderRef.current : 0;
           dataAvailable = true;
 
           const tickDurationMs = 1000 / (64 * speedArray[speed]);
@@ -38,10 +34,7 @@ const useSetTick = (round) => {
 
           const newTick = Math.min(prevTick + tickIncrement, lastTick);
 
-          setPrevRender(() => {
-            prevRenderTime = newRender;
-            return newRender;
-          });
+          prevRenderRef.current = newRender;
 
           return newTick;
         } else {
@@ -67,13 +60,13 @@ const useSetTick = (round) => {
   return {
     tick,
     setTick,
+    isPlaying,
+    setIsPlaying,
     speed,
     setSpeed,
     speedArray,
-    isPlaying,
-    setIsPlaying,
-    setPrevRender,
+    prevRenderRef,
   };
 };
 
-export default useSetTick;
+export default usePlaybackControl;

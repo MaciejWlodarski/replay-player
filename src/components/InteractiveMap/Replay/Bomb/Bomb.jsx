@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import icons from "/src/assets/icons";
 import { getStrokeDasharray } from "../../../../utils/utils";
-import { RoundContext, MapContext } from "../../../../hooks/context";
+import { RoundContext, MapContext } from "../../../../hooks/context/context";
 import "./Bomb.css";
 
 const Bomb = ({}) => {

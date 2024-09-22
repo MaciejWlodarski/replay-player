@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getMatchData } from "../replay/replay";
+import { getMatchData } from "../../replay/replay";
 
-const useFetchMatch = (matchId) => {
+const useMatchData = (matchId) => {
   const [match, setMatch] = useState(null);
 
   useEffect(() => {
@@ -11,4 +11,4 @@ const useFetchMatch = (matchId) => {
   return match;
 };
 
-export default useFetchMatch;
+export default useMatchData;

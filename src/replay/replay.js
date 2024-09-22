@@ -84,6 +84,7 @@ const getMarks = (data) => {
 export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
   let roundData = rounds[roundId];
   if (roundData) return roundData;
+
   roundData = await fetchReplayData(matchData, roundId);
   if (!roundData) return;
 
@@ -99,6 +100,8 @@ export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
   setRounds((rounds) => {
     const updatedRounds = [...rounds];
     updatedRounds[roundId] = {
+      id: roundId,
+
       players,
       deaths,
       shots,

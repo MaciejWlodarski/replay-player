@@ -2,8 +2,8 @@ import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
+import { RoundContext, MapContext } from "../../hooks/context/context";
 import "./InteractiveMap.css";
-import { RoundContext, MapContext } from "../../hooks/context";
 
 const InteractiveMap = ({ matchData, roundData, tick }) => {
   if (!matchData) return;
