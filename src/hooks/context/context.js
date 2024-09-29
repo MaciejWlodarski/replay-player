@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
-export const RoundContext = createContext();
+export const MatchContext = createContext();
 
-export const MapContext = createContext();
+export const RoundContext = createContext();
 
 export const TickContext = createContext();
 

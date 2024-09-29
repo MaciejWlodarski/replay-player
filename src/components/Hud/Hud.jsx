@@ -1,114 +1,28 @@
-import React from "react";
-import icons, { WepSvg } from "/src/assets/icons";
-import { Shield, ShieldPlus, Skull } from "lucide-react";
-import { equipmentTypeMap, getTeam } from "/src/utils/utils";
-import { getPlayerStatus } from "/src/replay/player";
+import React, { useContext } from "react";
+import Player from "./Player/Player";
+import Team from "./Team/Team";
+import { getTeam } from "/src/utils/utils";
+import { RoundContext, TickContext } from "../../hooks/context/context";
 import "./Hud.css";
 
-const Hud = ({ matchData, roundData, roundId, tick, tSide }) => {
-  const sideName = tSide ? "t" : "ct";
-  if (!matchData || !roundData) return <div className={`hud ${sideName}`} />;
+const Hud = ({ side }) => {
+  const tick = useContext(TickContext);
+  const round = useContext(RoundContext);
 
-  const roundContent = matchData.rounds[roundId];
-  const team = getTeam(roundContent, sideName);
-  let { score } = team;
+  if (!round) return <div className={`hud ${side}`} />;
 
-  if (tick < roundData.endTick && sideName === roundContent.winnerSide) {
+  const { info } = round;
+  let { name, score } = getTeam(info, side);
+  if (tick < round.endTick && side === info.winnerSide) {
     score--;
   }
 
-  const grenades = {
-    fire: tSide ? (
-      <icons.normal.molotov className="grenade-icon" />
-    ) : (
-      <icons.normal.incendiary className="grenade-icon" />
-    ),
-    decoy: <icons.normal.decoy className="grenade-icon" />,
-    smoke: <icons.normal.smoke className="grenade-icon" />,
-    flash: <icons.normal.flashbang className="grenade-icon" />,
-    he: <icons.normal.he className="grenade-icon" />,
-  };
-
   return (
-    <div className={`hud ${sideName}`}>
-      <div className="team">
-        <div className="team-name">
-          <span className="name">{team.name}</span>
-        </div>
-        <span className="score">{score}</span>
-      </div>
-      {roundData?.players.map((player, idx) => {
-        const side = tSide ? 2 : 3;
-        if (player.side !== side) return;
-
-        let status = getPlayerStatus(player, tick);
-        const hp = status.hp || 0;
-
-        if (!hp) {
-          status = { tick: status.tick };
-        }
-
-        return (
-          <div key={idx} className={`player ${!hp ? "dead" : ""}`}>
-            {!hp && (
-              <div className="death">
-                <span>
-                  <Skull className="skull" />
-                </span>
-              </div>
-            )}
-            <div className="top">
-              <div className="left">
-                <div className="health-bar" style={{ width: `${hp}%` }} />
-                <div className="health-container">
-                  <span className="health">{hp ? hp : ""}</span>
-                </div>
-                <span className="nickname">{`${player.name}`}</span>
-              </div>
-              {!!hp && (
-                <div className="right">
-                  <WepSvg wep={equipmentTypeMap[status.prime || status.sec]} />
-                </div>
-              )}
-            </div>
-            <div className="bottom">
-              <div className="left">
-                <span className="armor">
-                  {status.helmet ? (
-                    <ShieldPlus className="shield" />
-                  ) : status.armor ? (
-                    <Shield className="shield" />
-                  ) : null}
-                </span>
-                <span className="spec">
-                  {status.spec ? (
-                    tSide ? (
-                      <icons.normal.c4 className="spec-icon" />
-                    ) : (
-                      <icons.normal.item_defuser className="spec-icon" />
-                    )
-                  ) : null}
-                </span>
-                <div className="secondary">
-                  {status.prime && (
-                    <WepSvg wep={equipmentTypeMap[status.sec]} />
-                  )}
-                </div>
-              </div>
-              <div className="right">
-                {Object.entries(grenades).map(([key, val]) => {
-                  const len = status[key] || 0;
-                  return Array.from({ length: len }, (_, index) => (
-                    <span key={`${key}-${index}`} className={`grenade ${key}`}>
-                      {val}
-                    </span>
-                  ));
-                })}
-              </div>
-            </div>
-          </div>
-        );
-      })}
+    <div className={`hud ${side}`}>
+      <Team name={name} score={score} />
+      {round.players.map((player, idx) => (
+        <Player key={idx} player={player} tick={tick} side={side} />
+      ))}
     </div>
   );
 };

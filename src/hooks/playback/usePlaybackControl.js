@@ -1,16 +1,25 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useContext } from "react";
+import { RoundContext, SetTickContext, TickContext } from "../context/context";
 
-const usePlaybackControl = (round, tick, setTick) => {
+const usePlaybackControl = () => {
+  const round = useContext(RoundContext);
+  const tick = useContext(TickContext);
+  const setTick = useContext(SetTickContext);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
 
   const speedArray = useMemo(() => [0.5, 1, 1.5, 2, 4, 8], []);
 
   const prevRenderRef = useRef(0);
+  const prevTickRef = useRef(tick);
   const animationRef = useRef(null);
 
   useEffect(() => {
-    if (round && tick > round.lastTick) setTick(() => round.lastTick);
+    if (round && tick > round.lastTick) {
+      setTick(() => round.lastTick);
+    }
+    prevTickRef.current = 0;
   }, [round]);
 
   useEffect(() => {
@@ -23,8 +32,9 @@ const usePlaybackControl = (round, tick, setTick) => {
       }
 
       const { lastTick } = round;
-      setTick((prevTick) => {
-        if (prevTick < lastTick) {
+
+      if (prevTickRef.current < lastTick) {
+        setTick((prevTick) => {
           const newRender = Date.now();
           const delta = dataAvailable ? newRender - prevRenderRef.current : 0;
           dataAvailable = true;
@@ -35,13 +45,13 @@ const usePlaybackControl = (round, tick, setTick) => {
           const newTick = Math.min(prevTick + tickIncrement, lastTick);
 
           prevRenderRef.current = newRender;
+          prevTickRef.current = newTick;
 
           return newTick;
-        } else {
-          setIsPlaying(() => false);
-          return prevTick;
-        }
-      });
+        });
+      } else {
+        setIsPlaying(() => false);
+      }
 
       animationRef.current = requestAnimationFrame(renderFrame);
     };
@@ -58,8 +68,6 @@ const usePlaybackControl = (round, tick, setTick) => {
   }, [isPlaying, speed, round]);
 
   return {
-    tick,
-    setTick,
     isPlaying,
     setIsPlaying,
     speed,

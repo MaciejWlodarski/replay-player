@@ -2,6 +2,10 @@ circle.player {
   stroke: rgb(255, 255, 255);
 }
 
+.bomb circle.player {
+  stroke: rgb(230, 50, 45);
+}
+
 .t circle.player {
   fill: rgb(231, 180, 44);
 }
@@ -12,6 +16,10 @@ circle.player {
 
 polygon.yaw {
   fill: rgb(255, 255, 255);
+}
+
+.bomb polygon.yaw {
+  fill: rgb(230, 50, 45);
 }
 
 text.nickname {

@@ -1,29 +1,28 @@
-import React from "react";
+import React, { memo, useContext } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
+import Scoreboard from "./Scoreboard/Scoreboard";
 import Replay from "./Replay/Replay";
-import { RoundContext, MapContext } from "../../hooks/context/context";
+import { MatchContext } from "../../hooks/context/context";
 import "./InteractiveMap.css";
 
-const InteractiveMap = ({ matchData, roundData, tick }) => {
-  if (!matchData) return;
-  const svgSize = 200;
-  const map = matchData.map;
-  const factor = svgSize / (1024 * map.scale);
+const InteractiveMap = () => {
+  const match = useContext(MatchContext);
+  if (!match) return;
+
+  const { map } = match;
+  const { svgSize } = map;
 
   return (
     <div className="map-container">
-      <KillFeed data={roundData} tick={tick} />
+      <Scoreboard />
+      <KillFeed />
       <TransformWrapper
         smooth={false}
         disablePadding={true}
         panning={{ velocityDisabled: true }}
-        wheel={{
-          step: 0.3,
-        }}
-        doubleClick={{
-          disabled: true,
-        }}
+        wheel={{ step: 0.3 }}
+        doubleClick={{ disabled: true }}
       >
         <div className="wrapper">
           <TransformComponent
@@ -33,11 +32,7 @@ const InteractiveMap = ({ matchData, roundData, tick }) => {
             <div className="map">
               <svg viewBox={`0 0 ${svgSize} ${svgSize}`}>
                 <map.src className="map-svg" width={svgSize} height={svgSize} />
-                <RoundContext.Provider value={roundData}>
-                  <MapContext.Provider value={{ map: map, factor, tick }}>
-                    <Replay />
-                  </MapContext.Provider>
-                </RoundContext.Provider>
+                <Replay />
               </svg>
               {/* <ReactSketchCanvas
                 style={{
@@ -56,4 +51,4 @@ const InteractiveMap = ({ matchData, roundData, tick }) => {
   );
 };
 
-export default InteractiveMap;
+export default memo(InteractiveMap);

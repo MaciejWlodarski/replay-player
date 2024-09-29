@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import icons, { WepSvg } from "/src/assets/icons";
-import { RoundContext, MapContext } from "../../../../hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  TickContext,
+} from "../../../../hooks/context/context";
 import {
   equipmentTypeMap,
   grenadeTypeMap,
@@ -16,7 +20,9 @@ import {
 import "./Player.css";
 
 const Player = ({ player }) => {
-  const { map, factor, tick } = useContext(MapContext);
+  const tick = useContext(TickContext);
+  const { map } = useContext(MatchContext);
+  const { factor } = map;
 
   const { name, side } = player;
   const status = getPlayerStatus(player, tick);
@@ -31,6 +37,7 @@ const Player = ({ player }) => {
   };
 
   const team = side == 2 ? "t" : "ct";
+  const bomb = team == "t" && status.spec;
 
   const renderBlindness = () => {
     const blindness = getPlayerBlindness(player, tick);
@@ -122,7 +129,7 @@ const Player = ({ player }) => {
   };
 
   const renderBomb = () => {
-    if (team == "ct" || !status.spec) return;
+    if (!bomb) return;
     const bombSize = 50 * factor;
 
     const renderBombBackground = () => {
@@ -240,13 +247,13 @@ const Player = ({ player }) => {
   };
 
   return (
-    <g className={`player-component ${team}`}>
+    <g className={`player-component ${team} ${bomb ? "bomb" : ""} `}>
       {renderPlant()}
       {renderDefuse()}
       {renderPlayer()}
       {renderBlindness()}
       {renderHealth()}
-      {renderBomb()}
+      {/* {renderBomb()} */}
       {renderWeapon()}
       {renderName()}
     </g>

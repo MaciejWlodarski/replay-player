@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
 import icons from "/src/assets/icons";
 import { getStrokeDasharray } from "../../../../utils/utils";
-import { RoundContext, MapContext } from "../../../../hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  TickContext,
+} from "../../../../hooks/context/context";
 import "./Bomb.css";
 
 const Bomb = ({}) => {
-  const { map, factor, tick } = useContext(MapContext);
+  const tick = useContext(TickContext);
   const { plant, defuse } = useContext(RoundContext);
+  const { map } = useContext(MatchContext);
+  const { factor } = map;
 
   if (!plant || plant.tick > tick) return;
 

@@ -1,12 +1,8 @@
-import { useContext, useEffect, useMemo } from "react";
-import { TickContext, SetTickContext } from "../../hooks/context/context";
+import { useEffect, useMemo } from "react";
 import usePlaybackControl from "../../hooks/playback/usePlaybackControl";
-import Slider from "../Slider/Slider";
+import Slider from "./Slider/Slider";
 
-const Playback = ({ round }) => {
-  const tick = useContext(TickContext);
-  const setTick = useContext(SetTickContext);
-
+const Playback = () => {
   const {
     isPlaying,
     setIsPlaying,
@@ -14,7 +10,7 @@ const Playback = ({ round }) => {
     setSpeed,
     speedArray,
     prevRenderRef,
-  } = usePlaybackControl(round, tick, setTick);
+  } = usePlaybackControl();
 
   const togglePlay = () => {
     setIsPlaying((prev) => !prev);
@@ -52,9 +48,6 @@ const Playback = ({ round }) => {
 
   return (
     <Slider
-      round={round}
-      tick={tick}
-      setTick={setTick}
       isPlaying={isPlaying}
       speed={getSpeed}
       togglePlay={togglePlay}

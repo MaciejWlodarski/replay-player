@@ -1,5 +1,9 @@
 import React, { useContext } from "react";
-import { RoundContext, MapContext } from "../../../../hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  TickContext,
+} from "../../../../hooks/context/context";
 import "./Shot.css";
 
 const Shot = ({ shot, map, factor, gradient }) => {
@@ -27,8 +31,10 @@ const Shot = ({ shot, map, factor, gradient }) => {
 };
 
 const Shots = () => {
-  const { map, factor, tick } = useContext(MapContext);
+  const tick = useContext(TickContext);
   const { shots } = useContext(RoundContext);
+  const { map } = useContext(MatchContext);
+  const { factor } = map;
 
   return (
     <g className="shots">

@@ -1,16 +1,17 @@
 import React, { memo, useContext } from "react";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
-import { SetTickContext } from "../../hooks/context/context";
+import { MatchContext, SetTickContext } from "../../hooks/context/context";
 import "./Rounds.css";
 
-const Rounds = ({ matchData, rounds, roundId, setRoundId }) => {
-  if (!matchData) return;
-
+const Rounds = ({ rounds, roundId, setRoundId }) => {
+  const match = useContext(MatchContext);
   const setTick = useContext(SetTickContext);
+
+  if (!match) return;
 
   return (
     <div className="rounds">
-      {matchData.rounds.map((round) => {
+      {match.rounds.map((round) => {
         const { roundIdx, winnerSide } = round;
         const loaded = !!rounds[roundIdx];
         return (

@@ -1,10 +1,15 @@
 import React from "react";
-import { SetTickContext, TickContext } from "./hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  SetTickContext,
+  TickContext,
+} from "./hooks/context/context";
 import useGameData from "./hooks/data/useGameData";
 import useInitTick from "./hooks/playback/useInitTick";
-import InteractiveMap from "/src/components/InteractiveMap/InteractiveMap";
-import Hud from "/src/components/Hud/Hud";
-import Rounds from "/src/components/Rounds/Rounds";
+import InteractiveMap from "./components/InteractiveMap/InteractiveMap";
+import Hud from "./components/Hud/Hud";
+import Rounds from "./components/Rounds/Rounds";
 import Playback from "./components/Playback/Playback";
 import "./styles/buttons.css";
 import "./styles/sliders.css";
@@ -16,34 +21,25 @@ function App() {
 
   return (
     <div className="app">
-      <TickContext.Provider value={tick}>
-        <div className="main">
-          <Hud
-            matchData={match}
-            roundData={round}
-            roundId={roundId}
-            tick={tick}
-            tSide={true}
-          />
-          <InteractiveMap matchData={match} roundData={round} tick={tick} />
-          <Hud
-            matchData={match}
-            roundData={round}
-            roundId={roundId}
-            tick={tick}
-            tSide={false}
-          />
-        </div>
-        <SetTickContext.Provider value={setTick}>
-          <Rounds
-            matchData={match}
-            rounds={rounds}
-            roundId={roundId}
-            setRoundId={setRoundId}
-          />
-          <Playback round={round} />
-        </SetTickContext.Provider>
-      </TickContext.Provider>
+      <MatchContext.Provider value={match}>
+        <RoundContext.Provider value={round}>
+          <TickContext.Provider value={tick}>
+            <div className="main">
+              <Hud side={"t"} />
+              <InteractiveMap />
+              <Hud side={"ct"} />
+            </div>
+            <SetTickContext.Provider value={setTick}>
+              <Rounds
+                rounds={rounds}
+                roundId={roundId}
+                setRoundId={setRoundId}
+              />
+              <Playback />
+            </SetTickContext.Provider>
+          </TickContext.Provider>
+        </RoundContext.Provider>
+      </MatchContext.Provider>
     </div>
   );
 }

@@ -1,0 +1,12 @@
+.slider-panel .timer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+
+.timer.plant {
+  color: rgb(230, 50, 45);
+}

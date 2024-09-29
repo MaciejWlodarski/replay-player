@@ -38,15 +38,6 @@
   margin: 0px 10px;
 }
 
-.slider-panel .timer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-}
-
 .slider-panel .checkbox-button {
   position: relative;
   align-items: center;

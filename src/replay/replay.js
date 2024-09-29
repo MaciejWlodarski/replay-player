@@ -2,7 +2,7 @@ import { getEquipment } from "./equipment.js";
 import { getGrenades } from "./grenade.js";
 import { getInfernos } from "./inferno.js";
 import { getPlayerEvents } from "./player.js";
-import maps from "/src/assets/maps";
+import { getMapData } from "/src/assets/maps";
 
 const URL = "csanalyzer.gg";
 const API_URL = `https://art.${URL}/matches/`;
@@ -10,8 +10,8 @@ const COLLECTOR_URL = `https://collector.${URL}`;
 
 const fetchMatchData = async (matchId) => {
   try {
-    const response = await fetch(`${API_URL}${matchId}/rounds`);
-    // const response = await fetch(`http://localhost:8000/${matchId}.json`);
+    // const response = await fetch(`${API_URL}${matchId}/rounds`);
+    const response = await fetch(`http://localhost:8000/${matchId}.json`);
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -26,7 +26,7 @@ export const getMatchData = async (matchId, setMatchData) => {
   const { map, metadata, rounds } = data;
   const matchData = {
     id: matchId,
-    map: maps[map],
+    map: getMapData(map, 200),
     demo: metadata.collector.demo_id,
   };
 
@@ -64,8 +64,8 @@ const fetchReplayData = async (matchData, roundId) => {
   if (!matchData) return;
 
   try {
-    // const response = await fetchLocal(roundId);
-    const response = await fetchCollector(matchData, roundId);
+    const response = await fetchLocal(roundId);
+    // const response = await fetchCollector(matchData, roundId);
     return response.json();
   } catch (error) {
     console.error(error);
@@ -78,29 +78,32 @@ const getMarks = (data) => {
     [data.end]: "End",
   };
 
+  if (data.plant) marks[data.plant.tick] = "Plant";
+
   return marks;
 };
 
-export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
-  let roundData = rounds[roundId];
-  if (roundData) return roundData;
+export const getRoundData = async (match, rounds, roundId, setRounds) => {
+  let round = rounds[roundId];
+  if (round) return round;
 
-  roundData = await fetchReplayData(matchData, roundId);
-  if (!roundData) return;
+  round = await fetchReplayData(match, roundId);
+  if (!round) return;
 
-  const { ver, last, end, plant, defuse, kills } = roundData;
+  const { ver, max, last, end, plant, defuse, kills } = round;
   console.log(ver);
 
-  const { players, deaths, shots } = getPlayerEvents(roundData);
-  const grenades = getGrenades(roundData);
-  const infernos = getInfernos(roundData);
-  const equipment = getEquipment(roundData);
-  const marks = getMarks(roundData);
+  const { players, deaths, shots } = getPlayerEvents(round);
+  const grenades = getGrenades(round);
+  const infernos = getInfernos(round);
+  const equipment = getEquipment(round);
+  const marks = getMarks(round);
 
   setRounds((rounds) => {
     const updatedRounds = [...rounds];
     updatedRounds[roundId] = {
       id: roundId,
+      info: match.rounds[roundId],
 
       players,
       deaths,
@@ -113,6 +116,7 @@ export const getRoundData = async (matchData, rounds, roundId, setRounds) => {
       plant,
       defuse,
 
+      maxTime: max * 64,
       lastTick: last,
       endTick: end,
 

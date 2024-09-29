@@ -2,11 +2,17 @@ import React, { useContext } from "react";
 import { WepSvg } from "/src/assets/icons";
 import { equipmentTypeMap, grenadeTypeMap } from "../../../../utils/utils";
 import { getEquipmentPose } from "../../../../replay/equipment";
-import { RoundContext, MapContext } from "../../../../hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  TickContext,
+} from "../../../../hooks/context/context";
 import "./Equipment.css";
 
 const Item = ({ item }) => {
-  const { map, factor, tick } = useContext(MapContext);
+  const tick = useContext(TickContext);
+  const { map } = useContext(MatchContext);
+  const { factor } = map;
 
   const pose = getEquipmentPose(item, tick);
   if (!pose) return;

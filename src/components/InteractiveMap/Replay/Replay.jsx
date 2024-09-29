@@ -10,8 +10,8 @@ import Bomb from "./Bomb/Bomb";
 import "./Replay.css";
 
 const Replay = () => {
-  const data = useContext(RoundContext);
-  if (!data) return;
+  const round = useContext(RoundContext);
+  if (!round) return;
 
   return (
     <>

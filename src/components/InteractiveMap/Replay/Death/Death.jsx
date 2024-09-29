@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
-import { RoundContext, MapContext } from "../../../../hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  TickContext,
+} from "../../../../hooks/context/context";
 import "./Death.css";
 
 const Death = ({ death }) => {
-  const { map, factor, tick } = useContext(MapContext);
+  const tick = useContext(TickContext);
+  const { map } = useContext(MatchContext);
+  const { factor } = map;
 
   if (death.tick > tick) return;
   const { pos, side } = death;

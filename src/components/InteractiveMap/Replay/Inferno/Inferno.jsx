@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
-import { RoundContext, MapContext } from "../../../../hooks/context/context";
+import {
+  MatchContext,
+  RoundContext,
+  TickContext,
+} from "../../../../hooks/context/context";
 import "./Inferno.css";
 
 const Inferno = ({ inferno }) => {
-  const { map, factor, tick } = useContext(MapContext);
+  const tick = useContext(TickContext);
+  const { map } = useContext(MatchContext);
+  const { factor } = map;
 
   const { start, end, side, type, fires, centroid } = inferno;
   if (tick < start || tick > end) return;

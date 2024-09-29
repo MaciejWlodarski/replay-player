@@ -65,3 +65,9 @@ const maps = {
 };
 
 export default maps;
+
+export const getMapData = (map, svgSize) => {
+  const mapData = maps[map];
+  const factor = svgSize / (1024 * mapData.scale);
+  return { ...mapData, svgSize, factor };
+};
