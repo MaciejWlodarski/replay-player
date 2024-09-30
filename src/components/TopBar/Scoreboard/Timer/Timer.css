@@ -1,0 +1,22 @@
+.timer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer.plant {
+  color: var(--red);
+}
+
+.timer .time {
+  display: flex;
+  align-items: center;
+  width: 64px;
+  justify-content: space-between;
+}
+
+.time .icon {
+  width: 16px;
+}

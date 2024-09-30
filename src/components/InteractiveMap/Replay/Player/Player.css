@@ -3,15 +3,15 @@ circle.player {
 }
 
 .bomb circle.player {
-  stroke: rgb(230, 50, 45);
+  stroke: var(--red);
 }
 
 .t circle.player {
-  fill: rgb(231, 180, 44);
+  fill: var(--t);
 }
 
 .ct circle.player {
-  fill: rgb(17, 116, 255);
+  fill: var(--ct);
 }
 
 polygon.yaw {
@@ -19,7 +19,7 @@ polygon.yaw {
 }
 
 .bomb polygon.yaw {
-  fill: rgb(230, 50, 45);
+  fill: var(--red);
 }
 
 text.nickname {
@@ -31,7 +31,7 @@ text.nickname {
 
 circle.health {
   fill: none;
-  stroke: rgb(230, 50, 45);
+  stroke: var(--red);
 }
 
 .weapon {
@@ -57,7 +57,7 @@ circle.defuse-background {
 
 circle.plant-progress {
   fill: none;
-  stroke: rgb(230, 50, 45);
+  stroke: var(--red);
 }
 
 circle.defuse-border {
@@ -71,5 +71,5 @@ circle.defuse-progress {
 }
 
 .bomb-eq svg {
-  fill: rgb(230, 50, 45);
+  fill: var(--red);
 }

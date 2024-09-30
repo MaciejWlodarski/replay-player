@@ -48,6 +48,8 @@
   color: white;
   fill: white;
   transition: width 0.3s ease;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .hud .player.dead {
@@ -110,11 +112,11 @@
 }
 
 .t .health-bar {
-  background-color: rgb(231, 180, 44);
+  background-color: var(--t);
 }
 
 .ct .health-bar {
-  background-color: rgb(17, 116, 255);
+  background-color: var(--ct);
 }
 
 .player .bottom {

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { CirclePause, CirclePlay } from "lucide-react";
 import RCSlider from "rc-slider";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
-import Timer from "./Timer/Timer";
 import {
   RoundContext,
   SetTickContext,
@@ -10,7 +9,14 @@ import {
 } from "../../../hooks/context/context";
 import "./Slider.css";
 
-const Slider = ({ isPlaying, speed, togglePlay, speedUp, speedDown }) => {
+const Slider = ({
+  isPlaying,
+  speed,
+  togglePlay,
+  speedUp,
+  speedDown,
+  prevTickRef,
+}) => {
   const round = useContext(RoundContext);
   const tick = useContext(TickContext);
   const setTick = useContext(SetTickContext);
@@ -45,13 +51,14 @@ const Slider = ({ isPlaying, speed, togglePlay, speedUp, speedDown }) => {
           <RCSlider
             max={lastTick}
             value={tick}
-            onChange={(e) => setTick(() => e)}
+            onChange={(e) => {
+              setTick(() => e);
+              prevTickRef.current = e;
+            }}
             marks={marks}
           />
         </div>
-        <div className="slider-panel">
-          <Timer />
-        </div>
+        <div className="slider-panel">{Math.round(tick)}</div>
       </div>
     </div>
   );

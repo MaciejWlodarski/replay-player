@@ -1,7 +1,6 @@
 import React, { memo, useContext } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
-import Scoreboard from "./Scoreboard/Scoreboard";
 import Replay from "./Replay/Replay";
 import { MatchContext } from "../../hooks/context/context";
 import "./InteractiveMap.css";
@@ -15,7 +14,6 @@ const InteractiveMap = () => {
 
   return (
     <div className="map-container">
-      <Scoreboard />
       <KillFeed />
       <TransformWrapper
         smooth={false}

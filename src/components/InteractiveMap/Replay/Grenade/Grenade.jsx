@@ -47,9 +47,8 @@ const Grenade = ({ grenade }) => {
     const progress = remaining / totalDuration;
 
     if (delta <= 16) {
-      const f = Math.min(delta);
-      const easedF = easeInOut(f / 16);
-      r *= mapRange(easedF, 0, 1, 0, 150);
+      const easedDelta = easeInOut(delta / 16);
+      r *= mapRange(easedDelta, 0, 1, 0, 150);
     } else {
       r *= 150;
     }
@@ -88,9 +87,8 @@ const Grenade = ({ grenade }) => {
 
     const delta = tick - explode;
     if (delta > 32) return;
-    const f = Math.min(delta);
-    const easedF = easeOut(f / 32);
-    const r = mapRange(easedF, 0, 1, 150, 0) * factor;
+    const easedDelta = easeOut(delta / 32);
+    const r = mapRange(easedDelta, 0, 1, 150, 0) * factor;
 
     return (
       <circle

@@ -1,0 +1,14 @@
+.scoreboard {
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) 160px minmax(auto, 1fr);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  height: 36px;
+}
+
+.scoreboard .timer {
+  font-weight: 600;
+  border-style: solid;
+  border-width: 2px 0;
+  border-image: linear-gradient(to right, var(--t), var(--ct)) 1;
+}

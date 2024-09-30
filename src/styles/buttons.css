@@ -208,7 +208,7 @@
 .checkbox-button.checked .grenade-icon.he,
 .checkbox-button:hover .grenade-icon.he,
 .checkbox-button:focus-visible .grenade-icon.he {
-  fill: rgb(230, 50, 45);
+  fill: var(--red);
 }
 
 .checkbox-button.checked .grenade-icon.decoy,

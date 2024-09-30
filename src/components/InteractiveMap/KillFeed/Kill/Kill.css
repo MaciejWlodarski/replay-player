@@ -5,7 +5,10 @@
   width: fit-content;
   gap: 6px;
   fill: rgb(255, 255, 255);
-  padding: 3px 8px;
+  height: 24px;
+  padding: 0 8px;
+  margin-bottom: 4px;
+  overflow: hidden;
 }
 
 .kill .kill-background {
@@ -25,9 +28,9 @@
 }
 
 .kill .t {
-  color: rgb(231, 180, 44);
+  color: var(--t);
 }
 
 .kill .ct {
-  color: rgb(17, 116, 255);
+  color: var(--ct);
 }

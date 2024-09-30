@@ -16,15 +16,15 @@
 }
 
 .hegrenade circle {
-  fill: rgb(230, 50, 45);
+  fill: var(--red);
 }
 
 .grenade-component.t polyline {
-  stroke: rgb(231, 180, 44);
+  stroke: var(--t);
 }
 
 .grenade-component.ct polyline {
-  stroke: rgb(17, 116, 255);
+  stroke: var(--ct);
 }
 
 .grenade-component polyline {
@@ -38,11 +38,11 @@
 }
 
 .t .smokegrenade-smoke circle.stroke {
-  stroke: rgb(231, 180, 44);
+  stroke: var(--t);
 }
 
 .ct .smokegrenade-smoke circle.stroke {
-  stroke: rgb(17, 116, 255);
+  stroke: var(--ct);
 }
 
 .smokegrenade-smoke circle.stroke {
@@ -57,11 +57,11 @@
 }
 
 .grenade-component.t .grenade-icon {
-  fill: rgb(231, 180, 44);
+  fill: var(--t);
 }
 
 .grenade-component.ct .grenade-icon {
-  fill: rgb(17, 116, 255);
+  fill: var(--ct);
 }
 
 .grenade-icon svg path {
@@ -74,19 +74,19 @@ circle.flash-explosion {
 }
 
 .grenade-component:hover circle {
-  stroke: rgba(42, 206, 102);
+  stroke: var(--green);
 }
 
 .grenade-component:hover text {
-  fill: rgba(42, 206, 102);
+  fill: var(--green);
 }
 
 .grenade-component:hover circle.stroke {
-  stroke: rgba(42, 206, 102);
+  stroke: var(--green);
 }
 
 .grenade-component:hover polyline {
-  stroke: rgba(42, 206, 102);
+  stroke: var(--green);
 }
 
 .grenade-component .grenade-icon {

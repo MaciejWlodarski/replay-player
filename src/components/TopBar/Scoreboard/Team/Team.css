@@ -1,0 +1,51 @@
+.scoreboard .team {
+  display: flex;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px 0 0 4px;
+}
+
+.scoreboard .team.t {
+  border-color: var(--t);
+}
+
+.scoreboard .team.ct {
+  transform: scaleX(-1);
+  border-color: var(--ct);
+}
+
+.scoreboard .team.ct span {
+  transform: scaleX(-1);
+}
+
+.scoreboard .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 600;
+  width: 100%;
+}
+
+.scoreboard .score {
+  display: flex;
+  aspect-ratio: 1;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  height: 100%;
+}
+
+.scoreboard .separator {
+  min-width: 2px;
+  max-width: 2px;
+  height: 100%;
+}
+
+.scoreboard .t .separator {
+  background-color: var(--t);
+}
+
+.scoreboard .ct .separator {
+  background-color: var(--ct);
+}

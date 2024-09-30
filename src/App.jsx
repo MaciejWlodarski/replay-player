@@ -14,6 +14,7 @@ import Playback from "./components/Playback/Playback";
 import "./styles/buttons.css";
 import "./styles/sliders.css";
 import "./styles/styles.css";
+import TopBar from "./components/TopBar/TopBar";
 
 function App() {
   const { match, round, rounds, roundId, setRoundId } = useGameData();
@@ -24,6 +25,7 @@ function App() {
       <MatchContext.Provider value={match}>
         <RoundContext.Provider value={round}>
           <TickContext.Provider value={tick}>
+            <TopBar />
             <div className="main">
               <Hud side={"t"} />
               <InteractiveMap />

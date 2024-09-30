@@ -1,11 +1,14 @@
 import { useContext } from "react";
 import { tickToTime } from "/src/utils/utils.js";
 import { RoundContext, TickContext } from "../../../../hooks/context/context";
+import { Timer as TimerIcon } from "lucide-react";
 import "./Timer.css";
 
-const Timer = () => {
+const Timer = ({ showTick }) => {
   const round = useContext(RoundContext);
   const tick = useContext(TickContext);
+
+  if (!round) return;
 
   const { maxTime, lastTick, endTick, plant } = round;
   const afterEnd = tick > endTick;
@@ -19,8 +22,11 @@ const Timer = () => {
 
   return (
     <div className={`timer ${afterPlant && !afterEnd ? "plant" : ""}`}>
-      <div className="time">{tickToTime(time())}</div>
-      <div className="time">{Math.round(tick)}</div>
+      <div className="time">
+        <TimerIcon className="icon" />
+        {tickToTime(time())}
+      </div>
+      {showTick && <div className="time">{Math.round(tick)}</div>}
     </div>
   );
 };

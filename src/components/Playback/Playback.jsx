@@ -10,6 +10,7 @@ const Playback = () => {
     setSpeed,
     speedArray,
     prevRenderRef,
+    prevTickRef,
   } = usePlaybackControl();
 
   const togglePlay = () => {
@@ -53,6 +54,7 @@ const Playback = () => {
       togglePlay={togglePlay}
       speedUp={speedUp}
       speedDown={speedDown}
+      prevTickRef={prevTickRef}
     />
   );
 };

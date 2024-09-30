@@ -18,18 +18,18 @@ circle.fire {
 
 .inferno-component.type-0 circle.timer-progress {
   fill: none;
-  stroke: rgb(231, 180, 44);
+  stroke: var(--t);
 }
 
 .inferno-component.type-1 circle.timer-progress {
   fill: none;
-  stroke: rgb(17, 116, 255);
+  stroke: var(--ct);
 }
 
 .t .inferno circle {
-  fill: rgb(231, 180, 44);
+  fill: var(--t);
 }
 
 .ct .inferno circle {
-  fill: rgb(17, 116, 255);
+  fill: var(--ct);
 }

@@ -74,6 +74,7 @@ const usePlaybackControl = () => {
     setSpeed,
     speedArray,
     prevRenderRef,
+    prevTickRef,
   };
 };
 

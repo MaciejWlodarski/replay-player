@@ -39,9 +39,9 @@
 }
 
 .round .t {
-  color: rgb(231, 180, 44);
+  color: var(--t);
 }
 
 .round .ct {
-  color: rgb(17, 116, 255);
+  color: var(--ct);
 }
