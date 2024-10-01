@@ -13,12 +13,10 @@ const setPose = (player, event) => {
 
 const setStatus = (player, event) => {
   const { id, pos, yaw, ...eventStatus } = event;
-  if (id === 3) {
-    player.status.push({ tick: event.tick });
-    return;
-  }
   const status = player.status[player.status.length - 1];
-  player.status.push({ ...status, ...eventStatus });
+  const updatedStatus = { ...status, ...eventStatus };
+  if (id === 3) updatedStatus.hp = 0;
+  player.status.push(updatedStatus);
 };
 
 const eventSpawn = (event) => {

@@ -17,19 +17,6 @@
   color: rgb(255, 255, 255);
 }
 
-.hud .death {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 56px;
-  height: 100%;
-}
-
-.death .skull {
-  width: 100%;
-}
-
 .hud.ct {
   transform: scaleX(-1);
 }
@@ -38,141 +25,145 @@
   transform: scaleX(-1);
 }
 
-.hud .player {
-  display: flex;
-  flex-direction: column;
+.player-grid {
   position: relative;
-  height: 60px;
+  display: grid;
   width: 100%;
+  grid-template-columns: 48px 1fr 90px;
+  grid-template-rows: 28px 28px 28px;
   background-color: rgb(23, 23, 23);
-  color: white;
-  fill: white;
-  transition: width 0.3s ease;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
   border-radius: 4px;
   overflow: hidden;
-}
-
-.hud .player.dead {
-  width: 75%;
-}
-
-.player .left {
-  display: flex;
-  height: 100%;
-  gap: 10px;
-  justify-content: start;
-}
-
-.player .right {
-  display: flex;
-  height: 100%;
-  width: 80px;
-  justify-content: start;
-  align-items: center;
-  margin: 0 10px 0 0;
-}
-
-.player .top {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 50%;
-  justify-content: space-between;
   z-index: 1;
+  transition: all 0.2s ease;
 }
 
-.top .nickname {
-  display: flex;
-  height: 100%;
-  justify-content: end;
-  align-items: center;
-  font-weight: 500;
+.player-grid.dead {
+  width: 75%;
+  grid-template-columns: 48px 1fr 0px;
 }
 
-.top .health-container {
-  display: flex;
-  height: 100%;
-  width: 26px;
-  padding: 0px 10px;
-}
-
-.top .health {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  font-weight: 800;
-}
-
-.top .health-bar {
+.hud .death {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.1s ease-in-out;
+}
+
+.hud .death.visible {
+  z-index: 1;
+  opacity: 1;
+}
+
+.hud .death .skull {
+  width: 50px;
+}
+
+.hud .health-bar {
+  position: absolute;
+  top: 0;
   width: 100%;
-  height: 100%;
+  height: 28px;
   z-index: -1;
   transition: width 0.2s ease;
 }
 
-.t .health-bar {
+.hud.t .health-bar {
   background-color: var(--t);
 }
 
-.ct .health-bar {
+.hud.ct .health-bar {
   background-color: var(--ct);
 }
 
-.player .bottom {
+.player-grid .health {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
+  margin-left: 10px;
+  font-weight: 700;
+}
+
+.player-grid .nickname {
+  display: flex;
+  justify-content: start;
+  font-weight: 500;
+}
+
+.player-grid .spec,
+.player-grid .armor {
+  display: flex;
+  margin-left: 10px;
+  justify-content: start;
+}
+
+.player-grid .spec svg,
+.player-grid .armor .shield {
+  width: 20px;
+  transform: translateX(-2px);
+}
+
+.player-grid .primary {
+  display: flex;
+  margin-right: 10px;
+  justify-content: start;
   align-items: center;
-  height: 50%;
-  overflow: hidden;
-}
-
-.bottom .left {
-  margin: 0 10px;
-}
-
-.bottom span {
-  display: flex;
   height: 100%;
-  justify-content: center;
-  align-items: center;
 }
 
-.bottom .left span {
-  width: 22px;
-}
-
-.left span.armor {
-  width: 20px;
-}
-
-.armor .shield {
-  width: 20px;
-}
-
-.spec svg {
-  height: 22px;
-  width: 100%;
-}
-
-span.grenade {
-  width: 20px;
-}
-
-.grenade svg {
-  height: 23px;
-}
-
-.top .right svg {
+.player-grid .primary svg {
+  max-width: 100%;
   max-height: 90%;
 }
 
-.bottom .secondary {
-  display: flex;
-  justify-content: start;
+.player-grid .grenades {
+  display: grid;
+  grid-template-columns: 20px 20px 20px 20px;
   align-items: center;
+  margin-right: 10px;
 }
 
-.secondary svg {
-  height: 19px;
+.player-grid .grenade {
+  display: flex;
+  justify-content: start;
+}
+
+.player-grid .grenades svg {
+  height: 24px;
+  width: 20px;
+}
+
+.player-grid .money,
+.player-grid .secondary {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+  color: var(--green);
+}
+
+.player-grid .secondary svg {
+  max-width: 100%;
+  max-height: 80%;
+}
+
+.player-grid .stats {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 8px;
+}
+
+.player-grid .kills,
+.player-grid .deaths {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 4px;
 }

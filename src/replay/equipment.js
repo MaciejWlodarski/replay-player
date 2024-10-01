@@ -11,7 +11,7 @@ const eventDrop = (event) => {
 const eventPickUp = (equipment, event) => {
   equipment.end = event.tick;
   equipment.pose.push({
-    tick: event.tick,
+    tick: event.tick - 1,
     pos: event.pos,
   });
 };

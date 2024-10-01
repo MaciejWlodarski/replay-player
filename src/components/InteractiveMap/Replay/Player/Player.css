@@ -34,7 +34,7 @@ circle.health {
   stroke: var(--red);
 }
 
-.weapon {
+.player-component .weapon {
   transform: translateX(-50%);
   fill: rgb(255, 255, 255);
   opacity: 0.8;

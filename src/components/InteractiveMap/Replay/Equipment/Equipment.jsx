@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { WepSvg } from "/src/assets/icons";
 import { equipmentTypeMap, grenadeTypeMap } from "../../../../utils/utils";
 import { getEquipmentPose } from "../../../../replay/equipment";
+import { WepSvg } from "../../../../assets/icons";
 import {
   MatchContext,
   RoundContext,
@@ -25,24 +25,69 @@ const Item = ({ item }) => {
     y: (map.start.y - pos.y) * factor,
   };
 
-  const renderEquipment = () => {
+  const renderWeapon = () => {
     const wepName = equipmentTypeMap[type];
-    const gndName = grenadeTypeMap[type];
 
-    const height = wepName ? 50 : 70;
-    const width = 200;
+    const height = 50 * factor;
+    const width = 200 * factor;
 
     return (
-      <g className="eq">
+      <g className="eq weapon">
         <WepSvg
-          wep={wepName || gndName}
-          x={equipmentPos.x - (width * factor) / 2}
-          y={equipmentPos.y - (height * factor) / 2}
-          width={width * factor}
-          height={height * factor}
+          wep={wepName}
+          x={equipmentPos.x - width / 2}
+          y={equipmentPos.y - height / 2}
+          width={width}
+          height={height}
         />
       </g>
     );
+  };
+
+  const renderGrenade = () => {
+    const gndName = grenadeTypeMap[type];
+
+    const height = 70 * factor;
+    const width = 200 * factor;
+
+    return (
+      <g className="eq grenade">
+        <WepSvg
+          wep={gndName}
+          x={equipmentPos.x - width / 2}
+          y={equipmentPos.y - height / 2}
+          width={width}
+          height={height}
+        />
+      </g>
+    );
+  };
+
+  const renderBomb = () => {
+    const height = 100 * factor;
+    const width = 200 * factor;
+
+    return (
+      <g className="eq bomb">
+        <WepSvg
+          wep={"c4"}
+          x={equipmentPos.x - width / 2}
+          y={equipmentPos.y - height / 2}
+          width={width}
+          height={height}
+        />
+      </g>
+    );
+  };
+
+  const renderEquipment = () => {
+    if (type > 500) {
+      return renderGrenade();
+    }
+    if (type > 400) {
+      return renderBomb();
+    }
+    return renderWeapon();
   };
 
   return <g className="equipment-component">{renderEquipment()}</g>;

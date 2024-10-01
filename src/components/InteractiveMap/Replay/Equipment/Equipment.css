@@ -2,3 +2,13 @@
   fill: rgb(255, 255, 255);
   opacity: 0.4;
 }
+
+.equipment-component .eq.grenade {
+  fill: rgb(255, 255, 255);
+  opacity: 0.4;
+}
+
+.equipment-component .eq.bomb {
+  fill: var(--t);
+  opacity: 1;
+}
