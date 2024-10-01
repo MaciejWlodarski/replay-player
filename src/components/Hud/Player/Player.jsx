@@ -45,10 +45,10 @@ const Player = ({ player, tick, side }) => {
 
   let status = getPlayerStatus(player, tick);
 
-  const { kills, deaths, money } = status;
+  const { roundKills, kills, deaths, money } = status;
   const hp = status.hp || 0;
 
-  if (!hp) status = { tick: status.tick, kills, deaths, money };
+  if (!hp) status = { tick: status.tick, roundKills, kills, deaths, money };
 
   return (
     <>
@@ -56,8 +56,14 @@ const Player = ({ player, tick, side }) => {
         <div className="health">
           <span className="hp-value"> {hp ? hp : null}</span>
         </div>
-        <div className="nickname">
+        <div className="player">
           <span>{player.name}</span>
+          {roundKills && (
+            <div className="round-kills">
+              <span>{roundKills}</span>
+              <Crosshair strokeWidth={3} size={16} />
+            </div>
+          )}
         </div>
         <div className="primary">
           <WepSvg wep={equipmentTypeMap[status.prime || status.sec]} />
@@ -72,13 +78,15 @@ const Player = ({ player, tick, side }) => {
           ) : null}
         </div>
         <div className="stats">
-          <div className="kills">
-            <Crosshair strokeWidth={2} size={16} className="stat-crosshair" />
-            <span>{kills}</span>
-          </div>
-          <div className="deaths">
-            <CircleX strokeWidth={2} size={16} className="stat-skull" />
-            <span>{deaths}</span>
+          <div className="transformer">
+            <div className="kills">
+              <Crosshair strokeWidth={2} size={16} className="stat-crosshair" />
+              <div>{kills}</div>
+            </div>
+            <div className="deaths">
+              <CircleX strokeWidth={2} size={16} className="stat-skull" />
+              <div>{deaths}</div>
+            </div>
           </div>
         </div>
         <div className="secondary">

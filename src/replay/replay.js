@@ -3,6 +3,7 @@ import { getGrenades } from "./grenade.js";
 import { getInfernos } from "./inferno.js";
 import { getPlayerEvents } from "./player.js";
 import { getMapData } from "/src/assets/maps";
+import getMarks from "./marks/marks.jsx";
 
 const URL = "csanalyzer.gg";
 const API_URL = `https://art.${URL}/matches/`;
@@ -73,15 +74,15 @@ const fetchReplayData = async (matchData, roundId) => {
   }
 };
 
-const getMarks = (data) => {
-  const marks = {
-    [data.end]: "End",
-  };
+// const getMarks = (data) => {
+//   const marks = {
+//     [data.end]: "End",
+//   };
 
-  if (data.plant) marks[data.plant.tick] = "Plant";
+//   if (data.plant) marks[data.plant.tick] = "Plant";
 
-  return marks;
-};
+//   return marks;
+// };
 
 export const getRoundData = async (match, rounds, roundId, setRounds) => {
   let round = rounds[roundId];

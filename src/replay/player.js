@@ -97,6 +97,16 @@ const eventDefuseAbort = (player, event) => {
   player.defuses.push({ tick, time: 0, defusing: false });
 };
 
+const eventKill = (player) => {
+  const status = player.status.at(-1);
+
+  if (status.roundKills) {
+    status.roundKills++;
+  } else {
+    status.roundKills = 1;
+  }
+};
+
 export const getPlayerEvents = (data) => {
   const players = [];
   const deaths = [];
@@ -145,6 +155,9 @@ export const getPlayerEvents = (data) => {
         case 10:
           eventDefuseAbort(player, event);
           break;
+        case 11:
+          setStatus(player, event);
+          eventKill(player);
         default:
           break;
       }

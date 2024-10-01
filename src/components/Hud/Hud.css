@@ -42,7 +42,7 @@
 }
 
 .player-grid.dead {
-  width: 75%;
+  width: calc(100% - 90px);
   grid-template-columns: 48px 1fr 0px;
 }
 
@@ -90,10 +90,12 @@
   font-weight: 700;
 }
 
-.player-grid .nickname {
+.player-grid .player {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
+  align-items: center;
   font-weight: 500;
+  margin-right: 10px;
 }
 
 .player-grid .spec,
@@ -103,10 +105,15 @@
   justify-content: start;
 }
 
-.player-grid .spec svg,
+.t .player-grid .spec svg,
 .player-grid .armor .shield {
   width: 20px;
   transform: translateX(-2px);
+}
+
+.ct .player-grid .spec svg {
+  transform: scaleX(-1) translateX(2px);
+  width: 20px;
 }
 
 .player-grid .primary {
@@ -157,7 +164,17 @@
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.player-grid .transformer {
+  display: flex;
+  align-items: center;
+  height: 100%;
   gap: 8px;
+}
+
+.ct .player-grid .transformer {
+  transform: scaleX(-1);
 }
 
 .player-grid .kills,
@@ -166,4 +183,13 @@
   align-items: center;
   justify-content: start;
   gap: 4px;
+}
+
+.player-grid .round-kills {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
 }

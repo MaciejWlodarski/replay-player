@@ -97,6 +97,7 @@
   background: transparent;
 }
 .rc-slider-dot {
+  /* visibility: hidden; */
   position: absolute;
   bottom: -2px;
   width: 8px;
