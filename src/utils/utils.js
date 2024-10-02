@@ -165,3 +165,18 @@ export const getStrokeDasharray = (circumference, progress) => {
 export const getTeamFromBool = (val) => {
   return val ? "ct" : "t";
 };
+
+export const deserializeKillFlags = (flags) => {
+  return {
+    killerTeam: getTeamFromBool(!!(flags & (1 << 0))),
+    victimTeam: getTeamFromBool(!!(flags & (1 << 1))),
+    assisterTeam: getTeamFromBool(!!(flags & (1 << 2))),
+    isHeadshot: !!(flags & (1 << 3)),
+    wallbang: !!(flags & (1 << 4)),
+    throughSmoke: !!(flags & (1 << 5)),
+    noScope: !!(flags & (1 << 6)),
+    inAir: !!(flags & (1 << 7)),
+    assistedFlash: !!(flags & (1 << 8)),
+    attackerBlind: !!(flags & (1 << 9)),
+  };
+};

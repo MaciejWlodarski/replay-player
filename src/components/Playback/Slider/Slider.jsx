@@ -27,7 +27,7 @@ const Slider = ({
   return (
     <div className="slider-container">
       <div className="slider-content">
-        <div className="slider-panel">
+        <div className="slider-panel left">
           <CheckboxButton
             label={`${speed}x`}
             isChecked={false}
@@ -58,7 +58,7 @@ const Slider = ({
             marks={marks}
           />
         </div>
-        <div className="slider-panel">{Math.round(tick)}</div>
+        <div className="slider-panel right">{Math.round(tick)}</div>
       </div>
     </div>
   );

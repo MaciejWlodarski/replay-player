@@ -48,7 +48,7 @@ const Player = ({ player }) => {
         className="blindness"
         cx={playerPos.x}
         cy={playerPos.y}
-        r={30 * factor}
+        r={26 * factor}
         opacity={opacity}
       />
     );

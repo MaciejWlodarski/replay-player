@@ -74,16 +74,6 @@ const fetchReplayData = async (matchData, roundId) => {
   }
 };
 
-// const getMarks = (data) => {
-//   const marks = {
-//     [data.end]: "End",
-//   };
-
-//   if (data.plant) marks[data.plant.tick] = "Plant";
-
-//   return marks;
-// };
-
 export const getRoundData = async (match, rounds, roundId, setRounds) => {
   let round = rounds[roundId];
   if (round) return round;
@@ -98,7 +88,6 @@ export const getRoundData = async (match, rounds, roundId, setRounds) => {
   const grenades = getGrenades(round);
   const infernos = getInfernos(round);
   const equipment = getEquipment(round);
-  const marks = getMarks(round);
 
   setRounds((rounds) => {
     const updatedRounds = [...rounds];
@@ -120,9 +109,10 @@ export const getRoundData = async (match, rounds, roundId, setRounds) => {
       maxTime: max * 64,
       lastTick: last,
       endTick: end,
-
-      marks,
     };
+
+    getMarks(updatedRounds[roundId]);
+
     return updatedRounds;
   });
 };
