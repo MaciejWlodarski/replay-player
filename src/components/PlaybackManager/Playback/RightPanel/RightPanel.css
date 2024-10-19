@@ -1,0 +1,16 @@
+.playback-panel.right {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: 48px 48px;
+  border-left: 1px solid rgb(133, 133, 133);
+}
+
+.playback-panel.right > *:not(:last-child) {
+  height: 100%;
+  border-right: 1px solid rgb(133, 133, 133);
+}
+
+.playback-panel .screenshot,
+.playback-panel .screenshot:hover {
+  border-radius: 0 3px 3px 0;
+}

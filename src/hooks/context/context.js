@@ -7,3 +7,11 @@ export const RoundContext = createContext();
 export const TickContext = createContext();
 
 export const SetTickContext = createContext();
+
+export const HoveredGrenadeContext = createContext();
+
+export const SetHoveredGrenadeContext = createContext();
+
+export const MapRefContext = createContext();
+
+export const AltContext = createContext();

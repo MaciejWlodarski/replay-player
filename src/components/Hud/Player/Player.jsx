@@ -1,8 +1,9 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import icons, { WepSvg } from "/src/assets/icons";
 import { CircleX, Crosshair, Shield, ShieldPlus, Skull } from "lucide-react";
 import { equipmentTypeMap } from "/src/utils/utils";
 import { getPlayerStatus } from "/src/replay/player";
+import { TickContext } from "../../../hooks/context/context";
 
 const Death = ({ status }) => (
   <div className={`death ${!status.hp ? "visible" : ""}`}>
@@ -39,13 +40,16 @@ const Grenades = ({ status }) => {
   );
 };
 
-const Player = ({ player, tick, side }) => {
+const Player = ({ player, side }) => {
+  const tick = useContext(TickContext);
+
   const sideId = side === "t" ? 2 : 3;
   if (player.side !== sideId) return;
 
   let status = getPlayerStatus(player, tick);
 
   const { roundKills, kills, deaths, money } = status;
+  const statsAvailable = kills != null && deaths != null && money != null;
   const hp = status.hp || 0;
 
   if (!hp) status = { tick: status.tick, roundKills, kills, deaths, money };
@@ -77,17 +81,19 @@ const Player = ({ player, tick, side }) => {
             )
           ) : null}
         </div>
-        <div className="stats">
-          <div className="transformer">
-            <div className="kills">
-              <Crosshair strokeWidth={2} size={16} className="stat-crosshair" />
-              <div>{kills}</div>
+        <div className="stats-container">
+          {statsAvailable && (
+            <div className="stats">
+              <div className="stat-val">
+                <Crosshair className="sb-icon" strokeWidth={2} size={15} />
+                <span>{kills}</span>
+              </div>
+              <div className="stat-val">
+                <CircleX className="sb-icon" strokeWidth={2} size={15} />
+                <span>{deaths}</span>
+              </div>
             </div>
-            <div className="deaths">
-              <CircleX strokeWidth={2} size={16} className="stat-skull" />
-              <div>{deaths}</div>
-            </div>
-          </div>
+          )}
         </div>
         <div className="secondary">
           {status.prime && <WepSvg wep={equipmentTypeMap[status.sec]} />}
@@ -100,7 +106,7 @@ const Player = ({ player, tick, side }) => {
           ) : null}
         </div>
         <div className="money">
-          <span>{`$${money}`}</span>
+          {statsAvailable && <span>{`$${money}`}</span>}
         </div>
         <Grenades status={status} />
         <div className="health-bar" style={{ width: `${hp}%` }} />

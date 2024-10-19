@@ -32,7 +32,7 @@ const Grenade = ({ grenade }) => {
     })
     .join(" ");
 
-  const { side, type, explode } = grenade;
+  const { side, type, explode = Infinity } = grenade;
   const name = grenadeTypeMap[type];
   const team = side == 2 ? "t" : "ct";
   const exploded = tick >= explode;
@@ -145,15 +145,8 @@ const Grenade = ({ grenade }) => {
     );
   };
 
-  const handleClick = () => {
-    if (!grenade.thrower) return;
-    const { pos, view } = grenade.thrower;
-    const setPos = `setpos ${pos.x} ${pos.y} ${pos.z};setang ${view.pitch} ${view.yaw}`;
-    navigator.clipboard.writeText(setPos);
-  };
-
   return (
-    <g className={`grenade-component ${name} ${team}`} onClick={handleClick}>
+    <g className={`grenade-component ${name} ${team}`}>
       {renderGrenade()}
       {renderGrenadeEffect[type]()}
     </g>

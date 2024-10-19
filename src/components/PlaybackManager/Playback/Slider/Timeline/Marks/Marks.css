@@ -1,0 +1,80 @@
+.marks {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.mark {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background-color: white;
+}
+
+.mark.triangle {
+  box-sizing: border-box;
+  background-color: transparent;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid var(--green);
+  border-bottom: 4px solid transparent;
+  transform: translateX(-4px);
+}
+
+.mark.interval {
+  background-color: transparent;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgb(255, 255, 255) 2px,
+    rgb(255, 255, 255) 8px,
+    transparent 8px,
+    transparent 10px
+  );
+  opacity: 0.15;
+}
+
+.mark.kill.t {
+  background-color: var(--ct);
+}
+
+.mark.kill.ct {
+  background-color: var(--t);
+}
+
+.mark.grenade.t {
+  border-top-color: var(--t);
+}
+
+.mark.grenade.ct {
+  border-top-color: var(--ct);
+}
+
+.mark.plant {
+  display: flex;
+  background-color: var(--red);
+  height: 100%;
+  align-items: center;
+}
+
+.marks .bomb {
+  position: absolute;
+  transform: translateX(-50%);
+  fill: rgb(255, 255, 255);
+  stroke: var(--red);
+}
+
+.mark.end {
+  background-color: transparent;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    var(--red) 2px,
+    var(--red) 8px,
+    transparent 8px,
+    transparent 10px
+  );
+}

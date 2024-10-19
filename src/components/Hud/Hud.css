@@ -160,25 +160,25 @@
   max-height: 80%;
 }
 
-.player-grid .stats {
+.player-grid .stats-container {
   display: flex;
   align-items: center;
   height: 100%;
 }
 
-.player-grid .transformer {
-  display: flex;
+.player-grid .stats {
+  display: grid;
+  grid-template-columns: 36px 36px;
   align-items: center;
   height: 100%;
   gap: 8px;
 }
 
-.ct .player-grid .transformer {
+.ct .player-grid .stats-container div {
   transform: scaleX(-1);
 }
 
-.player-grid .kills,
-.player-grid .deaths {
+.player-grid .stat-val {
   display: flex;
   align-items: center;
   justify-content: start;
@@ -192,4 +192,12 @@
   align-items: center;
   gap: 4px;
   font-weight: 700;
+}
+
+.t .sb-icon {
+  stroke: var(--t);
+}
+
+.ct .sb-icon {
+  stroke: var(--ct);
 }

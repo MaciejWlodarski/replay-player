@@ -1,0 +1,25 @@
+.timeline .periods {
+  position: absolute;
+  display: flex;
+  transform: scaleX(-1);
+  height: 100%;
+  opacity: 0.1;
+  overflow: hidden;
+}
+
+.timeline .periods * {
+  height: 100%;
+  width: 100%;
+}
+
+.periods .post-round.t {
+  background-color: var(--t);
+}
+
+.periods .post-round.ct {
+  background-color: var(--ct);
+}
+
+.periods .post-plant {
+  background-color: var(--red);
+}

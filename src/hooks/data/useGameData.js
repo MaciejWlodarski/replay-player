@@ -8,6 +8,7 @@ const useGameData = () => {
   const { matchId, roundNo } = useParams();
 
   const match = useMatchData(matchId);
+
   const { round, rounds, roundId, setRoundId } = useRoundsData(match, roundNo);
 
   useEffect(() => {

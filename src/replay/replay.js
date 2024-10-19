@@ -65,8 +65,8 @@ const fetchReplayData = async (matchData, roundId) => {
   if (!matchData) return;
 
   try {
-    const response = await fetchLocal(roundId);
-    // const response = await fetchCollector(matchData, roundId);
+    // const response = await fetchLocal(roundId);
+    const response = await fetchCollector(matchData, roundId);
     return response.json();
   } catch (error) {
     console.error(error);
@@ -81,7 +81,7 @@ export const getRoundData = async (match, rounds, roundId, setRounds) => {
   round = await fetchReplayData(match, roundId);
   if (!round) return;
 
-  const { ver, max, last, end, plant, defuse, kills } = round;
+  const { ver, winner, max, last, end, plant, defuse, kills } = round;
   console.log(ver);
 
   const { players, deaths, shots } = getPlayerEvents(round);
@@ -106,6 +106,7 @@ export const getRoundData = async (match, rounds, roundId, setRounds) => {
       plant,
       defuse,
 
+      winner,
       maxTime: max * 64,
       lastTick: last,
       endTick: end,

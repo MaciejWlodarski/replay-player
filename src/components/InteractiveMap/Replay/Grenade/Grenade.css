@@ -64,29 +64,13 @@
   fill: var(--ct);
 }
 
-.grenade-icon svg path {
+.grenade-component .grenade-icon svg path {
   stroke-width: 2.5%;
   stroke: black;
 }
 
 circle.flash-explosion {
   opacity: 0.8;
-}
-
-.grenade-component:hover circle {
-  stroke: var(--green);
-}
-
-.grenade-component:hover text {
-  fill: var(--green);
-}
-
-.grenade-component:hover circle.stroke {
-  stroke: var(--green);
-}
-
-.grenade-component:hover polyline {
-  stroke: var(--green);
 }
 
 .grenade-component .grenade-icon {

@@ -1,0 +1,15 @@
+.hovered-grenade-component polyline {
+  fill: none;
+  stroke-linecap: round;
+  stroke: var(--green);
+}
+
+.hovered-grenade-component .grenade-icon {
+  transform: translateX(-50%);
+  fill: var(--green);
+}
+
+.hovered-grenade-component .grenade-icon svg path {
+  stroke-width: 2.5%;
+  stroke: black;
+}

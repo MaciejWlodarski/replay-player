@@ -9,7 +9,9 @@ const useRoundsData = (match, roundNo) => {
     getRoundData(match, rounds, roundId, setRounds);
   }, [match, roundId]);
 
-  const round = useMemo(() => rounds[roundId], [rounds, roundId]);
+  const round = useMemo(() => {
+    return rounds[roundId];
+  }, [rounds, roundId]);
 
   return { round, rounds, roundId, setRoundId };
 };

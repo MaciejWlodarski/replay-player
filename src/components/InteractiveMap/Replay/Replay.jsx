@@ -7,6 +7,7 @@ import Grenades from "./Grenade/Grenade";
 import Infernos from "./Inferno/Inferno";
 import Equipment from "./Equipment/Equipment";
 import Bomb from "./Bomb/Bomb";
+import HoveredGrenade from "./HoveredGrenade/HoveredGrenade";
 import "./Replay.css";
 
 const Replay = () => {
@@ -22,6 +23,7 @@ const Replay = () => {
       <Shots />
       <Players />
       <Grenades />
+      <HoveredGrenade />
     </>
   );
 };

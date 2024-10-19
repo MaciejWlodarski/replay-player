@@ -2,11 +2,19 @@ import React, { memo, useContext } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
-import { MatchContext } from "../../hooks/context/context";
+import SketchCanvas from "./SketchCanvas/SketchCanvas";
+import {
+  AltContext,
+  MapRefContext,
+  MatchContext,
+} from "../../hooks/context/context";
 import "./InteractiveMap.css";
 
 const InteractiveMap = () => {
   const match = useContext(MatchContext);
+  const mapRef = useContext(MapRefContext);
+  const altState = useContext(AltContext);
+
   if (!match) return;
 
   const { map } = match;
@@ -18,8 +26,8 @@ const InteractiveMap = () => {
       <TransformWrapper
         smooth={false}
         disablePadding={true}
-        panning={{ velocityDisabled: true }}
-        wheel={{ step: 0.3 }}
+        panning={{ velocityDisabled: true, allowLeftClickPan: false }}
+        wheel={{ step: 0.3, disabled: altState }}
         doubleClick={{ disabled: true }}
       >
         <div className="wrapper">
@@ -28,19 +36,11 @@ const InteractiveMap = () => {
             contentStyle={{ width: "100%", height: "100%" }}
           >
             <div className="map">
-              <svg viewBox={`0 0 ${svgSize} ${svgSize}`}>
+              <svg ref={mapRef} viewBox={`0 0 ${svgSize} ${svgSize}`}>
                 <map.src className="map-svg" width={svgSize} height={svgSize} />
                 <Replay />
               </svg>
-              {/* <ReactSketchCanvas
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                canvasColor="none"
-                strokeColor="white"
-                strokeWidth={4}
-              /> */}
+              <SketchCanvas />
             </div>
           </TransformComponent>
         </div>

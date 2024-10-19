@@ -1,0 +1,51 @@
+.slider-component .hover-container {
+  position: absolute;
+  height: 48px;
+  background-color: transparent;
+  transform: translateX(-50%) translateY(-31px);
+  display: flex;
+  align-items: start;
+}
+
+.hover-container .hover-content {
+  display: flex;
+  background-color: rgb(23, 23, 23);
+  border-style: solid;
+  border-color: rgb(133, 133, 133);
+  border-width: 1px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hover-container .grenade-hover:not(:last-child) {
+  border-right: 1px solid rgb(133, 133, 133);
+}
+
+.hover-container .grenade-hover {
+  display: flex;
+  height: 32px;
+  width: 32px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(23, 23, 23);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.hover-container .grenade-hover:hover {
+  background-color: rgb(35, 35, 35);
+}
+
+.hover-container .grenade-hover svg {
+  height: 100%;
+  width: 100%;
+  transform: translateX(1px);
+}
+
+.hover-container .grenade-hover.t {
+  fill: var(--t);
+}
+
+.hover-container .grenade-hover.ct {
+  fill: var(--ct);
+}

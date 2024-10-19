@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import usePlaybackControl from "../../hooks/playback/usePlaybackControl";
-import Slider from "./Slider/Slider";
+import Playback from "./Playback/Playback";
 
-const Playback = () => {
+const PlaybackManager = () => {
   const {
     isPlaying,
     setIsPlaying,
@@ -48,7 +48,7 @@ const Playback = () => {
   }, []);
 
   return (
-    <Slider
+    <Playback
       isPlaying={isPlaying}
       speed={getSpeed}
       togglePlay={togglePlay}
@@ -59,4 +59,4 @@ const Playback = () => {
   );
 };
 
-export default Playback;
+export default memo(PlaybackManager);
