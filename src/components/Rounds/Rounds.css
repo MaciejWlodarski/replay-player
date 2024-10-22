@@ -6,8 +6,8 @@
   overflow-x: auto;
   justify-content: safe center;
   align-items: center;
-  height: 40px;
-  min-height: 40px;
+  height: 36px;
+  min-height: 36px;
   background-color: rgb(35, 35, 35);
   border-color: rgb(133, 133, 133);
   border-width: 1px 0px 0px 0px;
@@ -15,33 +15,57 @@
 }
 
 .rounds .round {
+  position: relative;
   height: 100%;
-  width: 40px;
+  width: 36px;
   border: 0px;
   border-radius: 0px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
 }
 
-.round .round-content {
-  display: flex;
-  flex-direction: column;
+.rounds .round:hover {
+  background-color: transparent !important;
+}
+
+.rounds .round.checked {
+  background-color: transparent !important;
+  font-weight: 700;
+  text-shadow: 0px 0px 2px black;
+}
+
+.rounds .round span {
   justify-content: center;
-  align-items: center;
+  font-weight: 300;
+  transform: translateY(1px);
+  z-index: 1;
 }
 
-.round-content .team {
-  height: 16px;
-}
-
-.round-content .loaded {
+.rounds span.loaded {
   font-weight: 700;
 }
 
-.round .t {
-  color: var(--t);
+.rounds .round::after {
+  position: absolute;
+  content: "";
+  width: 75%;
+  height: 2px;
+  bottom: 0px;
+  transition: all 0.2s ease;
 }
 
-.round .ct {
-  color: var(--ct);
+.rounds .round:hover::after {
+  height: 4px;
+}
+
+.rounds .round.checked::after {
+  height: 100%;
+}
+
+.rounds .round.t::after {
+  background-color: var(--t);
+}
+
+.rounds .round.ct::after {
+  background-color: var(--ct);
 }

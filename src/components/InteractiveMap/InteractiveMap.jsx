@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
@@ -7,6 +7,7 @@ import {
   AltContext,
   MapRefContext,
   MatchContext,
+  WrapperRefContext,
 } from "../../hooks/context/context";
 import "./InteractiveMap.css";
 
@@ -14,6 +15,7 @@ const InteractiveMap = () => {
   const match = useContext(MatchContext);
   const mapRef = useContext(MapRefContext);
   const altState = useContext(AltContext);
+  const wrapperRef = useContext(WrapperRefContext);
 
   if (!match) return;
 
@@ -29,6 +31,7 @@ const InteractiveMap = () => {
         panning={{ velocityDisabled: true, allowLeftClickPan: false }}
         wheel={{ step: 0.3, disabled: altState }}
         doubleClick={{ disabled: true }}
+        ref={wrapperRef}
       >
         <div className="wrapper">
           <TransformComponent

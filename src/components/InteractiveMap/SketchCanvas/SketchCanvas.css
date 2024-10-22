@@ -7,3 +7,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+.sketch-canvas text {
+  fill: rgb(255, 255, 255);
+}

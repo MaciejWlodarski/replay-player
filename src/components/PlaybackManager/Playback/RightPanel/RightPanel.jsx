@@ -13,7 +13,7 @@ const RightPanel = () => {
     <div className="playback-panel right">
       <div className="timer">{Math.ceil(tick)}</div>
       <CheckboxButton
-        label={<Camera strokeWidth={1} size={24} />}
+        label={<Camera strokeWidth={1.5} size={22} />}
         isChecked={false}
         onButtonDown={() => exportSVGToPNG(mapRef)}
         additionalClassName={"screenshot"}

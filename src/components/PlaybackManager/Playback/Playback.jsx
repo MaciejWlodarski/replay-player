@@ -1,10 +1,10 @@
-import React, { memo, useContext } from "react";
+import React, { useContext } from "react";
 import { CirclePause, CirclePlay } from "lucide-react";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
 import { RoundContext } from "../../../hooks/context/context";
 import Slider from "./Slider/Slider";
-import "./Playback.css";
 import RightPanel from "./RightPanel/RightPanel";
+import "./Playback.css";
 
 const Playback = ({
   isPlaying,

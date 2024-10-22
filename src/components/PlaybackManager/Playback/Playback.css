@@ -39,7 +39,7 @@
 
 .playback-panel.left {
   box-sizing: border-box;
-  grid-template-columns: 48px 48px;
+  grid-template-columns: 36px 36px;
   border-right: 1px solid rgb(133, 133, 133);
 }
 

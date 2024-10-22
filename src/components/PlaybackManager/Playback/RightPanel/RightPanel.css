@@ -1,8 +1,13 @@
 .playback-panel.right {
   display: grid;
   box-sizing: border-box;
-  grid-template-columns: 48px 48px;
+  grid-template-columns: 48px 36px;
   border-left: 1px solid rgb(133, 133, 133);
+}
+
+.playback-panel.right > * {
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
 }
 
 .playback-panel.right > *:not(:last-child) {

@@ -18,10 +18,7 @@ const Rounds = ({ rounds, roundId, setRoundId }) => {
           <CheckboxButton
             key={roundIdx}
             label={
-              <div className="round-content">
-                <span className={`team ${winnerSide}`}>{"•"}</span>
-                <span className={loaded ? "loaded" : ""}>{roundIdx + 1}</span>
-              </div>
+              <span className={loaded ? "loaded" : ""}>{roundIdx + 1}</span>
             }
             isChecked={roundIdx === roundId}
             onButtonDown={() => {
@@ -30,7 +27,7 @@ const Rounds = ({ rounds, roundId, setRoundId }) => {
                 setTick(0);
               }
             }}
-            additionalClassName={"round noborder"}
+            additionalClassName={`round noborder ${winnerSide}`}
           />
         );
       })}

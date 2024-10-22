@@ -15,3 +15,7 @@ export const SetHoveredGrenadeContext = createContext();
 export const MapRefContext = createContext();
 
 export const AltContext = createContext();
+
+export const SketchContext = createContext();
+
+export const WrapperRefContext = createContext();

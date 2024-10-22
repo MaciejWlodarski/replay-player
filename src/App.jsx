@@ -1,6 +1,6 @@
 import React from "react";
 import useGameData from "./hooks/data/useGameData";
-import AppProviders from "./hooks/context/AppProviders";
+import AppProviders from "./components/AppProviders/AppProviders";
 import InteractiveMap from "./components/InteractiveMap/InteractiveMap";
 import Hud from "./components/Hud/Hud";
 import Rounds from "./components/Rounds/Rounds";

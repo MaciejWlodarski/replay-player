@@ -1,5 +1,6 @@
-import { useRef, useState, useEffect } from "react";
-import useInitTick from "../playback/useInitTick";
+import { useRef, useState } from "react";
+import useInitTick from "../../hooks/playback/useInitTick";
+import useKeyState from "../../hooks/keys/useKeyState";
 import {
   AltContext,
   HoveredGrenadeContext,
@@ -9,44 +10,19 @@ import {
   SetHoveredGrenadeContext,
   SetTickContext,
   TickContext,
-} from "./context";
+  WrapperRefContext,
+} from "../../hooks/context/context";
 
 const AppProviders = ({ children, match, round }) => {
   const [tick, setTick] = useInitTick();
 
+  const altState = useKeyState();
+
   const [hoveredGrenade, setHoveredGrenade] = useState(null);
-  const [altState, setAltState] = useState(false);
 
   const mapRef = useRef();
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.code === "AltLeft" || event.code === "AltRight") {
-        event.preventDefault();
-        setAltState(true);
-      }
-    };
-
-    const handleKeyUp = (event) => {
-      if (event.code === "AltLeft" || event.code === "AltRight") {
-        setAltState(false);
-      }
-    };
-
-    const handleWindowBlur = () => {
-      setAltState(false);
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
-    window.addEventListener("blur", handleWindowBlur);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
-      window.removeEventListener("blur", handleWindowBlur);
-    };
-  }, []);
+  const wrapperRef = useRef();
 
   return (
     <MatchContext.Provider value={match}>
@@ -57,7 +33,9 @@ const AppProviders = ({ children, match, round }) => {
               <HoveredGrenadeContext.Provider value={hoveredGrenade}>
                 <MapRefContext.Provider value={mapRef}>
                   <AltContext.Provider value={altState}>
-                    {children}
+                    <WrapperRefContext.Provider value={wrapperRef}>
+                      {children}
+                    </WrapperRefContext.Provider>
                   </AltContext.Provider>
                 </MapRefContext.Provider>
               </HoveredGrenadeContext.Provider>
