@@ -1,8 +1,7 @@
 import React from "react";
 import useGameData from "./hooks/data/useGameData";
 import AppProviders from "./components/AppProviders/AppProviders";
-import InteractiveMap from "./components/InteractiveMap/InteractiveMap";
-import Hud from "./components/Hud/Hud";
+import Main from "./components/Main/Main";
 import Rounds from "./components/Rounds/Rounds";
 import PlaybackController from "./components/PlaybackManager/PlaybackManager";
 import TopBar from "./components/TopBar/TopBar";
@@ -17,11 +16,7 @@ function App() {
     <div className="app">
       <AppProviders match={match} round={round}>
         <TopBar />
-        <div className="main">
-          <Hud side={"t"} />
-          <InteractiveMap />
-          <Hud side={"ct"} />
-        </div>
+        <Main />
         <Rounds rounds={rounds} roundId={roundId} setRoundId={setRoundId} />
         <PlaybackController />
       </AppProviders>

@@ -8,7 +8,7 @@ const Share = () => {
 
   return (
     <div className="share-container">
-      <div className="share-button">
+      <div className="share-button" tabIndex={0}>
         <Share2 strokeWidth={1.5} size={20} />
         <div className="test" data-tooltip-id={tooltipId} />
       </div>

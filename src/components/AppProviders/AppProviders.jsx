@@ -4,7 +4,7 @@ import useKeyState from "../../hooks/keys/useKeyState";
 import {
   AltContext,
   HoveredGrenadeContext,
-  MapContainerRefContext,
+  MainRefContext,
   MapRefContext,
   MatchContext,
   RoundContext,
@@ -34,7 +34,7 @@ const AppProviders = ({ children, match, round }) => {
             <TickRefContext.Provider value={tickRef}>
               <SetHoveredGrenadeContext.Provider value={setHoveredGrenade}>
                 <HoveredGrenadeContext.Provider value={hoveredGrenade}>
-                  <MapContainerRefContext.Provider value={mapContainerRef}>
+                  <MainRefContext.Provider value={mapContainerRef}>
                     <MapRefContext.Provider value={mapRef}>
                       <WrapperRefContext.Provider value={wrapperRef}>
                         <AltContext.Provider value={altState}>
@@ -42,7 +42,7 @@ const AppProviders = ({ children, match, round }) => {
                         </AltContext.Provider>
                       </WrapperRefContext.Provider>
                     </MapRefContext.Provider>
-                  </MapContainerRefContext.Provider>
+                  </MainRefContext.Provider>
                 </HoveredGrenadeContext.Provider>
               </SetHoveredGrenadeContext.Provider>
             </TickRefContext.Provider>

@@ -16,6 +16,7 @@
 .share-button:hover,
 .share-button:focus-visible {
   background-color: var(--hover);
+  outline: 0;
 }
 
 .share-button .test {

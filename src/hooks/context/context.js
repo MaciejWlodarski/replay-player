@@ -14,7 +14,7 @@ export const HoveredGrenadeContext = createContext();
 
 export const SetHoveredGrenadeContext = createContext();
 
-export const MapContainerRefContext = createContext();
+export const MainRefContext = createContext();
 
 export const MapRefContext = createContext();
 

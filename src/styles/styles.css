@@ -24,12 +24,3 @@ body {
   height: 100dvh;
   overflow: hidden;
 }
-
-.main {
-  position: relative;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-}

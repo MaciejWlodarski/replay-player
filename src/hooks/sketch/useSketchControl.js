@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { MapContainerRefContext, WrapperRefContext } from "../context/context";
+import { MainRefContext, WrapperRefContext } from "../context/context";
 import { mapRange } from "../../utils/utils";
-import simplify from "../../components/InteractiveMap/SketchCanvas/Paths/Path/simplify";
+import simplify from "../../components/Main/InteractiveMap/SketchCanvas/Paths/Path/simplify";
 
 const getMidPoint = (p1, p2) => ({
   x: (p1.x + p2.x) / 2,
@@ -44,7 +44,7 @@ export const buildPath = (currentPath, scale) => {
 };
 
 const useSketchControl = (svgSize, pen, canvasRef) => {
-  const mapContainerRef = useContext(MapContainerRefContext);
+  const mainRef = useContext(MainRefContext);
   const wrapperRef = useContext(WrapperRefContext);
 
   const [drawing, setDrawing] = useState(false);
@@ -123,7 +123,7 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
       }
     };
 
-    const mapContainer = mapContainerRef.current;
+    const mapContainer = mainRef.current;
     mapContainer.addEventListener("keydown", handleKeyDown);
 
     return () => {
