@@ -12,7 +12,7 @@
   overflow-y: auto;
   gap: 10px;
   border-style: dashed;
-  border-color: rgb(133, 133, 133);
+  border-color: var(--border);
   border-width: 0px 1px 0px 0px;
   color: rgb(255, 255, 255);
 }
@@ -31,7 +31,7 @@
   width: 100%;
   grid-template-columns: 48px 1fr 90px;
   grid-template-rows: 28px 28px 28px;
-  background-color: rgb(23, 23, 23);
+  background-color: var(--dark);
   align-items: center;
   color: rgb(255, 255, 255);
   fill: rgb(255, 255, 255);

@@ -6,6 +6,7 @@ import {
   RoundContext,
   SetTickContext,
   TickContext,
+  TickRefContext,
 } from "../../../../hooks/context/context";
 import "./Slider.css";
 
@@ -13,6 +14,7 @@ const Slider = ({ prevTickRef }) => {
   const { lastTick } = useContext(RoundContext);
   const tick = useContext(TickContext);
   const setTick = useContext(SetTickContext);
+  const tickRef = useContext(TickRefContext);
 
   const [cursorPos, setCursorPos] = useState(null);
   const isHoveredRef = useRef(false);
@@ -44,6 +46,7 @@ const Slider = ({ prevTickRef }) => {
         value={tick}
         onChange={(e) => {
           setTick(() => e);
+          tickRef.current = e;
           prevTickRef.current = e;
         }}
       />

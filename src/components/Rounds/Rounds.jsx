@@ -1,11 +1,16 @@
 import React, { memo, useContext } from "react";
 import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
-import { MatchContext, SetTickContext } from "../../hooks/context/context";
+import {
+  MatchContext,
+  SetTickContext,
+  TickRefContext,
+} from "../../hooks/context/context";
 import "./Rounds.css";
 
 const Rounds = ({ rounds, roundId, setRoundId }) => {
   const match = useContext(MatchContext);
   const setTick = useContext(SetTickContext);
+  const tickRef = useContext(TickRefContext);
 
   if (!match) return;
 
@@ -25,6 +30,7 @@ const Rounds = ({ rounds, roundId, setRoundId }) => {
               if (roundIdx !== roundId) {
                 setRoundId(roundIdx);
                 setTick(0);
+                tickRef.current = 0;
               }
             }}
             additionalClassName={`round noborder ${winnerSide}`}

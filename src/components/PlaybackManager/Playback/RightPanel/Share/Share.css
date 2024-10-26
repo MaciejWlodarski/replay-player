@@ -1,0 +1,25 @@
+.share-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.share-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+}
+
+.share-button:hover,
+.share-button:focus-visible {
+  background-color: var(--hover);
+}
+
+.share-button .test {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

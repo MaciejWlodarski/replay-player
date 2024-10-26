@@ -4,24 +4,26 @@ import useKeyState from "../../hooks/keys/useKeyState";
 import {
   AltContext,
   HoveredGrenadeContext,
+  MapContainerRefContext,
   MapRefContext,
   MatchContext,
   RoundContext,
   SetHoveredGrenadeContext,
   SetTickContext,
   TickContext,
+  TickRefContext,
   WrapperRefContext,
 } from "../../hooks/context/context";
 
 const AppProviders = ({ children, match, round }) => {
-  const [tick, setTick] = useInitTick();
+  const [tick, setTick, tickRef] = useInitTick();
 
   const altState = useKeyState();
 
   const [hoveredGrenade, setHoveredGrenade] = useState(null);
 
+  const mapContainerRef = useRef();
   const mapRef = useRef();
-
   const wrapperRef = useRef();
 
   return (
@@ -29,17 +31,21 @@ const AppProviders = ({ children, match, round }) => {
       <RoundContext.Provider value={round}>
         <TickContext.Provider value={tick}>
           <SetTickContext.Provider value={setTick}>
-            <SetHoveredGrenadeContext.Provider value={setHoveredGrenade}>
-              <HoveredGrenadeContext.Provider value={hoveredGrenade}>
-                <MapRefContext.Provider value={mapRef}>
-                  <AltContext.Provider value={altState}>
-                    <WrapperRefContext.Provider value={wrapperRef}>
-                      {children}
-                    </WrapperRefContext.Provider>
-                  </AltContext.Provider>
-                </MapRefContext.Provider>
-              </HoveredGrenadeContext.Provider>
-            </SetHoveredGrenadeContext.Provider>
+            <TickRefContext.Provider value={tickRef}>
+              <SetHoveredGrenadeContext.Provider value={setHoveredGrenade}>
+                <HoveredGrenadeContext.Provider value={hoveredGrenade}>
+                  <MapContainerRefContext.Provider value={mapContainerRef}>
+                    <MapRefContext.Provider value={mapRef}>
+                      <WrapperRefContext.Provider value={wrapperRef}>
+                        <AltContext.Provider value={altState}>
+                          {children}
+                        </AltContext.Provider>
+                      </WrapperRefContext.Provider>
+                    </MapRefContext.Provider>
+                  </MapContainerRefContext.Provider>
+                </HoveredGrenadeContext.Provider>
+              </SetHoveredGrenadeContext.Provider>
+            </TickRefContext.Provider>
           </SetTickContext.Provider>
         </TickContext.Provider>
       </RoundContext.Provider>

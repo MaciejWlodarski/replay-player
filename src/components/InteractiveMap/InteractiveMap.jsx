@@ -1,10 +1,11 @@
-import React, { memo, useContext, useEffect, useRef, useState } from "react";
+import React, { memo, useContext } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
 import SketchCanvas from "./SketchCanvas/SketchCanvas";
 import {
   AltContext,
+  MapContainerRefContext,
   MapRefContext,
   MatchContext,
   WrapperRefContext,
@@ -13,17 +14,33 @@ import "./InteractiveMap.css";
 
 const InteractiveMap = () => {
   const match = useContext(MatchContext);
+  const mapContainerRef = useContext(MapContainerRefContext);
   const mapRef = useContext(MapRefContext);
-  const altState = useContext(AltContext);
   const wrapperRef = useContext(WrapperRefContext);
+  const altState = useContext(AltContext);
 
   if (!match) return;
 
   const { map } = match;
   const { svgSize } = map;
 
+  const handleMouseDown = () => {
+    mapContainerRef.current.classList.add("no-outline");
+    mapContainerRef.current.focus();
+  };
+
+  const handleBlur = () => {
+    mapContainerRef.current.classList.remove("no-outline");
+  };
+
   return (
-    <div className="map-container">
+    <div
+      className="map-container"
+      ref={mapContainerRef}
+      tabIndex={0}
+      onMouseDown={handleMouseDown}
+      onBlur={handleBlur}
+    >
       <KillFeed />
       <TransformWrapper
         smooth={false}

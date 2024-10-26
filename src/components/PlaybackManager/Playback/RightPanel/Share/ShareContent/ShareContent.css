@@ -1,0 +1,129 @@
+#share-tooltip {
+  display: flex;
+  flex-direction: column;
+  /* opacity: 1; */
+  background-color: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  z-index: 1;
+  padding: 8px;
+  gap: 8px;
+  width: 280px;
+  user-select: text;
+  font-size: 12px;
+  margin: 0;
+}
+
+#share-tooltip .share-url {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: rgb(11, 11, 11);
+}
+
+.share-url span {
+  white-space: nowrap;
+  overflow-x: auto;
+  display: inline-block;
+  max-width: 100%;
+  scrollbar-width: none;
+}
+
+#share-tooltip .controller {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+}
+
+#share-tooltip .tick-includer {
+  display: flex;
+  height: 100%;
+}
+
+.share-url span::-webkit-scrollbar {
+  display: none;
+}
+
+#share-tooltip .includer {
+  display: flex;
+  gap: 8px;
+  height: 100%;
+  justify-content: start;
+}
+
+#share-tooltip .includer span {
+  display: flex;
+  color: rgb(255, 255, 255);
+  transition: all 0.1s ease;
+  max-height: 100%;
+  align-items: center;
+  white-space: pre;
+}
+
+#share-tooltip span.excluded {
+  color: var(--border);
+}
+
+#share-tooltip .checkbox-button {
+  height: 100% !important;
+  width: auto !important;
+  border: 0px !important;
+  background-color: var(--dark) !important;
+  cursor: pointer !important;
+}
+
+#share-tooltip .check {
+  color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  transition: all 0.1s ease;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+#share-tooltip .check.hovered {
+  background-color: var(--checked);
+}
+
+#share-tooltip .check.excluded {
+  color: transparent;
+}
+
+#share-tooltip .tick-includer input {
+  border: 0px;
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  margin: 0px;
+  padding: 0px;
+  color: var(--border);
+  width: 30px;
+  transition: all 0.1s ease;
+}
+
+#share-tooltip .tick-includer input.included {
+  color: rgb(255, 255, 255);
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+}
+
+#share-tooltip .tick-includer input:focus-visible {
+  outline-width: 0;
+}
+
+#share-tooltip .copy {
+  height: 20px !important;
+  width: 64px !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 4px !important;
+  background-color: var(--background) !important;
+}
+
+#share-tooltip .copy:hover {
+  background-color: var(--checked) !important;
+}

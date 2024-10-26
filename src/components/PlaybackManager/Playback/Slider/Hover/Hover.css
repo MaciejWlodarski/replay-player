@@ -2,23 +2,24 @@
   position: absolute;
   height: 48px;
   background-color: transparent;
-  transform: translateX(-50%) translateY(-31px);
+  top: -40px;
+  transform: translateX(-50%);
   display: flex;
   align-items: start;
 }
 
 .hover-container .hover-content {
   display: flex;
-  background-color: rgb(23, 23, 23);
+  background-color: var(--dark);
   border-style: solid;
-  border-color: rgb(133, 133, 133);
+  border-color: var(--border);
   border-width: 1px;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .hover-container .grenade-hover:not(:last-child) {
-  border-right: 1px solid rgb(133, 133, 133);
+  border-right: 1px solid var(--border);
 }
 
 .hover-container .grenade-hover {
@@ -27,13 +28,13 @@
   width: 32px;
   justify-content: center;
   align-items: center;
-  background-color: rgb(23, 23, 23);
+  background-color: var(--dark);
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
 
 .hover-container .grenade-hover:hover {
-  background-color: rgb(35, 35, 35);
+  background-color: var(--background);
 }
 
 .hover-container .grenade-hover svg {

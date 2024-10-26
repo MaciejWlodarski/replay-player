@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useSketchControl from "../../../hooks/sketch/useSketchControl";
 import Paths from "./Paths/Paths";
 import Pen from "./Pen/Pen";
@@ -12,7 +12,6 @@ const SketchCanvas = () => {
     radius: 18,
   });
 
-  const [_, setCanvas] = useState(false);
   const canvasRef = useRef();
 
   const {
@@ -25,10 +24,6 @@ const SketchCanvas = () => {
     handleMouseLeave,
     handleContextMenu,
   } = useSketchControl(svgSize, pen, canvasRef);
-
-  useEffect(() => {
-    setCanvas(true);
-  }, [canvasRef]);
 
   return (
     <svg

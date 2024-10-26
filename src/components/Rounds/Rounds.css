@@ -8,8 +8,8 @@
   align-items: center;
   height: 36px;
   min-height: 36px;
-  background-color: rgb(35, 35, 35);
-  border-color: rgb(133, 133, 133);
+  background-color: var(--background);
+  border-color: var(--border);
   border-width: 1px 0px 0px 0px;
   border-style: dashed;
 }

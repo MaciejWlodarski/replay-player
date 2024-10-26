@@ -14,7 +14,7 @@
 
 .bomb-component .timer-background {
   fill: none;
-  stroke: rgb(23, 23, 23);
+  stroke: var(--dark);
 }
 
 .bomb-component .timer {

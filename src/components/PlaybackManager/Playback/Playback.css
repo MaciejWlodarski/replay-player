@@ -4,8 +4,8 @@
   justify-content: center;
   height: 30px;
   padding: 10px;
-  background-color: rgb(23, 23, 23);
-  border-color: rgb(133, 133, 133);
+  background-color: var(--dark);
+  border-color: var(--border);
   border-width: 1px 0px 0px 0px;
   border-style: solid;
   -webkit-user-select: none;
@@ -20,7 +20,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  border-color: rgb(133, 133, 133);
+  border-color: var(--border);
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
@@ -40,7 +40,7 @@
 .playback-panel.left {
   box-sizing: border-box;
   grid-template-columns: 36px 36px;
-  border-right: 1px solid rgb(133, 133, 133);
+  border-right: 1px solid var(--border);
 }
 
 .playback-panel .checkbox-button {
@@ -58,11 +58,11 @@
 .playback-panel .checkbox-button:hover,
 .playback-panel .checkbox-button:focus-visible {
   border-width: 0;
-  background-color: rgb(50, 50, 50);
+  background-color: var(--hover);
 }
 
 .playback-panel.left > *:not(:last-child) {
-  border-right: 1px solid rgb(133, 133, 133);
+  border-right: 1px solid var(--border);
 }
 
 .playback-panel.left .speed,

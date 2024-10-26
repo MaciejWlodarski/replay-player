@@ -50,7 +50,7 @@ const getAllCSS = () => {
   return allCSS;
 };
 
-export const exportSVGToPNG = (mapRef, size = 2048) => {
+export const exportSVGToPNG = (match, round, tickRef, mapRef, size = 2048) => {
   const svgElement = mapRef.current;
 
   const allCSS = getAllCSS();
@@ -74,7 +74,7 @@ export const exportSVGToPNG = (mapRef, size = 2048) => {
     const pngData = canvas.toDataURL("image/jpng");
     const link = document.createElement("a");
     link.href = pngData;
-    link.download = "image.png";
+    link.download = `${match.id}-${round.id}-${tickRef.current}.png`;
     link.click();
   };
 

@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState, useMemo, useContext } from "react";
-import { RoundContext, SetTickContext, TickContext } from "../context/context";
+import {
+  RoundContext,
+  SetTickContext,
+  TickContext,
+  TickRefContext,
+} from "../context/context";
 
 const usePlaybackControl = () => {
   const round = useContext(RoundContext);
   const tick = useContext(TickContext);
   const setTick = useContext(SetTickContext);
+  const tickRef = useContext(TickRefContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
@@ -18,6 +24,7 @@ const usePlaybackControl = () => {
   useEffect(() => {
     if (round && tick > round.lastTick) {
       setTick(() => round.lastTick);
+      tickRef.current = round.lastTick;
     }
     prevTickRef.current = 0;
   }, [round]);
@@ -47,6 +54,7 @@ const usePlaybackControl = () => {
           prevRenderRef.current = newRender;
           prevTickRef.current = newTick;
 
+          tickRef.current = newTick;
           return newTick;
         });
       } else {

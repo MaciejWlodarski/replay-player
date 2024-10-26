@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { WrapperRefContext } from "../context/context";
+import { MapContainerRefContext, WrapperRefContext } from "../context/context";
 import { mapRange } from "../../utils/utils";
 import simplify from "../../components/InteractiveMap/SketchCanvas/Paths/Path/simplify";
 
@@ -27,15 +27,37 @@ const getPoint = (event, boundingRect, svgSize) => {
   };
 };
 
+export const buildPath = (currentPath, scale) => {
+  if (!currentPath || currentPath.normal.length === 0) {
+    return currentPath ? [...currentPath.simplified] : [];
+  }
+
+  const tolerance = 0.05 / mapRange(scale, 1, 8, 1, 4);
+  const simplifiedNormalPart = simplify(currentPath.normal, tolerance);
+
+  const startSliceIndex = currentPath.simplified.length > 0 ? 1 : 0;
+
+  return [
+    ...currentPath.simplified,
+    ...simplifiedNormalPart.slice(startSliceIndex),
+  ];
+};
+
 const useSketchControl = (svgSize, pen, canvasRef) => {
+  const mapContainerRef = useContext(MapContainerRefContext);
   const wrapperRef = useContext(WrapperRefContext);
 
   const [drawing, setDrawing] = useState(false);
   const [mousePos, setMousePos] = useState(null);
 
-  const [currentPath, setCurrentPath] = useState([]);
   const [paths, setPaths] = useState([]);
   const [redoStack, setRedoStack] = useState([]);
+
+  const [currentPath, setCurrentPath] = useState({
+    normal: [],
+    simplified: [],
+  });
+  const simplifyChunkSize = 64;
 
   const handleMouseDown = (event) => {
     if (event.button !== 0) return;
@@ -45,7 +67,7 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
     if (!startPoint) return;
 
     setDrawing(true);
-    setCurrentPath([startPoint]);
+    setCurrentPath({ normal: [startPoint], simplified: [] });
   };
 
   const handleMouseMove = (event) => {
@@ -57,18 +79,18 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
   const handleMouseUp = () => {
     setDrawing(false);
 
-    if (currentPath.length > 0) {
+    if (currentPath.normal.length > 0) {
       const scale = wrapperRef.current?.instance.transformState.scale;
       setPaths((prevPaths) => [
         ...prevPaths,
         {
-          points: simplify(currentPath, 0.05 / mapRange(scale, 1, 8, 1, 4)),
+          points: buildPath(currentPath, scale),
           pen,
         },
       ]);
       setRedoStack([]);
     }
-    setCurrentPath([]);
+    setCurrentPath({ normal: [], simplified: [] });
   };
 
   const handleMouseLeave = () => {
@@ -101,10 +123,11 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    const mapContainer = mapContainerRef.current;
+    mapContainer.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      mapContainer.removeEventListener("keydown", handleKeyDown);
     };
   }, [paths, redoStack]);
 
@@ -115,16 +138,31 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
       const boundingRect = canvasRef.current.getBoundingClientRect();
       const newPoint = getPoint(event, boundingRect, svgSize);
 
-      setCurrentPath((prevPoints) => {
-        if (prevPoints.length < 2) return [...prevPoints, newPoint];
+      setCurrentPath((prevPath) => {
+        const newNormalPart = [...prevPath.normal];
 
-        const secondLastPoint = prevPoints[prevPoints.length - 2];
-        const midPoint = getMidPoint(secondLastPoint, newPoint);
+        if (newNormalPart.length >= 2) {
+          const secondLastPoint = newNormalPart[newNormalPart.length - 2];
+          const midPoint = getMidPoint(secondLastPoint, newPoint);
+          newNormalPart[newNormalPart.length - 1] = midPoint;
+        }
 
-        const updatedPoints = [...prevPoints];
-        updatedPoints[updatedPoints.length - 1] = midPoint;
+        newNormalPart.push(newPoint);
 
-        return [...updatedPoints, newPoint];
+        if (newNormalPart.length >= simplifyChunkSize * 2) {
+          const scale = wrapperRef.current?.instance.transformState.scale;
+          const tolerance = 0.05 / mapRange(scale, 1, 8, 1, 4);
+
+          const partToSimplify = newNormalPart.slice(0, simplifyChunkSize);
+          const simplifiedPart = simplify(partToSimplify, tolerance);
+
+          return {
+            normal: newNormalPart.slice(simplifyChunkSize - 1),
+            simplified: [...prevPath.simplified, ...simplifiedPart],
+          };
+        }
+
+        return { ...prevPath, normal: newNormalPart };
       });
     };
 

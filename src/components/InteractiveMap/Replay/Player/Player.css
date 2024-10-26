@@ -52,7 +52,7 @@ circle.plant-border {
 circle.plant-background,
 circle.defuse-background {
   fill: none;
-  stroke: rgb(23, 23, 23);
+  stroke: var(--dark);
 }
 
 circle.plant-progress {

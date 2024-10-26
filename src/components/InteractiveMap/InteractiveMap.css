@@ -44,3 +44,7 @@
 .map-events.dimmed {
   opacity: 0.15;
 }
+
+.map-container.no-outline:focus {
+  outline: none;
+}
