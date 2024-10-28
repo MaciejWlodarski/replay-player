@@ -3,6 +3,7 @@ import useSketchControl from "../../../../hooks/sketch/useSketchControl";
 import Paths from "./Paths/Paths";
 import Pen from "./Pen/Pen";
 import "./SketchCanvas.css";
+import CurrentPath from "./CurrentPath/CurrentPath";
 
 const SketchCanvas = () => {
   const svgSize = 100;
@@ -36,7 +37,8 @@ const SketchCanvas = () => {
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleContextMenu}
     >
-      <Paths pen={pen} paths={paths} currentPath={currentPath} />
+      <Paths paths={paths} />
+      <CurrentPath pen={pen} path={currentPath} />
       <Pen pen={pen} setPen={setPen} pos={mousePos} />
     </svg>
   );

@@ -27,12 +27,16 @@ const getPoint = (event, boundingRect, svgSize) => {
   };
 };
 
+const getTolerance = (scale) => {
+  return 0.05 / mapRange(scale, 1, 8, 1, 3);
+};
+
 export const buildPath = (currentPath, scale) => {
   if (!currentPath || currentPath.normal.length === 0) {
     return currentPath ? [...currentPath.simplified] : [];
   }
 
-  const tolerance = 0.05 / mapRange(scale, 1, 8, 1, 4);
+  const tolerance = getTolerance(scale);
   const simplifiedNormalPart = simplify(currentPath.normal, tolerance);
 
   const startSliceIndex = currentPath.simplified.length > 0 ? 1 : 0;
@@ -151,7 +155,7 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
 
         if (newNormalPart.length >= simplifyChunkSize * 2) {
           const scale = wrapperRef.current?.instance.transformState.scale;
-          const tolerance = 0.05 / mapRange(scale, 1, 8, 1, 4);
+          const tolerance = getTolerance(scale);
 
           const partToSimplify = newNormalPart.slice(0, simplifyChunkSize);
           const simplifiedPart = simplify(partToSimplify, tolerance);

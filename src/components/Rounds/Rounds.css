@@ -24,7 +24,8 @@
   font-size: 13px;
 }
 
-.rounds .round:hover {
+.rounds .round:hover,
+.rounds .round:focus-visible {
   background-color: transparent !important;
 }
 
@@ -54,7 +55,8 @@
   transition: all 0.2s ease;
 }
 
-.rounds .round:hover::after {
+.rounds .round:hover::after,
+.rounds .round:focus-visible::after {
   height: 4px;
 }
 

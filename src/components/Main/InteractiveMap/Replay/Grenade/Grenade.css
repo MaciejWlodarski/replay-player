@@ -30,6 +30,7 @@
 .grenade-component polyline {
   fill: none;
   stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .smokegrenade-smoke circle.smoke {
@@ -75,4 +76,16 @@ circle.flash-explosion {
 
 .grenade-component .grenade-icon {
   transform: translateX(-50%);
+}
+
+.grenade-component circle.bounce {
+  fill: none;
+}
+
+.grenade-component.t circle.bounce {
+  stroke: var(--t);
+}
+
+.grenade-component.ct circle.bounce {
+  stroke: var(--ct);
 }

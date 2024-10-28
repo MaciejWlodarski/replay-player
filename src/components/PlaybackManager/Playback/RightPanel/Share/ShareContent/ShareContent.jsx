@@ -33,14 +33,16 @@ const ShareContent = ({ tooltipId }) => {
     }
   };
 
-  const handleCopyUrl = () => {
-    navigator.clipboard.writeText(doneUrl);
-  };
+  const URL = `https://replay.maciejwlodarski.com`;
 
-  const rootUrl = `https://replay.maciejwlodarski.com/match/${match.id}/${
-    round.id + 1
-  }`;
-  const doneUrl = tickIncluded ? `${rootUrl}?tick=${selectedTick}` : rootUrl;
+  const roundPart = `/match/${match.id}/${round.id + 1}`;
+  const tickPart = `?tick=${selectedTick}`;
+
+  const urlPart = !tickIncluded ? roundPart : roundPart + tickPart;
+
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(URL + urlPart);
+  };
 
   return (
     <Tooltip
@@ -55,9 +57,10 @@ const ShareContent = ({ tooltipId }) => {
       afterHide={() => setIsVisible(false)}
       delayShow={0.1}
       delayHide={0.1}
+      offset={6}
     >
       <div className="share-url">
-        <span>{doneUrl}</span>
+        <span>{`...${urlPart}`}</span>
       </div>
       <div className="controller">
         <div className="tick-includer">
@@ -83,6 +86,7 @@ const ShareContent = ({ tooltipId }) => {
             onMouseLeave={() => setIsHovered(false)}
           />
           <input
+            id="tick-input"
             className={classNames({ included: tickIncluded })}
             type="text"
             value={selectedTick}

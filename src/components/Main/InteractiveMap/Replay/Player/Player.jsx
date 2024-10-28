@@ -265,9 +265,9 @@ const Players = () => {
 
   return (
     <g className="players">
-      {players.map((player, idx) => {
-        return <Player key={idx} player={player} />;
-      })}
+      {players.map((player, idx) => (
+        <Player key={idx} player={player} />
+      ))}
     </g>
   );
 };

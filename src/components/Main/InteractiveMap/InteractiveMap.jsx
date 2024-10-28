@@ -5,7 +5,6 @@ import Replay from "./Replay/Replay";
 import SketchCanvas from "./SketchCanvas/SketchCanvas";
 import {
   AltContext,
-  MainRefContext,
   MapRefContext,
   MatchContext,
   WrapperRefContext,

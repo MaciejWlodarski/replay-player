@@ -1,22 +1,24 @@
 .playback-panel.right {
   display: grid;
-  box-sizing: border-box;
   grid-template-columns: 48px 36px 36px;
   border-left: 1px solid var(--border);
+  column-gap: 1px;
+  background-color: var(--border);
+  border-radius: 0 3px 3px 0;
 }
 
 .playback-panel.right > * {
   color: rgb(255, 255, 255);
   fill: rgb(255, 255, 255);
-}
-
-.playback-panel.right > *:not(:last-child),
-.playback-panel.right > *:not(:last-child):hover,
-.playback-panel.right > *:not(:last-child):focus {
+  background-color: var(--dark);
   height: 100%;
-  border-right: 1px solid var(--border);
 }
 
+.playback-panel.right .screenshot {
+  background-color: var(--dark);
+}
+
+.playback-panel .share-container,
 .playback-panel .share-button,
 .playback-panel .share-button:hover {
   border-radius: 0 3px 3px 0;

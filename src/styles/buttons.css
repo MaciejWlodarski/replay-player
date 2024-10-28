@@ -10,7 +10,7 @@
 }
 
 .checkbox-button.checked {
-  background-color: var(--checked);
+  background-color: var(--hover);
   border-color: var(--border);
   color: rgb(255, 255, 255);
   fill: rgb(255, 255, 255);
@@ -235,7 +235,7 @@
 .checkbox-button.nohover-checked,
 .checkbox-button.nohover-checked:hover,
 .checkbox-button.nohover-checked:focus-visible {
-  background-color: var(--checked);
+  background-color: var(--hover);
   color: rgb(255, 255, 255);
   fill: rgb(255, 255, 255);
   cursor: default;
@@ -264,5 +264,5 @@
 .checkbox-button.round,
 .checkbox-button.round:hover,
 .checkbox-button.round:focus-visible {
-  background-color: var(--checked);
+  background-color: var(--hover);
 }

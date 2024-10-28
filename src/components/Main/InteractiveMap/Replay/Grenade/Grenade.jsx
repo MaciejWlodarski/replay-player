@@ -24,14 +24,6 @@ const Grenade = ({ grenade }) => {
     y: (map.start.y - pos.y) * factor,
   };
 
-  const trajectoryPoints = trajectory
-    .map((point) => {
-      const x = (point.x - map.start.x) * factor;
-      const y = (map.start.y - point.y) * factor;
-      return `${x},${y}`;
-    })
-    .join(" ");
-
   const { side, type, explode = Infinity } = grenade;
   const name = grenadeTypeMap[type];
   const team = side == 2 ? "t" : "ct";
@@ -126,6 +118,14 @@ const Grenade = ({ grenade }) => {
   };
 
   const renderTrajectory = () => {
+    const trajectoryPoints = trajectory
+      .map((point) => {
+        const x = (point.x - map.start.x) * factor;
+        const y = (map.start.y - point.y) * factor;
+        return `${x},${y}`;
+      })
+      .join(" ");
+
     return (
       <polyline
         className="grenade-trajectory"
@@ -135,11 +135,29 @@ const Grenade = ({ grenade }) => {
     );
   };
 
+  const renderBounces = () => {
+    return trajectory.slice(1, -1).map((point, idx) => {
+      const x = (point.x - map.start.x) * factor;
+      const y = (map.start.y - point.y) * factor;
+      return (
+        <circle
+          key={idx}
+          className="bounce"
+          cx={x}
+          cy={y}
+          r={12 * factor}
+          strokeWidth={5 * factor}
+        />
+      );
+    });
+  };
+
   const renderGrenade = () => {
     if (exploded) return;
     return (
       <g>
         {renderTrajectory()}
+        {renderBounces()}
         {renderGrenadeIcon()}
       </g>
     );

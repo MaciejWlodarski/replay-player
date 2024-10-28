@@ -74,7 +74,9 @@ export const exportSVGToPNG = (match, round, tickRef, mapRef, size = 2048) => {
     const pngData = canvas.toDataURL("image/jpng");
     const link = document.createElement("a");
     link.href = pngData;
-    link.download = `${match.id}-${round.id}-${tickRef.current}.png`;
+    link.download = `${match.id}-${round.id}-${Math.round(
+      tickRef.current
+    )}.png`;
     link.click();
   };
 
