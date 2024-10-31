@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { MainRefContext } from "../../hooks/context/context";
 import Hud from "./Hud/Hud";
 import InteractiveMap from "./InteractiveMap/InteractiveMap";
@@ -7,9 +7,9 @@ import "./Main.css";
 const Main = () => {
   const mainRef = useContext(MainRefContext);
 
-  const handleMouseDown = () => {
+  const handleMouseDown = useCallback(() => {
     mainRef.current.focus();
-  };
+  }, [mainRef]);
 
   return (
     <div

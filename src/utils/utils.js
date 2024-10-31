@@ -180,3 +180,16 @@ export const deserializeKillFlags = (flags) => {
     attackerBlind: !!(flags & (1 << 9)),
   };
 };
+
+export const colorMap = {
+  white: "#ffffff",
+  t: "#e7b42c",
+  ct: "#1174ff",
+  green: "#2ace66",
+  red: "#e6322d",
+  dark: "rgb(23, 23, 23)",
+  background: "rgb(35, 35, 35)",
+  check: "rgb(50, 50, 50)",
+  hover: "rgb(73, 73, 73)",
+  border: "rgb(133, 133, 133)",
+};

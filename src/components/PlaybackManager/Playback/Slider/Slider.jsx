@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import RCSlider from "rc-slider";
 import Timeline from "./Timeline/Timeline";
 import Hover from "./Hover/Hover";
@@ -19,7 +19,7 @@ const Slider = ({ prevTickRef }) => {
   const [cursorPos, setCursorPos] = useState(null);
   const isHoveredRef = useRef(false);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     const element = e.currentTarget;
     const rect = element.getBoundingClientRect();
 
@@ -27,11 +27,20 @@ const Slider = ({ prevTickRef }) => {
     if (!isHoveredRef.current) {
       setCursorPos(x / rect.width);
     }
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setCursorPos(null);
-  };
+  }, []);
+
+  const handleSliderChange = useCallback(
+    (value) => {
+      setTick(value);
+      tickRef.current = value;
+      prevTickRef.current = value;
+    },
+    [setTick, tickRef, prevTickRef]
+  );
 
   return (
     <div
@@ -41,15 +50,7 @@ const Slider = ({ prevTickRef }) => {
     >
       <Hover cursorPos={cursorPos} isHoveredRef={isHoveredRef} />
       <Timeline />
-      <RCSlider
-        max={lastTick}
-        value={tick}
-        onChange={(e) => {
-          setTick(() => e);
-          tickRef.current = e;
-          prevTickRef.current = e;
-        }}
-      />
+      <RCSlider max={lastTick} value={tick} onChange={handleSliderChange} />
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
+import classNames from "classnames";
 import "./CheckboxButton.css";
 
 const CheckboxButton = ({
@@ -13,31 +14,43 @@ const CheckboxButton = ({
   onMouseEnter,
   onMouseLeave,
 }) => {
-  const handleClick = (event) => {
-    if (!isDisabled) {
-      if (event.type === "click") {
-        onButtonDown();
-      } else if (event.type === "contextmenu" && onRightClick) {
-        event.preventDefault();
-        onRightClick();
+  const handleClick = useCallback(
+    (event) => {
+      if (!isDisabled) {
+        if (event.type === "click") {
+          onButtonDown();
+        } else if (event.type === "contextmenu" && onRightClick) {
+          event.preventDefault();
+          onRightClick();
+        }
       }
-    }
-  };
+    },
+    [isDisabled, onButtonDown, onRightClick]
+  );
+
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event.key === "Enter" && !isDisabled) {
+        onButtonDown();
+      }
+    },
+    [isDisabled, onButtonDown]
+  );
 
   return (
     <div
-      className={`checkbox-button ${isChecked ? "checked " : "unchecked "}${
-        isDisabled ? "disabled " : ""
-      }${additionalClassName ? additionalClassName : ""}`}
+      className={classNames(
+        "checkbox-button",
+        { checked: isChecked, unchecked: !isChecked, disabled: isDisabled },
+        additionalClassName
+      )}
       id={buttonId}
       onClick={handleClick}
       onContextMenu={handleClick}
       role="button"
       aria-pressed={isChecked}
       tabIndex={isDisabled ? -1 : 0}
-      onKeyDown={(event) =>
-        event.key === "Enter" && !isDisabled ? onButtonDown() : undefined
-      }
+      onKeyDown={handleKeyDown}
       data-tooltip-id={tooltipId}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

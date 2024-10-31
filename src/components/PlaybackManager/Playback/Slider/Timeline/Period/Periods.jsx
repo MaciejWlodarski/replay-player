@@ -16,7 +16,7 @@ const Periods = () => {
   const left = (start / lastTick) * 100;
   const width = 100 - left;
 
-  const team = winner == 2 ? "t" : "ct";
+  const team = winner === 2 ? "t" : "ct";
 
   return (
     <div

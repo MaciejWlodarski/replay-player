@@ -23,3 +23,5 @@ export const WrapperRefContext = createContext();
 export const AltContext = createContext();
 
 export const SketchContext = createContext();
+
+export const PenContext = createContext();

@@ -7,6 +7,7 @@ import {
   MainRefContext,
   MapRefContext,
   MatchContext,
+  PenContext,
   RoundContext,
   SetHoveredGrenadeContext,
   SetTickContext,
@@ -21,6 +22,10 @@ const AppProviders = ({ children, match, round }) => {
   const altState = useKeyState();
 
   const [hoveredGrenade, setHoveredGrenade] = useState(null);
+  const [pen, setPen] = useState({
+    color: "#ffffff",
+    radius: 18,
+  });
 
   const mapContainerRef = useRef();
   const mapRef = useRef();
@@ -38,7 +43,9 @@ const AppProviders = ({ children, match, round }) => {
                     <MapRefContext.Provider value={mapRef}>
                       <WrapperRefContext.Provider value={wrapperRef}>
                         <AltContext.Provider value={altState}>
-                          {children}
+                          <PenContext.Provider value={[pen, setPen]}>
+                            {children}
+                          </PenContext.Provider>
                         </AltContext.Provider>
                       </WrapperRefContext.Provider>
                     </MapRefContext.Provider>

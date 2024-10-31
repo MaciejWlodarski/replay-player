@@ -3,9 +3,9 @@ import {
   HoveredGrenadeContext,
   MatchContext,
 } from "../../../../../hooks/context/context";
-import "./HoveredGrenade.css";
 import { WepSvg } from "../../../../../assets/icons";
 import { grenadeTypeMap } from "../../../../../utils/utils";
+import "./HoveredGrenade.css";
 
 const HoveredGrenade = () => {
   const grenade = useContext(HoveredGrenadeContext);
@@ -13,11 +13,13 @@ const HoveredGrenade = () => {
 
   if (!grenade) return;
 
-  const { pose, type } = grenade;
+  const { pose, type, end, explode = end } = grenade;
   const { factor } = map;
 
+  const trajectory = pose.filter(({ tick }) => tick <= explode);
+
   const renderTrajectory = () => {
-    const trajectoryPoints = pose
+    const trajectoryPoints = trajectory
       .map(({ pos }) => {
         const x = (pos.x - map.start.x) * factor;
         const y = (map.start.y - pos.y) * factor;
@@ -32,6 +34,23 @@ const HoveredGrenade = () => {
         strokeWidth={10 * factor}
       />
     );
+  };
+
+  const renderBounces = () => {
+    return trajectory.slice(1, -1).map(({ pos }, idx) => {
+      const x = (pos.x - map.start.x) * factor;
+      const y = (map.start.y - pos.y) * factor;
+      return (
+        <circle
+          key={idx}
+          className="bounce"
+          cx={x}
+          cy={y}
+          r={18 * factor}
+          strokeWidth={10 * factor}
+        />
+      );
+    });
   };
 
   const renderGrenadeIcon = () => {
@@ -57,6 +76,7 @@ const HoveredGrenade = () => {
   return (
     <g className="hovered-grenade-component">
       {renderTrajectory()}
+      {renderBounces()}
       {renderGrenadeIcon()}
     </g>
   );

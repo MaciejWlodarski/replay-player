@@ -1,17 +1,15 @@
-import { useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import useSketchControl from "../../../../hooks/sketch/useSketchControl";
 import Paths from "./Paths/Paths";
 import Pen from "./Pen/Pen";
-import "./SketchCanvas.css";
 import CurrentPath from "./CurrentPath/CurrentPath";
+import "./SketchCanvas.css";
+import { PenContext } from "../../../../hooks/context/context";
 
 const SketchCanvas = () => {
-  const svgSize = 100;
+  const [pen, setPen] = useContext(PenContext);
 
-  const [pen, setPen] = useState({
-    color: "#ffffff",
-    radius: 18,
-  });
+  const svgSize = 100;
 
   const canvasRef = useRef();
 

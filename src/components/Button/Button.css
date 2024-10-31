@@ -1,0 +1,25 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--border);
+  fill: var(--border);
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:not(.disabled):hover {
+  background-color: var(--hover);
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
+}
+
+.button:not(.disabled):focus-visible {
+  background-color: var(--hover);
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
+  outline: none;
+}

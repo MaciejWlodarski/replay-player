@@ -10,6 +10,7 @@ import {
 } from "../../../../hooks/context/context";
 import { exportSVGToPNG } from "./svgToImage";
 import Share from "./Share/Share";
+import SketchConfig from "./SketchConfig/SketchConfig";
 import "./RightPanel.css";
 
 const RightPanel = () => {
@@ -22,6 +23,7 @@ const RightPanel = () => {
   return (
     <div className="playback-panel right">
       <div className="timer">{Math.ceil(tick)}</div>
+      <SketchConfig />
       <CheckboxButton
         label={<Camera strokeWidth={1.5} size={22} />}
         isChecked={false}

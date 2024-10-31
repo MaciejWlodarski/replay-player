@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   background-color: var(--dark);
-  border: 1px solid var(--border);
   border-radius: 4px;
   z-index: 1;
   padding: 8px;
@@ -11,6 +10,7 @@
   user-select: text;
   font-size: 12px;
   margin: 0;
+  transform: translateX(1px);
 }
 
 #share-tooltip .share-url {

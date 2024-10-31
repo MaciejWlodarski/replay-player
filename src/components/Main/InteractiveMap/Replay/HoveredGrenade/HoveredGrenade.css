@@ -1,6 +1,7 @@
 .hovered-grenade-component polyline {
   fill: none;
   stroke-linecap: round;
+  stroke-linejoin: round;
   stroke: var(--green);
 }
 
@@ -12,4 +13,9 @@
 .hovered-grenade-component .grenade-icon svg path {
   stroke-width: 2.5%;
   stroke: black;
+}
+
+.hovered-grenade-component circle.bounce {
+  stroke: var(--green);
+  fill: none;
 }

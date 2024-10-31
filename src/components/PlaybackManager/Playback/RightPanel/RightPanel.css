@@ -1,6 +1,6 @@
 .playback-panel.right {
   display: grid;
-  grid-template-columns: 48px 36px 36px;
+  grid-template-columns: 48px 36px 36px 36px;
   border-left: 1px solid var(--border);
   column-gap: 1px;
   background-color: var(--border);

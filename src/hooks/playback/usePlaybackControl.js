@@ -13,7 +13,7 @@ const usePlaybackControl = () => {
   const tickRef = useContext(TickRefContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState(1);
+  const [speedIdx, setSpeedIdx] = useState(1);
 
   const speedArray = useMemo(() => [0.5, 1, 1.5, 2, 4, 8], []);
 
@@ -46,7 +46,7 @@ const usePlaybackControl = () => {
           const delta = dataAvailable ? newRender - prevRenderRef.current : 0;
           dataAvailable = true;
 
-          const tickDurationMs = 1000 / (64 * speedArray[speed]);
+          const tickDurationMs = 1000 / (64 * speedArray[speedIdx]);
           const tickIncrement = delta / tickDurationMs;
 
           const newTick = Math.min(prevTick + tickIncrement, lastTick);
@@ -73,13 +73,13 @@ const usePlaybackControl = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPlaying, speed, round]);
+  }, [isPlaying, speedIdx, round]);
 
   return {
     isPlaying,
     setIsPlaying,
-    speed,
-    setSpeed,
+    speedIdx,
+    setSpeedIdx,
     speedArray,
     prevRenderRef,
     prevTickRef,
