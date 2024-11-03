@@ -12,14 +12,27 @@
   fill: rgb(255, 255, 255);
   background-color: var(--dark);
   height: 100%;
+  border-width: 0;
+  border-radius: 0;
 }
 
 .playback-panel.right .screenshot {
   background-color: var(--dark);
 }
 
+.playback-panel.right > *:not(:first-child):hover,
+.playback-panel.right > *:not(:first-child):focus-visible {
+  background-color: var(--hover);
+}
+
 .playback-panel .share-container,
 .playback-panel .share-button,
 .playback-panel .share-button:hover {
   border-radius: 0 3px 3px 0;
+}
+
+.playback-panel .timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -227,3 +227,64 @@ export const getPlayerDefuseProgress = (player, targetTick) => {
   if (defuseState < 0) return 0;
   return (defuse.time - defuseState) / defuse.time;
 };
+
+export const groupPlayers = (players, map, level, tick) => {
+  return players.reduce(
+    (acc, player) => {
+      const status = getPlayerStatus(player, tick);
+      if (!status.hp) return acc;
+
+      const pose = getPlayerPose(player, tick);
+      if (!pose) return acc;
+
+      const upper = map.lower === null || pose.pos.z >= map.lower;
+
+      const playerInfo = { player, status, pose };
+
+      if (upper === level) {
+        acc.on.push(playerInfo);
+        return acc;
+      }
+
+      acc.off.push(playerInfo);
+      return acc;
+    },
+    { on: [], off: [] }
+  );
+};
+
+export const groupShots = (shots, map, level, tick) => {
+  return (shots[Math.floor(tick)] || []).reduce(
+    (acc, shot) => {
+      const upper = map.lower === null || shot.pos.z >= map.lower;
+
+      if (upper === level) {
+        acc.on.push(shot);
+        return acc;
+      }
+
+      acc.off.push(shot);
+      return acc;
+    },
+    { on: [], off: [] }
+  );
+};
+
+export const groupDeaths = (deaths, map, level, tick) => {
+  return deaths.reduce(
+    (acc, death) => {
+      if (death.tick > tick) return acc;
+
+      const upper = map.lower === null || death.pos.z >= map.lower;
+
+      if (upper === level) {
+        acc.on.push(death);
+        return acc;
+      }
+
+      acc.off.push(death);
+      return acc;
+    },
+    { on: [], off: [] }
+  );
+};

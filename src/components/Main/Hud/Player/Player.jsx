@@ -70,7 +70,12 @@ const Player = ({ player, side }) => {
           )}
         </div>
         <div className="primary">
-          <WepSvg wep={equipmentTypeMap[status.prime || status.sec]} />
+          <WepSvg
+            wep={equipmentTypeMap[status.prime || status.sec]}
+            style={{
+              filter: "drop-shadow(0 0 1px rgba(0, 0, 0, 0.4))",
+            }}
+          />
         </div>
         <div className="spec">
           {status.spec ? (

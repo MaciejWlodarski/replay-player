@@ -5,13 +5,25 @@
   border-radius: 4px 0 0 4px;
 }
 
+.scoreboard .team .name {
+  text-shadow: 0px 0px 1.5px black;
+}
+
 .scoreboard .team.t {
   border-color: var(--t);
+}
+
+.scoreboard .team.t .name {
+  background-color: var(--t);
 }
 
 .scoreboard .team.ct {
   transform: scaleX(-1);
   border-color: var(--ct);
+}
+
+.scoreboard .team.ct .name {
+  background-color: var(--ct);
 }
 
 .scoreboard .team.ct span {
@@ -34,18 +46,4 @@
   align-items: center;
   font-weight: 600;
   height: 100%;
-}
-
-.scoreboard .separator {
-  min-width: 2px;
-  max-width: 2px;
-  height: 100%;
-}
-
-.scoreboard .t .separator {
-  background-color: var(--t);
-}
-
-.scoreboard .ct .separator {
-  background-color: var(--ct);
 }

@@ -15,9 +15,13 @@
   transition: all 0.3s ease;
 }
 
+.share-button.open {
+  background-color: var(--check);
+}
+
 .share-button:hover,
 .share-button:focus-visible {
-  background-color: var(--check);
+  background-color: var(--hover);
   outline: 0;
 }
 

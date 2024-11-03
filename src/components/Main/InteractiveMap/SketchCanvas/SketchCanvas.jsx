@@ -7,14 +7,13 @@ import "./SketchCanvas.css";
 import { PenContext } from "../../../../hooks/context/context";
 
 const SketchCanvas = () => {
-  const [pen, setPen] = useContext(PenContext);
+  const { pen, setPen, penSizes } = useContext(PenContext);
 
   const svgSize = 100;
 
   const canvasRef = useRef();
 
   const {
-    paths,
     currentPath,
     mousePos,
     handleMouseDown,
@@ -35,9 +34,9 @@ const SketchCanvas = () => {
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleContextMenu}
     >
-      <Paths paths={paths} />
+      <Paths />
       <CurrentPath pen={pen} path={currentPath} />
-      <Pen pen={pen} setPen={setPen} pos={mousePos} />
+      <Pen pen={pen} setPen={setPen} penSizes={penSizes} pos={mousePos} />
     </svg>
   );
 };

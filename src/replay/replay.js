@@ -1,9 +1,14 @@
-import { getEquipment } from "./equipment.js";
-import { getGrenades } from "./grenade.js";
-import { getInfernos } from "./inferno.js";
-import { getPlayerEvents } from "./player.js";
+import { getEquipment, groupEquipment } from "./equipment.js";
+import { getGrenades, groupGrenades } from "./grenade.js";
+import { getInfernos, groupInfernos } from "./inferno.js";
+import {
+  getPlayerEvents,
+  groupDeaths,
+  groupPlayers,
+  groupShots,
+} from "./player.js";
 import { getMapData } from "/src/assets/maps";
-import getMarks from "./marks/marks.jsx";
+import { groupBombEvents } from "./bomb.js";
 
 const URL = "csanalyzer.gg";
 const API_URL = `https://art.${URL}/matches/`;
@@ -112,8 +117,29 @@ export const getRoundData = async (match, rounds, roundId, setRounds) => {
       endTick: end,
     };
 
-    getMarks(updatedRounds[roundId]);
-
     return updatedRounds;
   });
+};
+
+export const getGroupedObjects = (round, tick, map, level) => {
+  const {
+    infernos,
+    deaths,
+    equipment,
+    shots,
+    players,
+    grenades,
+    plant,
+    defuse,
+  } = round;
+
+  return {
+    infernos: groupInfernos(infernos, map, level, tick),
+    deaths: groupDeaths(deaths, map, level, tick),
+    equipment: groupEquipment(equipment, map, level, tick),
+    bombEvents: groupBombEvents(plant, defuse, map, level, tick),
+    shots: groupShots(shots, map, level, tick),
+    players: groupPlayers(players, map, level, tick),
+    grenades: groupGrenades(grenades, map, level, tick),
+  };
 };

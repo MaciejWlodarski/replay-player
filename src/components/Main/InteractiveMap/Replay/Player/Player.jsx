@@ -1,34 +1,21 @@
-import React, { useContext } from "react";
-import icons, { WepSvg } from "/src/assets/icons";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../../hooks/context/context";
+import React from "react";
+import classNames from "classnames";
+import { WepSvg } from "/src/assets/icons";
 import {
   equipmentTypeMap,
   grenadeTypeMap,
   getStrokeDasharray,
 } from "/src/utils/utils";
 import {
-  getPlayerPose,
-  getPlayerStatus,
   getPlayerBlindness,
   getPlayerPlantProgress,
   getPlayerDefuseProgress,
 } from "/src/replay/player";
 import "./Player.css";
 
-const Player = ({ player }) => {
-  const tick = useContext(TickContext);
-  const { map } = useContext(MatchContext);
+const Player = ({ player, status, pose, tick, map }) => {
   const { factor } = map;
-
   const { name, side } = player;
-  const status = getPlayerStatus(player, tick);
-  if (!status.hp) return;
-
-  const pose = getPlayerPose(player, tick);
   const { pos, yaw } = pose;
 
   const playerPos = {
@@ -128,44 +115,6 @@ const Player = ({ player }) => {
     );
   };
 
-  const renderBomb = () => {
-    if (!bomb) return;
-    const bombSize = 50 * factor;
-
-    const renderBombBackground = () => {
-      const width = 0.85 * bombSize;
-      const height = 0.55 * bombSize;
-
-      return (
-        <rect
-          className="bomb-background"
-          x={playerPos.x - width / 2}
-          y={playerPos.y - height / 2}
-          width={width}
-          height={height}
-          rx={0.07 * bombSize}
-        />
-      );
-    };
-
-    return (
-      <g
-        className="bomb-eq"
-        transform={`rotate(${-yaw + 90}, ${playerPos.x}, ${
-          playerPos.y
-        }) translate(0, ${42 * factor})`}
-      >
-        {renderBombBackground()}
-        <icons.normal.c4
-          x={playerPos.x - bombSize / 2}
-          y={playerPos.y - bombSize / 2}
-          height={bombSize}
-          width={bombSize}
-        />
-      </g>
-    );
-  };
-
   const renderPlayer = () => {
     const arrowLength = 30 * factor;
     const arrowHeight = 50 * factor;
@@ -247,26 +196,34 @@ const Player = ({ player }) => {
   };
 
   return (
-    <g className={`player-component ${team} ${bomb ? "bomb" : ""} `}>
+    <g
+      className={classNames("player-component", team, {
+        bomb: bomb,
+      })}
+    >
       {renderPlant()}
       {renderDefuse()}
       {renderPlayer()}
       {renderBlindness()}
       {renderHealth()}
-      {/* {renderBomb()} */}
       {renderWeapon()}
       {renderName()}
     </g>
   );
 };
 
-const Players = () => {
-  const { players } = useContext(RoundContext);
-
+const Players = ({ players, tick, map }) => {
   return (
     <g className="players">
-      {players.map((player, idx) => (
-        <Player key={idx} player={player} />
+      {players.map(({ player, status, pose }, idx) => (
+        <Player
+          key={idx}
+          player={player}
+          status={status}
+          pose={pose}
+          tick={tick}
+          map={map}
+        />
       ))}
     </g>
   );

@@ -18,7 +18,6 @@ const Team = ({ side }) => {
   return (
     <div className={`team ${side}`}>
       <span className="name">{name}</span>
-      <div className="separator" />
       <span className="score">{score}</span>
     </div>
   );

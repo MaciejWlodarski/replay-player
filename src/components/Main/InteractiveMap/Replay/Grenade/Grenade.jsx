@@ -1,22 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { grenadeTypeMap, mapRange, easeInOut, easeOut } from "/src/utils/utils";
-import { getGrenadePose } from "/src/replay/grenade";
 import { WepSvg } from "../../../../../assets/icons";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../../hooks/context/context";
 import "./Grenade.css";
 
-const Grenade = ({ grenade }) => {
-  const tick = useContext(TickContext);
-  const { map } = useContext(MatchContext);
+const Grenade = ({ grenade, pose, tick, map }) => {
   const { factor } = map;
-
-  const pose = getGrenadePose(grenade, tick);
-  if (!pose) return;
-
   const { pos, trajectory } = pose;
 
   const grenadePos = {
@@ -171,13 +159,19 @@ const Grenade = ({ grenade }) => {
   );
 };
 
-const Grenades = () => {
-  const { grenades } = useContext(RoundContext);
-
+const Grenades = ({ grenades, tick, map }) => {
   return (
     <g className="grenades">
-      {grenades.map((grenade, idx) => {
-        return <Grenade key={idx} grenade={grenade} />;
+      {grenades.map(({ grenade, pose }, idx) => {
+        return (
+          <Grenade
+            key={idx}
+            grenade={grenade}
+            pose={pose}
+            tick={tick}
+            map={map}
+          />
+        );
       })}
     </g>
   );

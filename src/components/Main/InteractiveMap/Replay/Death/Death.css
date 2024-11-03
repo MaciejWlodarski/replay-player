@@ -1,11 +1,22 @@
-circle.death {
+.death-component.t .death {
+  stroke: rgb(255, 207, 46);
+}
+
+.death-component.ct .death {
+  stroke: rgb(59, 105, 220);
+}
+
+.death-component .death-stroke {
   stroke: rgb(255, 255, 255);
+  stroke-width: 9;
 }
 
-.t circle.death {
-  fill: rgb(255, 207, 46);
+.death-component .death {
+  stroke-width: 5;
 }
 
-.ct circle.death {
-  fill: rgb(59, 105, 220);
+.death-component g {
+  stroke-linecap: round;
+  stroke-linecap: round;
+  fill: none;
 }

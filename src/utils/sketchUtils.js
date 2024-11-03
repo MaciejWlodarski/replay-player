@@ -1,4 +1,6 @@
-const simplify = (points, tolerance = 0.05) => {
+import { mapRange } from "./utils";
+
+export const simplify = (points, tolerance = 0.05) => {
   if (points.length < 3) return points;
 
   const getPerpendicularDistance = (point, lineStart, lineEnd) => {
@@ -53,4 +55,30 @@ const simplify = (points, tolerance = 0.05) => {
   return douglasPeucker(points, 0, points.length - 1, tolerance);
 };
 
-export default simplify;
+export const getPoint = (event, boundingRect, svgSize) => {
+  if (!boundingRect) return;
+  const { width, height, left, top } = boundingRect;
+  const factor = svgSize / Math.min(width, height);
+  const offsetX = Math.max(((width - height) * factor) / 2, 0);
+  const offsetY = Math.max(((height - width) * factor) / 2, 0);
+  const x = event.clientX - left;
+  const y = event.clientY - top;
+  return { x: factor * x - offsetX, y: factor * y - offsetY };
+};
+
+export const getTolerance = (scale) => {
+  return 0.05 / mapRange(scale, 1, 8, 1, 3);
+};
+
+export const buildPath = (currentPath, scale) => {
+  if (!currentPath || currentPath.normal.length === 0) {
+    return currentPath ? [...currentPath.simplified] : [];
+  }
+  const tolerance = getTolerance(scale);
+  const simplifiedNormalPart = simplify(currentPath.normal, tolerance);
+  const startSliceIndex = currentPath.simplified.length > 0 ? 1 : 0;
+  return [
+    ...currentPath.simplified,
+    ...simplifiedNormalPart.slice(startSliceIndex),
+  ];
+};

@@ -9,6 +9,9 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  user-select: none;
 }
 
 .button:not(.disabled):hover {

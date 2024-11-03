@@ -39,39 +39,43 @@
 
 #share-tooltip .tick-includer {
   display: flex;
+  align-items: center;
   height: 100%;
+  gap: 4px;
 }
 
 .share-url span::-webkit-scrollbar {
   display: none;
 }
 
-#share-tooltip .includer {
+#share-tooltip .button {
+  background-color: var(--dark);
+  border-width: 0;
+  border: 0;
   display: flex;
   gap: 8px;
   height: 100%;
   justify-content: start;
 }
 
-#share-tooltip .includer span {
+#share-tooltip .button:hover .check {
+  background-color: var(--hover);
+}
+
+#share-tooltip .button:not(.checked) .check {
+  stroke: transparent;
+}
+
+#share-tooltip .button span {
   display: flex;
   color: rgb(255, 255, 255);
   transition: all 0.1s ease;
-  max-height: 100%;
   align-items: center;
-  white-space: pre;
+  font-size: 12px;
 }
 
-#share-tooltip span.excluded {
+#share-tooltip .tick-includer .button:not(.checked) span {
   color: var(--border);
-}
-
-#share-tooltip .checkbox-button {
-  height: 100% !important;
-  width: auto !important;
-  border: 0px !important;
-  background-color: var(--dark) !important;
-  cursor: pointer !important;
 }
 
 #share-tooltip .check {
@@ -82,14 +86,6 @@
   transition: all 0.1s ease;
   border: 1px solid var(--border);
   border-radius: 4px;
-}
-
-#share-tooltip .check.hovered {
-  background-color: var(--hover);
-}
-
-#share-tooltip .check.excluded {
-  color: transparent;
 }
 
 #share-tooltip .tick-includer input {
@@ -107,7 +103,7 @@
 #share-tooltip .tick-includer input.included {
   color: rgb(255, 255, 255);
   border-width: 0 0 1px 0;
-  border-style: solid;
+  border-style: dashed;
   border-color: rgb(255, 255, 255);
 }
 
@@ -116,13 +112,23 @@
 }
 
 #share-tooltip .copy {
-  height: 20px !important;
-  width: 64px !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 4px !important;
-  background-color: var(--dark) !important;
+  height: 20px;
+  width: 64px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--dark);
+}
+
+#share-tooltip .copy span {
+  display: flex;
+  color: var(--border);
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
 }
 
 #share-tooltip .copy:hover {
-  background-color: var(--hover) !important;
+  background-color: var(--hover);
 }

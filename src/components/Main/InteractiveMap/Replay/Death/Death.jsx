@@ -1,17 +1,9 @@
-import React, { useContext } from "react";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../../hooks/context/context";
+import React from "react";
+import classNames from "classnames";
 import "./Death.css";
 
-const Death = ({ death }) => {
-  const tick = useContext(TickContext);
-  const { map } = useContext(MatchContext);
+const Death = ({ death, map }) => {
   const { factor } = map;
-
-  if (death.tick > tick) return;
   const { pos, side } = death;
 
   const deathPos = {
@@ -21,26 +13,34 @@ const Death = ({ death }) => {
 
   const team = side == 2 ? "t" : "ct";
 
+  const deathSize = 3 * factor;
+
   return (
-    <g className={`death-component ${team}`}>
-      <circle
+    <g className={classNames("death-component", team)}>
+      <g
+        className="death-stroke"
+        transform={`translate(${deathPos.x}, ${deathPos.y}) scale(${deathSize})`}
+      >
+        <path d="M6 -6 -6 6" />
+        <path d="M-6 -6 6 6" />
+      </g>
+
+      <g
         className="death"
-        cx={deathPos.x}
-        cy={deathPos.y}
-        r={30 * factor}
-        strokeWidth={8 * factor}
-      />
+        transform={`translate(${deathPos.x}, ${deathPos.y}) scale(${deathSize})`}
+      >
+        <path d="M6 -6 -6 6" />
+        <path d="M-6 -6 6 6" />
+      </g>
     </g>
   );
 };
 
-const Deaths = () => {
-  const { deaths } = useContext(RoundContext);
-
+const Deaths = ({ deaths, map }) => {
   return (
     <g className="deaths">
       {deaths.map((death, idx) => (
-        <Death key={idx} death={death} />
+        <Death key={idx} death={death} map={map} />
       ))}
     </g>
   );

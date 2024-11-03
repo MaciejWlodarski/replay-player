@@ -1,18 +1,9 @@
-import React, { useContext } from "react";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../../hooks/context/context";
+import React from "react";
 import "./Inferno.css";
 
-const Inferno = ({ inferno }) => {
-  const tick = useContext(TickContext);
-  const { map } = useContext(MatchContext);
+const Inferno = ({ inferno, tick, map }) => {
   const { factor } = map;
-
-  const { start, end, side, type, fires, centroid } = inferno;
-  if (tick < start || tick > end) return;
+  const { start, side, type, fires, centroid } = inferno;
 
   const team = side == 2 ? "t" : "ct";
 
@@ -181,13 +172,11 @@ const Inferno = ({ inferno }) => {
   );
 };
 
-const Infernos = () => {
-  const { infernos } = useContext(RoundContext);
-
+const Infernos = ({ infernos, tick, map }) => {
   return (
     <g className="infernos">
       {infernos?.map((inferno, idx) => (
-        <Inferno key={idx} inferno={inferno} />
+        <Inferno key={idx} inferno={inferno} tick={tick} map={map} />
       ))}
     </g>
   );

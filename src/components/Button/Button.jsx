@@ -25,14 +25,11 @@ const Button = ({
     [isDisabled, onLeftClick, onRightClick]
   );
 
-  const handleKeyDown = useCallback(
-    (event) => {
-      if (event.key === "Enter" && !isDisabled) {
-        onLeftClick();
-      }
-    },
-    [isDisabled, onLeftClick]
-  );
+  const handleKeyDown = useCallback((event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  }, []);
 
   return (
     <button

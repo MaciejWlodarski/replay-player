@@ -86,3 +86,25 @@ export const getEquipmentPose = (equipment, targetTick) => {
 
   return { tick: targetTick, pos };
 };
+
+export const groupEquipment = (equipment, map, level, tick) => {
+  return equipment.reduce(
+    (acc, item) => {
+      const pose = getEquipmentPose(item, tick);
+      if (!pose) return acc;
+
+      const upper = map.lower === null || pose.pos.z >= map.lower;
+
+      const itemInfo = { item, pose };
+
+      if (upper === level) {
+        acc.on.push(itemInfo);
+        return acc;
+      }
+
+      acc.off.push(itemInfo);
+      return acc;
+    },
+    { on: [], off: [] }
+  );
+};

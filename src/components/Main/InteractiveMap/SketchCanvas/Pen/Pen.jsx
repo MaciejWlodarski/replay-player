@@ -1,10 +1,9 @@
 import { useContext, useMemo } from "react";
 import { AltContext } from "../../../../../hooks/context/context";
 
-const Pen = ({ pen, setPen, pos }) => {
+const Pen = ({ pen, setPen, penSizes, pos }) => {
   const altState = useContext(AltContext);
 
-  const penSizes = useMemo(() => [5, 8, 12, 18, 27, 40, 60, 90, 135, 200], []);
   const currentIndex = useMemo(
     () => penSizes.indexOf(pen.radius),
     [pen, penSizes]

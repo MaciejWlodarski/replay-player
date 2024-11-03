@@ -25,3 +25,9 @@ export const AltContext = createContext();
 export const SketchContext = createContext();
 
 export const PenContext = createContext();
+
+export const ActiveTooltipContext = createContext();
+
+export const SketchReducerStateContext = createContext();
+
+export const SketchReducerDispatchContext = createContext();

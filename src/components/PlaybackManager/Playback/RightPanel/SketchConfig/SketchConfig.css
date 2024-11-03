@@ -15,9 +15,13 @@
   transition: all 0.3s ease;
 }
 
+.sketch-config-button.open {
+  background-color: var(--check);
+}
+
 .sketch-config-button:hover,
 .sketch-config-button:focus-visible {
-  background-color: var(--check);
+  background-color: var(--hover);
   outline: 0;
 }
 

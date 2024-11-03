@@ -11,14 +11,14 @@ import CheckboxButton from "../../../../../CheckboxButton/CheckboxButton";
 import { Tooltip } from "react-tooltip";
 import { colorMap } from "../../../../../../utils/utils";
 import "./ShareContent.css";
+import Button from "../../../../../Button/Button";
 
-const ShareContent = ({ tooltipId }) => {
+const ShareContent = ({ tooltipId, isOpen, setIsOpen }) => {
   const match = useContext(MatchContext);
   const round = useContext(RoundContext);
   const tickRef = useContext(TickRefContext);
   const mainRef = useContext(MainRefContext);
 
-  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [tickIncluded, setTickIncluded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -31,7 +31,7 @@ const ShareContent = ({ tooltipId }) => {
 
   useEffect(() => {
     const handleMouseDown = () => {
-      setIsTooltipOpen(false);
+      setIsOpen(false);
     };
 
     const main = mainRef.current;
@@ -78,35 +78,21 @@ const ShareContent = ({ tooltipId }) => {
       delayShow={0.1}
       delayHide={0.1}
       offset={6}
-      isOpen={isTooltipOpen}
-      setIsOpen={setIsTooltipOpen}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
     >
       <div className="share-url">
         <span>{`...${urlPart}`}</span>
       </div>
       <div className="controller">
         <div className="tick-includer">
-          <CheckboxButton
-            label={
-              <div className="includer">
-                <Check
-                  size={16}
-                  className={classNames(
-                    "check",
-                    { excluded: !tickIncluded },
-                    { hovered: isHovered }
-                  )}
-                />
-                <span className={classNames({ excluded: !tickIncluded })}>
-                  {`Start at tick `}
-                </span>
-              </div>
-            }
-            onButtonDown={() => setTickIncluded((prev) => !prev)}
-            additionalClassName={"nohover"}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          />
+          <Button
+            isChecked={tickIncluded}
+            onLeftClick={() => setTickIncluded((prev) => !prev)}
+          >
+            <Check size={16} className="check" />
+            <span>{"Start at tick"}</span>
+          </Button>
           <input
             id="tick-input"
             className={classNames({ included: tickIncluded })}
@@ -116,12 +102,9 @@ const ShareContent = ({ tooltipId }) => {
             disabled={!tickIncluded}
           />
         </div>
-        <CheckboxButton
-          label={"Copy"}
-          isChecked={true}
-          onButtonDown={handleCopyUrl}
-          additionalClassName={"copy"}
-        />
+        <Button className={"copy"} onLeftClick={handleCopyUrl}>
+          <span>{"Copy"}</span>
+        </Button>
       </div>
     </Tooltip>
   );

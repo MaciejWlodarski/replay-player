@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import icons from "/src/assets/icons";
 import { getStrokeDasharray } from "../../../../../utils/utils";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../../hooks/context/context";
 import "./Bomb.css";
 
-const Bomb = ({}) => {
-  const tick = useContext(TickContext);
-  const { plant, defuse } = useContext(RoundContext);
-  const { map } = useContext(MatchContext);
-  const { factor } = map;
+const Bomb = ({ events, tick, map }) => {
+  if (!events) return;
 
+  const { plant, defuse } = events;
   if (!plant || plant.tick > tick) return;
 
+  const { factor } = map;
   const { pos } = plant;
+
   const bombPos = {
     x: (pos.x - map.start.x) * factor,
     y: (map.start.y - pos.y) * factor,

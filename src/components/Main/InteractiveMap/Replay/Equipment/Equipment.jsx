@@ -1,22 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { equipmentTypeMap, grenadeTypeMap } from "../../../../../utils/utils";
-import { getEquipmentPose } from "../../../../../replay/equipment";
 import { WepSvg } from "../../../../../assets/icons";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../../hooks/context/context";
 import "./Equipment.css";
 
-const Item = ({ item }) => {
-  const tick = useContext(TickContext);
-  const { map } = useContext(MatchContext);
+const Item = ({ item, pose, map }) => {
   const { factor } = map;
-
-  const pose = getEquipmentPose(item, tick);
-  if (!pose) return;
-
   const { type } = item;
   const { pos } = pose;
 
@@ -93,13 +81,11 @@ const Item = ({ item }) => {
   return <g className="equipment-component">{renderEquipment()}</g>;
 };
 
-const Equipment = () => {
-  const { equipment } = useContext(RoundContext);
-
+const Equipment = ({ equipment, map }) => {
   return (
     <g className="equipment">
-      {equipment?.map((item, idx) => (
-        <Item key={idx} item={item} />
+      {equipment?.map(({ item, pose }, idx) => (
+        <Item key={idx} item={item} pose={pose} map={map} />
       ))}
     </g>
   );

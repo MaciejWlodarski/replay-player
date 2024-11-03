@@ -25,6 +25,7 @@ const eventFireExpire = (inferno, event) => {
 const postProcessing = (inferno) => {
   let totalX = 0;
   let totalY = 0;
+  let totalZ = 0;
   let validCount = 0;
   let end = 0;
 
@@ -32,6 +33,7 @@ const postProcessing = (inferno) => {
     if (fire) {
       totalX += fire.pos.x;
       totalY += fire.pos.y;
+      totalZ += fire.pos.z;
       validCount++;
       end = fire.end ? Math.max(end, fire.end) : Infinity;
     }
@@ -40,7 +42,8 @@ const postProcessing = (inferno) => {
   if (!validCount) return;
   const centroidX = totalX / validCount;
   const centroidY = totalY / validCount;
-  inferno.centroid = { x: centroidX, y: centroidY };
+  const centroidZ = totalZ / validCount;
+  inferno.centroid = { x: centroidX, y: centroidY, z: centroidZ };
   inferno.end = end;
 };
 
@@ -74,4 +77,24 @@ export const getInfernos = (data) => {
   infernos.forEach((inferno) => postProcessing(inferno));
 
   return infernos;
+};
+
+export const groupInfernos = (infernos, map, level, tick) => {
+  return infernos.reduce(
+    (acc, inferno) => {
+      const { start, end, centroid } = inferno;
+      if (tick < start || tick > end) return acc;
+
+      const upper = map.lower === null || centroid.z >= map.lower;
+
+      if (upper === level) {
+        acc.on.push(inferno);
+        return acc;
+      }
+
+      acc.off.push(inferno);
+      return acc;
+    },
+    { on: [], off: [] }
+  );
 };

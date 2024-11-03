@@ -106,3 +106,25 @@ export const getGrenadePose = (grenade, targetTick) => {
 
   return { tick: targetTick, pos, trajectory };
 };
+
+export const groupGrenades = (grenades, map, level, tick) => {
+  return grenades.reduce(
+    (acc, grenade) => {
+      const pose = getGrenadePose(grenade, tick);
+      if (!pose) return acc;
+
+      const upper = map.lower === null || pose.pos.z >= map.lower;
+
+      const grenadeInfo = { grenade, pose };
+
+      if (upper === level) {
+        acc.on.push(grenadeInfo);
+        return acc;
+      }
+
+      acc.off.push(grenadeInfo);
+      return acc;
+    },
+    { on: [], off: [] }
+  );
+};

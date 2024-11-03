@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { WrapperRefContext } from "../../../../../hooks/context/context";
-import { buildPath } from "../../../../../hooks/sketch/useSketchControl";
 import Path from "../Paths/Path/Path";
+import { buildPath } from "../../../../../utils/sketchUtils";
 
 const CurrentPath = ({ pen, path }) => {
   const wrapperRef = useContext(WrapperRefContext);

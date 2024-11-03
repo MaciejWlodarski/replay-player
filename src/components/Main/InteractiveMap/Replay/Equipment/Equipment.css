@@ -12,3 +12,8 @@
   fill: var(--t);
   opacity: 1;
 }
+
+.equipment-component .eq.bomb.off-level {
+  fill: var(--t);
+  opacity: 0.3;
+}

@@ -1,40 +1,47 @@
 import React, { memo, useContext } from "react";
-import CheckboxButton from "/src/components/CheckboxButton/CheckboxButton";
 import {
   MatchContext,
   SetTickContext,
+  SketchReducerDispatchContext,
   TickRefContext,
 } from "../../hooks/context/context";
+import Button from "../Button/Button";
+import classNames from "classnames";
 import "./Rounds.css";
 
 const Rounds = ({ rounds, roundId, setRoundId }) => {
   const match = useContext(MatchContext);
   const setTick = useContext(SetTickContext);
   const tickRef = useContext(TickRefContext);
+  const sketchDispatch = useContext(SketchReducerDispatchContext);
 
   if (!match) return;
 
+  const handleLeftClick = (roundIdx) => {
+    if (roundIdx !== roundId) {
+      setRoundId(roundIdx);
+      setTick(0);
+      tickRef.current = 0;
+
+      sketchDispatch({ type: "CLEAR_PATHS" });
+    }
+  };
+
   return (
     <div className="rounds">
-      {match.rounds.map((round) => {
-        const { roundIdx, winnerSide } = round;
+      {match.rounds.map(({ roundIdx, winnerSide }) => {
         const loaded = !!rounds[roundIdx];
         return (
-          <CheckboxButton
+          <Button
             key={roundIdx}
-            label={
-              <span className={loaded ? "loaded" : ""}>{roundIdx + 1}</span>
-            }
+            className={classNames("round", winnerSide)}
             isChecked={roundIdx === roundId}
-            onButtonDown={() => {
-              if (roundIdx !== roundId) {
-                setRoundId(roundIdx);
-                setTick(0);
-                tickRef.current = 0;
-              }
-            }}
-            additionalClassName={`round noborder ${winnerSide}`}
-          />
+            onLeftClick={() => handleLeftClick(roundIdx)}
+          >
+            <span className={classNames({ loaded: loaded })}>
+              {roundIdx + 1}
+            </span>
+          </Button>
         );
       })}
     </div>

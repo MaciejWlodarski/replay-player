@@ -156,8 +156,10 @@ const icons = {
 
 export default icons;
 
-export const WepSvg = ({ wep, x = 0, y = 0, height, width }) => {
+export const WepSvg = ({ wep, x = 0, y = 0, height, width, style }) => {
   const IconComponent = icons.normal[wep];
   if (!IconComponent) return;
-  return <IconComponent x={x} y={y} height={height} width={width} />;
+  return (
+    <IconComponent x={x} y={y} height={height} width={width} style={style} />
+  );
 };

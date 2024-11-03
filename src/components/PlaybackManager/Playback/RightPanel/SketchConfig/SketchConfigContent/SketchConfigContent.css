@@ -10,27 +10,6 @@
   margin: 0;
 }
 
-#sketch-tooltip .pen-color {
-  display: flex;
-  justify-content: space-between;
-}
-
-#sketch-tooltip .color {
-  border: 0 solid var(--border);
-  border-radius: 50%;
-  aspect-ratio: 1;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-}
-
-#sketch-tooltip .color:focus-visible {
-  outline: 1px dashed var(--border);
-}
-
-#sketch-tooltip .color.selected {
-  border-width: 2px;
-}
-
 #sketch-tooltip .pen-radius {
   display: flex;
   height: 100%;
@@ -62,7 +41,7 @@
   justify-content: center;
 }
 
-#sketch-tooltip .buttons {
+#sketch-tooltip .action-controls {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 1px;
@@ -73,26 +52,26 @@
   height: 100%;
 }
 
-#sketch-tooltip .buttons > * {
+#sketch-tooltip .action-controls > * {
   border-width: 0px;
   border-radius: 0;
   background-color: var(--dark);
 }
 
-#sketch-tooltip .buttons > *:not(.disabled) {
+#sketch-tooltip .action-controls > *:not(.disabled) {
   fill: rgb(255, 255, 255);
   color: rgb(255, 255, 255);
 }
 
-#sketch-tooltip .buttons > *:not(.disabled):hover {
-  background-color: var(--check);
+#sketch-tooltip .action-controls > *:not(.disabled):hover {
+  background-color: var(--hover);
 }
 
-#sketch-tooltip .buttons > *:not(.disabled):focus-visible {
-  background-color: var(--check);
+#sketch-tooltip .action-controls > *:not(.disabled):focus-visible {
+  background-color: var(--hover);
 }
 
-#sketch-tooltip .buttons > *.disabled {
+#sketch-tooltip .action-controls > *.disabled {
   fill: var(--border);
   color: var(--border);
   cursor: default;

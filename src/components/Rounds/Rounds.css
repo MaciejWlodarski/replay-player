@@ -26,18 +26,18 @@
 
 .rounds .round:hover,
 .rounds .round:focus-visible {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 .rounds .round.checked {
-  background-color: transparent !important;
+  background-color: transparent;
   font-weight: 700;
-  text-shadow: 0px 0px 2px black;
+  color: rgb(255, 255, 255);
+  text-shadow: 0px 0px 1.5px black;
 }
 
 .rounds .round span {
   justify-content: center;
-  font-weight: 300;
   transform: translateY(1px);
   z-index: 1;
 }
