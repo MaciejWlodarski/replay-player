@@ -31,3 +31,7 @@ export const ActiveTooltipContext = createContext();
 export const SketchReducerStateContext = createContext();
 
 export const SketchReducerDispatchContext = createContext();
+
+export const ModalContext = createContext();
+
+export const SetModalContext = createContext();

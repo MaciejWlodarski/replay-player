@@ -1,3 +1,7 @@
+g.deaths {
+  opacity: 0.2;
+}
+
 .death-component.t .death {
   stroke: rgb(255, 207, 46);
 }

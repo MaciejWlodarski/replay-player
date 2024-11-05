@@ -1,6 +1,6 @@
 .playback-panel.right {
   display: grid;
-  grid-template-columns: 48px 36px 36px 36px;
+  grid-template-columns: 48px 36px 36px 36px 36px;
   border-left: 1px solid var(--border);
   column-gap: 1px;
   background-color: var(--border);
@@ -25,9 +25,7 @@
   background-color: var(--hover);
 }
 
-.playback-panel .share-container,
-.playback-panel .share-button,
-.playback-panel .share-button:hover {
+.playback-panel.right > *:last-child {
   border-radius: 0 3px 3px 0;
 }
 

@@ -9,6 +9,7 @@ import SketchProvider from "./Providers/SketchProvider";
 import RefProvider from "./Providers/RefProvider";
 import TickProvider from "./Providers/TickProvider";
 import TooltipProvider from "./Providers/TooltipProvider";
+import ModalProvider from "./Providers/ModalProvider";
 
 const AppProviders = ({ children, match, round }) => {
   const altState = useKeyState();
@@ -21,9 +22,11 @@ const AppProviders = ({ children, match, round }) => {
             <RefProvider>
               <SketchProvider>
                 <TooltipProvider>
-                  <AltContext.Provider value={altState}>
-                    {children}
-                  </AltContext.Provider>
+                  <ModalProvider>
+                    <AltContext.Provider value={altState}>
+                      {children}
+                    </AltContext.Provider>
+                  </ModalProvider>
                 </TooltipProvider>
               </SketchProvider>
             </RefProvider>

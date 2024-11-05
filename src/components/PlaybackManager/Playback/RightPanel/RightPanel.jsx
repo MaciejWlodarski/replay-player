@@ -1,9 +1,10 @@
 import { memo, useContext } from "react";
-import { Camera } from "lucide-react";
+import { Camera, Settings } from "lucide-react";
 import {
   MapRefContext,
   MatchContext,
   RoundContext,
+  SetModalContext,
   TickContext,
   TickRefContext,
 } from "../../../../hooks/context/context";
@@ -19,6 +20,7 @@ const RightPanel = () => {
   const tickRef = useContext(TickRefContext);
   const tick = useContext(TickContext);
   const mapRef = useContext(MapRefContext);
+  const setModalTab = useContext(SetModalContext);
 
   return (
     <div className="playback-panel right">
@@ -31,6 +33,9 @@ const RightPanel = () => {
         <Camera strokeWidth={1.5} size={22} />
       </Button>
       <Share />
+      <Button className="settings" onLeftClick={() => setModalTab("settings")}>
+        <Settings strokeWidth={1.5} size={20} />
+      </Button>
     </div>
   );
 };

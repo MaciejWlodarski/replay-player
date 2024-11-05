@@ -65,7 +65,13 @@ const Player = ({ player, side }) => {
           {roundKills && (
             <div className="round-kills">
               <span>{roundKills}</span>
-              <Crosshair strokeWidth={3} size={15} />
+              <Crosshair
+                strokeWidth={3}
+                size={15}
+                style={{
+                  filter: "drop-shadow(0 0 1px rgba(0, 0, 0, 0.5))",
+                }}
+              />
             </div>
           )}
         </div>
