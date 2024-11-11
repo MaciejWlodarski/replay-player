@@ -3,7 +3,7 @@ import { CirclePause, CirclePlay } from "lucide-react";
 import { RoundContext } from "../../../hooks/context/context";
 import Slider from "./Slider/Slider";
 import RightPanel from "./RightPanel/RightPanel";
-import Button from "../../Button/Button";
+import Button from "../../ui/Button/Button";
 import "./Playback.css";
 
 const Playback = ({

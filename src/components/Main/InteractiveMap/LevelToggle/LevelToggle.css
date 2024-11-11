@@ -3,17 +3,11 @@
   position: absolute;
   left: 10px;
   bottom: 10px;
-  width: 96px;
+  width: 32px;
   height: 32px;
   z-index: 1;
+  padding: 4px;
   color: rgb(255, 255, 255);
-  padding: 0 14px;
   gap: 4px;
   align-items: center;
-}
-
-.level-toggle span {
-  display: flex;
-  align-items: center;
-  transform: translateY(1px);
 }

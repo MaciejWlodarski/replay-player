@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { MatchContext } from "../../../../hooks/context/context";
-import Button from "../../../Button/Button";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import Button from "../../../ui/Button/Button";
+import { Icon } from "lucide-react";
+import { arrowsUpDownSquare } from "@lucide/lab";
 import "./LevelToggle.css";
 
-const LevelToggle = ({ level, setLevel }) => {
+const LevelToggle = ({ setLevel }) => {
   const { map } = useContext(MatchContext);
 
   if (!map.lower) return;
@@ -14,8 +15,7 @@ const LevelToggle = ({ level, setLevel }) => {
       className="level-toggle"
       onLeftClick={() => setLevel((prev) => !prev)}
     >
-      <span>Level</span>
-      {level ? <ArrowUp size={14} /> : <ArrowDown size={14} />}
+      <Icon iconNode={arrowsUpDownSquare} strokeWidth={1.5} />
     </Button>
   );
 };

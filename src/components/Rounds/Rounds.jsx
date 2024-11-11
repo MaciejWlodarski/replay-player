@@ -5,7 +5,7 @@ import {
   SketchReducerDispatchContext,
   TickRefContext,
 } from "../../hooks/context/context";
-import Button from "../Button/Button";
+import Button from "../ui/Button/Button";
 import classNames from "classnames";
 import "./Rounds.css";
 

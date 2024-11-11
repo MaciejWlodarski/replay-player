@@ -1,4 +1,4 @@
-import { memo, useContext } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { ModalContext, SetModalContext } from "../../hooks/context/context";
 import Settings from "./Settings/Settings";
 import classNames from "classnames";
@@ -8,28 +8,34 @@ const Modal = () => {
   const modalTab = useContext(ModalContext);
   const setModalTab = useContext(SetModalContext);
 
-  console.log("xd");
+  const [isActive, setIsActive] = useState(false);
 
-  if (!modalTab) return null;
+  useEffect(() => {
+    setIsActive(!!modalTab);
+  }, [modalTab]);
 
-  const getTab = () => {
+  const getTab = useCallback(() => {
     switch (modalTab) {
       case "settings":
         return <Settings />;
       default:
         return null;
     }
-  };
+  }, [modalTab]);
 
-  const closeModal = () => setModalTab(null);
+  const closeModal = useCallback(() => setModalTab(null), [setModalTab]);
 
   return (
     <div
-      className={classNames("modal-overlay", { active: modalTab })}
+      className={classNames("modal-overlay", { active: isActive })}
       onClick={closeModal}
     >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {getTab()}
+      <div className="modal-display" onClick={(e) => e.stopPropagation()}>
+        <header>
+          <span className="green">CS</span>
+          <span>Analyzer.gg</span>
+        </header>
+        <div className="modal-content">{getTab()}</div>
       </div>
     </div>
   );

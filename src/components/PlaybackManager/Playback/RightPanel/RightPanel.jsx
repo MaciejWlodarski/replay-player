@@ -11,7 +11,7 @@ import {
 import { exportSVGToPNG } from "./svgToImage";
 import Share from "./Share/Share";
 import SketchConfig from "./SketchConfig/SketchConfig";
-import Button from "../../../Button/Button";
+import Button from "../../../ui/Button/Button";
 import "./RightPanel.css";
 
 const RightPanel = () => {

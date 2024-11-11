@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, useMemo, useContext } from "react";
 import {
+  ArrowLeftContext,
+  ArrowRightContext,
   RoundContext,
   SetTickContext,
   TickContext,
@@ -11,6 +13,8 @@ const usePlaybackControl = () => {
   const tick = useContext(TickContext);
   const setTick = useContext(SetTickContext);
   const tickRef = useContext(TickRefContext);
+  const arrowRightState = useContext(ArrowRightContext);
+  const arrowLeftState = useContext(ArrowLeftContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [speedIdx, setSpeedIdx] = useState(1);
@@ -40,7 +44,7 @@ const usePlaybackControl = () => {
 
       const { lastTick } = round;
 
-      if (prevTickRef.current < lastTick) {
+      if (prevTickRef.current < lastTick && prevTickRef.current >= 0) {
         setTick((prevTick) => {
           const newRender = Date.now();
           const delta = dataAvailable ? newRender - prevRenderRef.current : 0;
@@ -49,7 +53,12 @@ const usePlaybackControl = () => {
           const tickDurationMs = 1000 / (64 * speedArray[speedIdx]);
           const tickIncrement = delta / tickDurationMs;
 
-          const newTick = Math.min(prevTick + tickIncrement, lastTick);
+          let newTick;
+          if (arrowLeftState) {
+            newTick = Math.max(prevTick - tickIncrement, 0);
+          } else {
+            newTick = Math.min(prevTick + tickIncrement, lastTick);
+          }
 
           prevRenderRef.current = newRender;
           prevTickRef.current = newTick;
@@ -64,7 +73,7 @@ const usePlaybackControl = () => {
       animationRef.current = requestAnimationFrame(renderFrame);
     };
 
-    if (isPlaying) {
+    if (isPlaying || arrowLeftState || arrowRightState) {
       animationRef.current = requestAnimationFrame(renderFrame);
     }
 
@@ -73,7 +82,16 @@ const usePlaybackControl = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPlaying, speedIdx, round]);
+  }, [
+    isPlaying,
+    arrowLeftState,
+    arrowRightState,
+    speedIdx,
+    round,
+    setTick,
+    speedArray,
+    tickRef,
+  ]);
 
   return {
     isPlaying,

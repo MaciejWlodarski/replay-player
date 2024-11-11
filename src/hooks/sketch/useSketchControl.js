@@ -10,6 +10,7 @@ import {
   getTolerance,
   simplify,
 } from "../../utils/sketchUtils";
+import isEditableElement from "../../utils/isEditableElement";
 
 const useSketchControl = (svgSize, pen, canvasRef) => {
   const mainRef = useContext(MainRefContext);
@@ -67,6 +68,10 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      if (isEditableElement()) {
+        return;
+      }
+
       if (event.ctrlKey && event.key === "z") {
         dispatch({ type: "UNDO_PATH" });
       } else if (event.ctrlKey && event.key === "y") {
@@ -76,13 +81,12 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
       }
     };
 
-    const mapContainer = mainRef.current;
-    mapContainer.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      mapContainer.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [mainRef]);
+  }, [dispatch]);
 
   useEffect(() => {
     const handleMouseMove = (event) => {

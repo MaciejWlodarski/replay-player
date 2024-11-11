@@ -1,5 +1,5 @@
 import { memo, useCallback, useContext, useMemo } from "react";
-import Button from "../../../../../../Button/Button";
+import Button from "../../../../../../ui/Button/Button";
 import { colorMap } from "../../../../../../../utils/utils";
 import { PenContext } from "../../../../../../../hooks/context/context";
 import { Check } from "lucide-react";

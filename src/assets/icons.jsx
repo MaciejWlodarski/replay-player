@@ -70,6 +70,9 @@ import WeaponXm1014N from "./svg/svg_normal/weapon_xm1014.svg?react";
 
 import Headshot from "./svg/svg_killfeed/headshot.svg?react";
 import Wallbang from "./svg/svg_killfeed/wallbang.svg?react";
+import BlindKill from "./svg/svg_killfeed/blind_kill.svg?react";
+import SmokeKill from "./svg/svg_killfeed/smoke_kill.svg?react";
+import NoScope from "./svg/svg_killfeed/noscope.svg?react";
 
 const icons = {
   normal: {
@@ -151,6 +154,9 @@ const icons = {
   killfeed: {
     headshot: Headshot,
     wallbang: Wallbang,
+    blind: BlindKill,
+    noscope: NoScope,
+    smokeKill: SmokeKill,
   },
 };
 

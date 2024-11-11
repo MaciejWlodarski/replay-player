@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useMemo } from "react";
 import usePlaybackControl from "../../hooks/playback/usePlaybackControl";
 import Playback from "./Playback/Playback";
+import isEditableElement from "../../utils/isEditableElement";
 
 const PlaybackManager = () => {
   const {
@@ -34,6 +35,10 @@ const PlaybackManager = () => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      if (isEditableElement()) {
+        return;
+      }
+
       switch (event.code) {
         case "Space":
           togglePlay();

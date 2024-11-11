@@ -4,7 +4,7 @@ import {
   SketchReducerStateContext,
 } from "../../../../../../../hooks/context/context";
 import { Redo, Undo, X } from "lucide-react";
-import Button from "../../../../../../Button/Button";
+import Button from "../../../../../../ui/Button/Button";
 
 const ActionControls = () => {
   const dispatch = useContext(SketchReducerDispatchContext);

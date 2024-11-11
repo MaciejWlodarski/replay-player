@@ -28,7 +28,7 @@ const InteractiveMap = () => {
   return (
     <div className="map-container">
       <KillFeed />
-      <LevelToggle level={level} setLevel={setLevel} />
+      <LevelToggle setLevel={setLevel} />
       <TransformWrapper
         smooth={false}
         disablePadding={true}

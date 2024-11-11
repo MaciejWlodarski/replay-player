@@ -22,6 +22,10 @@ export const WrapperRefContext = createContext();
 
 export const AltContext = createContext();
 
+export const ArrowLeftContext = createContext();
+
+export const ArrowRightContext = createContext();
+
 export const SketchContext = createContext();
 
 export const PenContext = createContext();

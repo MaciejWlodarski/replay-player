@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import classNames from "classnames";
 import { Pencil } from "lucide-react";
 import SketchConfigContent from "./SketchConfigContent/SketchConfigContent";
@@ -6,11 +6,11 @@ import "./SketchConfig.css";
 
 const SketchConfig = () => {
   const tooltipId = "sketch-tooltip";
-
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const sketchConfigRef = useRef();
 
   return (
-    <div className="sketch-config">
+    <div className="sketch-config" ref={sketchConfigRef} tabIndex={-1}>
       <div
         className={classNames("sketch-config-button", { open: isTooltipOpen })}
         tabIndex={0}

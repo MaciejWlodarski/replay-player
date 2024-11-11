@@ -1,6 +1,5 @@
 import React from "react";
-import "./Kill.css";
-import { WepSvg } from "../../../../../assets/icons";
+import icons, { WepSvg } from "../../../../../assets/icons";
 import {
   equipmentTypeMap,
   grenadeTypeMap,
@@ -8,6 +7,7 @@ import {
   easeInOut,
   deserializeKillFlags,
 } from "../../../../../utils/utils";
+import "./Kill.css";
 
 const Kill = ({ kill, tick }) => {
   const {
@@ -45,6 +45,41 @@ const Kill = ({ kill, tick }) => {
     return 1 - easeInOut(f);
   })();
 
+  const renderBlind = () => {
+    if (!killFlags.attackerBlind) return;
+    return <icons.killfeed.blind className="icon" />;
+  };
+
+  const renderAssist = () => {
+    if (!assister) return;
+    return (
+      <>
+        <span>+</span>
+        <span className={killFlags.assisterTeam}>{assister}</span>
+      </>
+    );
+  };
+
+  const renderNoScope = () => {
+    if (!killFlags.noScope) return;
+    return <icons.killfeed.noscope className="icon" />;
+  };
+
+  const renderSmokeKill = () => {
+    if (!killFlags.throughSmoke) return;
+    return <icons.killfeed.smokeKill className="icon" />;
+  };
+
+  const renderHeadshot = () => {
+    if (!killFlags.isHeadshot) return;
+    return <icons.killfeed.headshot className="icon" />;
+  };
+
+  const renderWallbang = () => {
+    if (!killFlags.wallbang) return;
+    return <icons.killfeed.wallbang className="icon" />;
+  };
+
   return (
     <div
       className="kill"
@@ -55,9 +90,15 @@ const Kill = ({ kill, tick }) => {
       }}
     >
       <div className="kill-background" />
-      <span className={`${killer} ${killFlags.killerTeam}`}>{killer}</span>
+      {renderBlind()}
+      <span className={killFlags.killerTeam}>{killer}</span>
+      {renderAssist()}
       <WepSvg wep={wepName} />
-      <span className={`${victim} ${killFlags.victimTeam}`}>{victim}</span>
+      {renderNoScope()}
+      {renderSmokeKill()}
+      {renderHeadshot()}
+      {renderWallbang()}
+      <span className={killFlags.victimTeam}>{victim}</span>
     </div>
   );
 };

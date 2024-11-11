@@ -6,12 +6,11 @@ import {
   RoundContext,
   TickRefContext,
 } from "../../../../../../hooks/context/context";
+import Button from "../../../../../ui/Button/Button";
 import { Check } from "lucide-react";
-import CheckboxButton from "../../../../../CheckboxButton/CheckboxButton";
 import { Tooltip } from "react-tooltip";
 import { colorMap } from "../../../../../../utils/utils";
 import "./ShareContent.css";
-import Button from "../../../../../Button/Button";
 
 const ShareContent = ({ tooltipId, isOpen, setIsOpen }) => {
   const match = useContext(MatchContext);
@@ -21,7 +20,6 @@ const ShareContent = ({ tooltipId, isOpen, setIsOpen }) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const [tickIncluded, setTickIncluded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [selectedTick, setSelectedTick] = useState(0);
 
   useEffect(() => {
@@ -53,15 +51,18 @@ const ShareContent = ({ tooltipId, isOpen, setIsOpen }) => {
 
   const handleCopyUrl = useCallback(() => {
     navigator.clipboard.writeText(URL + urlPart);
-  }, [urlPart]);
+  }, [URL, urlPart]);
 
-  const handleChange = useCallback((e) => {
-    const value = e.target.value;
+  const handleChange = useCallback(
+    (e) => {
+      const value = e.target.value;
 
-    if (/^\d*$/.test(value)) {
-      setSelectedTick(value);
-    }
-  }, []);
+      if (/^\d*$/.test(value)) {
+        setSelectedTick(value);
+      }
+    },
+    [setSelectedTick]
+  );
 
   return (
     <Tooltip

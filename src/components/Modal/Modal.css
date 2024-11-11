@@ -1,32 +1,52 @@
-@keyframes fadeInBlur {
-  from {
-    opacity: 0;
-    backdrop-filter: blur(0px);
-    background-color: rgba(0, 0, 0, 0);
-  }
-  to {
-    opacity: 1;
-    backdrop-filter: blur(20px);
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-}
-
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 2;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: -1;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeInBlur 0.3s ease forwards; /* Animacja uruchamia się po wyrenderowaniu */
+  backdrop-filter: blur(0px);
+  background-color: transparent;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  backdrop-filter: blur(4px);
+  background-color: rgba(1, 1, 1, 0.3);
+  opacity: 1;
+  z-index: 2;
+}
+
+.active .modal-display {
+  transform: translateY(0);
+}
+
+.modal-display {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  z-index: 3;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: translateY(-100%);
+}
+
+.modal-display header {
+  background-color: var(--dark);
+  padding: 16px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+.modal-display header .green {
+  color: var(--green);
 }
 
 .modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 3;
+  background-color: var(--background);
+  border-top: 1px solid var(--border);
+  padding: 16px;
 }

@@ -50,7 +50,12 @@ const Slider = ({ prevTickRef }) => {
     >
       <Hover cursorPos={cursorPos} isHoveredRef={isHoveredRef} />
       <Timeline />
-      <RCSlider max={lastTick} value={tick} onChange={handleSliderChange} />
+      <RCSlider
+        max={lastTick}
+        value={tick}
+        keyboard={false}
+        onChange={handleSliderChange}
+      />
     </div>
   );
 };
