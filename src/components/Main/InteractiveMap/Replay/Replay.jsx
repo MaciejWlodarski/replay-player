@@ -1,10 +1,5 @@
 import React, { useContext, memo } from "react";
 import classNames from "classnames";
-import {
-  MatchContext,
-  RoundContext,
-  TickContext,
-} from "../../../../hooks/context/context";
 import Deaths from "./Death/Death";
 import Shots from "./Shot/Shot";
 import Players from "./Player/Player";
@@ -14,6 +9,11 @@ import Equipment from "./Equipment/Equipment";
 import Bomb from "./Bomb/Bomb";
 import HoveredGrenade from "./HoveredGrenade/HoveredGrenade";
 import { getGroupedObjects } from "../../../../replay/replay";
+import {
+  MatchContext,
+  RoundContext,
+} from "../../../../providers/core/AppProviders";
+import { TickContext } from "../../../../providers/TickProvider";
 import "./Replay.css";
 
 const Replay = ({ level }) => {

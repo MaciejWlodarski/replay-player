@@ -1,13 +1,12 @@
-import { useMemo, useReducer, useState } from "react";
-import {
-  PenContext,
-  SketchReducerDispatchContext,
-  SketchReducerStateContext,
-} from "../../../hooks/context/context";
+import { createContext, useMemo, useReducer, useState } from "react";
 import {
   sketchInitialState,
   sketchReducer,
-} from "../../../hooks/reducers/sketchReducer";
+} from "../hooks/reducers/sketchReducer";
+
+export const PenContext = createContext();
+export const SketchReducerStateContext = createContext();
+export const SketchReducerDispatchContext = createContext();
 
 const PenProvider = ({ children }) => {
   const [pen, setPen] = useState({

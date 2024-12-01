@@ -1,9 +1,9 @@
-import {
-  SetTickContext,
-  TickContext,
-  TickRefContext,
-} from "../../../hooks/context/context";
-import useInitTick from "../../../hooks/playback/useInitTick";
+import { createContext } from "react";
+import useInitTick from "../hooks/playback/useInitTick";
+
+export const TickContext = createContext();
+export const SetTickContext = createContext();
+export const TickRefContext = createContext();
 
 const TickProvider = ({ children }) => {
   const [tick, setTick, tickRef] = useInitTick();

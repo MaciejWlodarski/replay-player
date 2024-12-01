@@ -1,12 +1,9 @@
 import React, { memo, useContext } from "react";
-import {
-  MatchContext,
-  SetTickContext,
-  SketchReducerDispatchContext,
-  TickRefContext,
-} from "../../hooks/context/context";
 import Button from "../ui/Button/Button";
 import classNames from "classnames";
+import { MatchContext } from "../../providers/core/AppProviders";
+import { SetTickContext, TickRefContext } from "../../providers/TickProvider";
+import { SketchReducerDispatchContext } from "../../providers/SketchProvider";
 import "./Rounds.css";
 
 const Rounds = ({ rounds, roundId, setRoundId }) => {

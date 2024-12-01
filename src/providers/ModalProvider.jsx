@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { ModalContext, SetModalContext } from "../../../hooks/context/context";
+import { createContext, useState } from "react";
+
+export const ModalContext = createContext();
+export const SetModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
   const [modalTab, setModalTab] = useState(null);

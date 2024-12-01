@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { ActiveTooltipContext } from "../../../hooks/context/context";
+import { createContext, useState } from "react";
+
+export const ActiveTooltipContext = createContext();
 
 const TooltipProvider = ({ children }) => {
   const [activeTooltip, setActiveTooltip] = useState(null);

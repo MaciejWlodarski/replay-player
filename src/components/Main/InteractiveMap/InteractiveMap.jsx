@@ -3,13 +3,13 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
 import SketchCanvas from "./SketchCanvas/SketchCanvas";
-import {
-  AltContext,
-  MapRefContext,
-  MatchContext,
-  WrapperRefContext,
-} from "../../../hooks/context/context";
 import LevelToggle from "./LevelToggle/LevelToggle";
+import { MatchContext } from "../../../providers/core/AppProviders";
+import {
+  MapRefContext,
+  WrapperRefContext,
+} from "../../../providers/RefProvider";
+import { AltContext } from "../../../providers/KeyProvider";
 import "./InteractiveMap.css";
 
 const InteractiveMap = () => {

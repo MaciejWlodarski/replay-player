@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { AltContext } from "../../../../../hooks/context/context";
+import { AltContext } from "../../../../../providers/KeyProvider";
 
 const Pen = ({ pen, setPen, penSizes, pos }) => {
   const altState = useContext(AltContext);

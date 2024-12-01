@@ -1,16 +1,13 @@
 import { useContext, useCallback, useEffect, useState } from "react";
 import {
-  MainRefContext,
-  SketchReducerDispatchContext,
-  WrapperRefContext,
-} from "../context/context";
-import {
   buildPath,
   getPoint,
   getTolerance,
   simplify,
 } from "../../utils/sketchUtils";
 import isEditableElement from "../../utils/isEditableElement";
+import { MainRefContext, WrapperRefContext } from "../../providers/RefProvider";
+import { SketchReducerDispatchContext } from "../../providers/SketchProvider";
 
 const useSketchControl = (svgSize, pen, canvasRef) => {
   const mainRef = useContext(MainRefContext);

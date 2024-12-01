@@ -1,8 +1,7 @@
-import { useState } from "react";
-import {
-  HoveredGrenadeContext,
-  SetHoveredGrenadeContext,
-} from "../../../hooks/context/context";
+import { createContext, useState } from "react";
+
+export const HoveredGrenadeContext = createContext();
+export const SetHoveredGrenadeContext = createContext();
 
 const HoveredGrenadeProvider = ({ children }) => {
   const [hoveredGrenade, setHoveredGrenade] = useState(null);

@@ -3,7 +3,7 @@ import icons, { WepSvg } from "/src/assets/icons";
 import { CircleX, Crosshair, Shield, ShieldPlus, Skull } from "lucide-react";
 import { equipmentTypeMap } from "/src/utils/utils";
 import { getPlayerStatus } from "/src/replay/player";
-import { TickContext } from "../../../../hooks/context/context";
+import { TickContext } from "../../../../providers/TickProvider";
 
 const Death = ({ status }) => (
   <div className={`death ${!status.hp ? "visible" : ""}`}>

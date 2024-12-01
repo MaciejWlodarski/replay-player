@@ -2,3 +2,39 @@
   color: rgb(255, 255, 255);
   width: 100%;
 }
+
+.modal-content .settings .title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.modal-content .settings .line {
+  height: 1px;
+  width: 100%;
+  background-color: var(--border);
+}
+
+.modal-content .settings .line.left {
+  width: 32px;
+}
+
+.modal-content .settings > * {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.settings .subtitle {
+  display: flex;
+  box-sizing: border-box;
+  padding-right: 8px;
+  width: 100%;
+  justify-content: end;
+  font-weight: 300;
+  color: var(--border);
+}

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MainRefContext } from "../../hooks/context/context";
+import { MainRefContext } from "../../providers/RefProvider";
 import Hud from "./Hud/Hud";
 import InteractiveMap from "./InteractiveMap/InteractiveMap";
 import "./Main.css";

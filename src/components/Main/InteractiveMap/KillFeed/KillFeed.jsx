@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import Kill from "./Kill/Kill";
+import { TickContext } from "../../../../providers/TickProvider";
+import { RoundContext } from "../../../../providers/core/AppProviders";
 import "./KillFeed.css";
-import { RoundContext, TickContext } from "../../../../hooks/context/context";
 
 const KillFeed = () => {
   const tick = useContext(TickContext);

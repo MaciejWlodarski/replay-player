@@ -1,8 +1,8 @@
 import { memo, useContext } from "react";
-import { RoundContext } from "../../../../../../hooks/context/context";
 import { deserializeKillFlags } from "../../../../../../utils/utils";
-import "./Marks.css";
 import { Calculator } from "lucide-react";
+import { RoundContext } from "../../../../../../providers/core/AppProviders";
+import "./Marks.css";
 
 const IntervalMarks = () => {
   const { lastTick } = useContext(RoundContext);

@@ -1,8 +1,6 @@
 import { memo, useContext } from "react";
-import {
-  RoundContext,
-  TickContext,
-} from "../../../../../../hooks/context/context";
+import { RoundContext } from "../../../../../../providers/core/AppProviders";
+import { TickContext } from "../../../../../../providers/TickProvider";
 import "./Periods.css";
 
 const Periods = () => {

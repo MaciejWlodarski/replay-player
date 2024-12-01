@@ -1,9 +1,8 @@
-import { useRef } from "react";
-import {
-  MainRefContext,
-  MapRefContext,
-  WrapperRefContext,
-} from "../../../hooks/context/context";
+import { createContext, useRef } from "react";
+
+export const MainRefContext = createContext();
+export const MapRefContext = createContext();
+export const WrapperRefContext = createContext();
 
 const RefProvider = ({ children }) => {
   const mapContainerRef = useRef();

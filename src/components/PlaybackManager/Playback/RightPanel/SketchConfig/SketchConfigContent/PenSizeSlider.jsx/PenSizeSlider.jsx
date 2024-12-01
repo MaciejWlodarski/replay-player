@@ -1,6 +1,6 @@
 import { memo, useCallback, useContext, useMemo } from "react";
-import { PenContext } from "../../../../../../../hooks/context/context";
 import Slider from "rc-slider";
+import { PenContext } from "../../../../../../../providers/SketchProvider";
 
 const PenSizeSlider = () => {
   const { pen, setPen, penSizes } = useContext(PenContext);

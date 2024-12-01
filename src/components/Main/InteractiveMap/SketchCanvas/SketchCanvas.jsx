@@ -3,8 +3,8 @@ import useSketchControl from "../../../../hooks/sketch/useSketchControl";
 import Paths from "./Paths/Paths";
 import Pen from "./Pen/Pen";
 import CurrentPath from "./CurrentPath/CurrentPath";
+import { PenContext } from "../../../../providers/SketchProvider";
 import "./SketchCanvas.css";
-import { PenContext } from "../../../../hooks/context/context";
 
 const SketchCanvas = () => {
   const { pen, setPen, penSizes } = useContext(PenContext);

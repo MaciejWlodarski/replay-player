@@ -2,12 +2,12 @@ import { useCallback, useContext, useRef, useState } from "react";
 import RCSlider from "rc-slider";
 import Timeline from "./Timeline/Timeline";
 import Hover from "./Hover/Hover";
+import { RoundContext } from "../../../../providers/core/AppProviders";
 import {
-  RoundContext,
   SetTickContext,
   TickContext,
   TickRefContext,
-} from "../../../../hooks/context/context";
+} from "../../../../providers/TickProvider";
 import "./Slider.css";
 
 const Slider = ({ prevTickRef }) => {

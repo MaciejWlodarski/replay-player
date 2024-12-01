@@ -1,0 +1,40 @@
+.settings .config {
+  gap: 0px !important;
+  width: 100%;
+}
+
+.settings .config .content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.settings .config .content .section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.config .section .options {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.config .options .option {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 24px;
+}
+
+.config .option .checkbox {
+  width: 24px;
+  height: 24px;
+  color: rgb(255, 255, 255);
+  stroke: rgb(255, 255, 255);
+}
+
+.config .option .checkbox:not(.checked) svg {
+  display: none;
+}

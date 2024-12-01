@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { RoundContext, TickContext } from "../../../../hooks/context/context";
 import { getTeam } from "../../../../utils/utils";
+import { TickContext } from "../../../../providers/TickProvider";
+import { RoundContext } from "../../../../providers/core/AppProviders";
 import "./Team.css";
 
 const Team = ({ side }) => {

@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, useMemo, useContext } from "react";
+import { RoundContext } from "../../providers/core/AppProviders";
 import {
-  ArrowLeftContext,
-  ArrowRightContext,
-  RoundContext,
   SetTickContext,
   TickContext,
   TickRefContext,
-} from "../context/context";
+} from "../../providers/TickProvider";
+import {
+  ArrowLeftContext,
+  ArrowRightContext,
+} from "../../providers/KeyProvider";
 
 const usePlaybackControl = () => {
   const round = useContext(RoundContext);
@@ -44,7 +46,7 @@ const usePlaybackControl = () => {
 
       const { lastTick } = round;
 
-      if (prevTickRef.current < lastTick && prevTickRef.current >= 0) {
+      if (prevTickRef.current <= lastTick && prevTickRef.current >= 0) {
         setTick((prevTick) => {
           const newRender = Date.now();
           const delta = dataAvailable ? newRender - prevRenderRef.current : 0;
@@ -66,7 +68,9 @@ const usePlaybackControl = () => {
           tickRef.current = newTick;
           return newTick;
         });
-      } else {
+      }
+
+      if (prevTickRef.current >= lastTick) {
         setIsPlaying(() => false);
       }
 

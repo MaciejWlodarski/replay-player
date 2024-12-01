@@ -1,17 +1,19 @@
 import { memo, useContext } from "react";
 import { Camera, Settings } from "lucide-react";
-import {
-  MapRefContext,
-  MatchContext,
-  RoundContext,
-  SetModalContext,
-  TickContext,
-  TickRefContext,
-} from "../../../../hooks/context/context";
-import { exportSVGToPNG } from "./svgToImage";
+import { exportSVGToPNG } from "../../../../utils/svgToImage";
 import Share from "./Share/Share";
 import SketchConfig from "./SketchConfig/SketchConfig";
 import Button from "../../../ui/Button/Button";
+import {
+  MatchContext,
+  RoundContext,
+} from "../../../../providers/core/AppProviders";
+import {
+  TickContext,
+  TickRefContext,
+} from "../../../../providers/TickProvider";
+import { MapRefContext } from "../../../../providers/RefProvider";
+import { SetModalContext } from "../../../../providers/ModalProvider";
 import "./RightPanel.css";
 
 const RightPanel = () => {

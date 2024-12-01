@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { MatchContext } from "../../../../hooks/context/context";
 import Button from "../../../ui/Button/Button";
 import { Icon } from "lucide-react";
 import { arrowsUpDownSquare } from "@lucide/lab";
+import { MatchContext } from "../../../../providers/core/AppProviders";
 import "./LevelToggle.css";
 
 const LevelToggle = ({ setLevel }) => {
