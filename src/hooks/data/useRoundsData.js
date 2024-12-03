@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { getRoundData } from "../../replay/replay";
+import { getRoundData } from "../../data/round";
 
 const useRoundsData = (match, roundNo) => {
   const [roundId, setRoundId] = useState(roundNo - 1 || 0);

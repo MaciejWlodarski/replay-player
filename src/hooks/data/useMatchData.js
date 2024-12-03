@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMatchData } from "../../replay/replay";
+import { getMatchData } from "../../data/match";
 
 const useMatchData = (matchId) => {
   const [match, setMatch] = useState(null);

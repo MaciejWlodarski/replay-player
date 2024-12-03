@@ -8,12 +8,9 @@ import Infernos from "./Inferno/Inferno";
 import Equipment from "./Equipment/Equipment";
 import Bomb from "./Bomb/Bomb";
 import HoveredGrenade from "./HoveredGrenade/HoveredGrenade";
-import { getGroupedObjects } from "../../../../replay/replay";
-import {
-  MatchContext,
-  RoundContext,
-} from "../../../../providers/core/AppProviders";
-import { TickContext } from "../../../../providers/TickProvider";
+import { getGroupedObjects } from "@/data/round";
+import { MatchContext, RoundContext } from "@/providers/core/AppProviders";
+import { TickContext } from "@/providers/TickProvider";
 import "./Replay.css";
 
 const Replay = ({ level }) => {

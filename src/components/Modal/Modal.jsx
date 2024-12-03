@@ -1,7 +1,7 @@
 import { memo, useCallback, useContext, useEffect, useState } from "react";
 import Settings from "./Settings/Settings";
 import classNames from "classnames";
-import { ModalContext, SetModalContext } from "../../providers/ModalProvider";
+import { ModalContext, SetModalContext } from "@/providers/ModalProvider";
 import "./Modal.css";
 
 const Modal = () => {
@@ -25,7 +25,7 @@ const Modal = () => {
 
   const closeModal = useCallback(() => {
     setIsActive(false);
-    setTimeout(() => setModalTab(null), 350);
+    setTimeout(() => setModalTab(null), 300);
   }, [setModalTab]);
 
   return (

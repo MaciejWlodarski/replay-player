@@ -10,7 +10,7 @@ import {
   getPlayerBlindness,
   getPlayerPlantProgress,
   getPlayerDefuseProgress,
-} from "/src/replay/player";
+} from "/src/data/player";
 import "./Player.css";
 
 const Player = ({ player, status, pose, tick, map }) => {

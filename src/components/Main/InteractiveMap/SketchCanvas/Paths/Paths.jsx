@@ -1,6 +1,6 @@
 import { memo, useContext } from "react";
 import Path from "./Path/Path";
-import { SketchReducerStateContext } from "../../../../../providers/SketchProvider";
+import { SketchReducerStateContext } from "@/providers/SketchProvider";
 
 const Paths = () => {
   const { paths } = useContext(SketchReducerStateContext);

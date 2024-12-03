@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Path from "../Paths/Path/Path";
-import { buildPath } from "../../../../../utils/sketchUtils";
-import { WrapperRefContext } from "../../../../../providers/RefProvider";
+import { buildPath } from "@/utils/sketchUtils";
+import { WrapperRefContext } from "@/providers/RefProvider";
 
 const CurrentPath = ({ pen, path }) => {
   const wrapperRef = useContext(WrapperRefContext);
