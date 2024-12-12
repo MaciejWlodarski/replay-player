@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { tickToTime } from "/src/utils/utils.js";
 import { Timer as TimerIcon } from "lucide-react";
-import { RoundContext } from "../../../../providers/core/AppProviders";
-import { TickContext } from "../../../../providers/TickProvider";
+import { RoundContext } from "@/providers/GameDataProvider";
+import { TickContext } from "@/providers/TickProvider";
 import "./Timer.css";
 
 const Timer = ({ showTick }) => {

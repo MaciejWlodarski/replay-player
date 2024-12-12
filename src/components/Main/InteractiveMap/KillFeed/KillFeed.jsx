@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Kill from "./Kill/Kill";
-import { TickContext } from "../../../../providers/TickProvider";
-import { RoundContext } from "../../../../providers/core/AppProviders";
+import { TickContext } from "@/providers/TickProvider";
+import { RoundContext } from "@/providers/GameDataProvider";
 import "./KillFeed.css";
 
 const KillFeed = () => {

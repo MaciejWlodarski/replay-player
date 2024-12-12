@@ -4,12 +4,9 @@ import KillFeed from "./KillFeed/KillFeed";
 import Replay from "./Replay/Replay";
 import SketchCanvas from "./SketchCanvas/SketchCanvas";
 import LevelToggle from "./LevelToggle/LevelToggle";
-import { MatchContext } from "../../../providers/core/AppProviders";
-import {
-  MapRefContext,
-  WrapperRefContext,
-} from "../../../providers/RefProvider";
-import { AltContext } from "../../../providers/KeyProvider";
+import { MatchContext } from "@/providers/GameDataProvider";
+import { MapRefContext, WrapperRefContext } from "@/providers/RefProvider";
+import { AltContext } from "@/providers/KeyProvider";
 import "./InteractiveMap.css";
 
 const InteractiveMap = () => {

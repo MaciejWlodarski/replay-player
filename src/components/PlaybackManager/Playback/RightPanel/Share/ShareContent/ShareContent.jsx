@@ -1,16 +1,13 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
-import Button from "../../../../../ui/Button/Button";
+import Button from "@/components/ui/Button/Button";
 import { Check } from "lucide-react";
 import { Tooltip } from "react-tooltip";
-import { colorMap } from "../../../../../../utils/utils";
+import { colorMap } from "@/utils/utils";
 import "./ShareContent.css";
-import {
-  MatchContext,
-  RoundContext,
-} from "../../../../../../providers/core/AppProviders";
-import { TickRefContext } from "../../../../../../providers/TickProvider";
-import { MainRefContext } from "../../../../../../providers/RefProvider";
+import { MatchContext, RoundContext } from "@/providers/GameDataProvider";
+import { TickRefContext } from "@/providers/TickProvider";
+import { MainRefContext } from "@/providers/RefProvider";
 
 const ShareContent = ({ tooltipId, isOpen, setIsOpen }) => {
   const match = useContext(MatchContext);

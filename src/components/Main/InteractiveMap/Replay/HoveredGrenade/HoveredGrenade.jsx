@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { WepSvg } from "../../../../../assets/icons";
-import { grenadeTypeMap } from "../../../../../utils/utils";
-import { HoveredGrenadeContext } from "../../../../../providers/HoveredGrenadeProvider";
-import { MatchContext } from "../../../../../providers/core/AppProviders";
+import { WepSvg } from "@/assets/icons";
+import { grenadeTypeMap } from "@/utils/utils";
+import { HoveredGrenadeContext } from "@/providers/HoveredGrenadeProvider";
+import { MatchContext } from "@/providers/GameDataProvider";
 import "./HoveredGrenade.css";
 
 const HoveredGrenade = () => {

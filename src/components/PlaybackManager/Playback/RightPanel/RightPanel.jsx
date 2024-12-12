@@ -3,17 +3,11 @@ import { Camera, Settings } from "lucide-react";
 import { exportSVGToPNG } from "../../../../utils/svgToImage";
 import Share from "./Share/Share";
 import SketchConfig from "./SketchConfig/SketchConfig";
-import Button from "../../../ui/Button/Button";
-import {
-  MatchContext,
-  RoundContext,
-} from "../../../../providers/core/AppProviders";
-import {
-  TickContext,
-  TickRefContext,
-} from "../../../../providers/TickProvider";
-import { MapRefContext } from "../../../../providers/RefProvider";
-import { SetModalContext } from "../../../../providers/ModalProvider";
+import Button from "@/components/ui/Button/Button";
+import { MatchContext, RoundContext } from "@/providers/GameDataProvider";
+import { TickContext, TickRefContext } from "@/providers/TickProvider";
+import { MapRefContext } from "@/providers/RefProvider";
+import { SetModalContext } from "@/providers/ModalProvider";
 import "./RightPanel.css";
 
 const RightPanel = () => {

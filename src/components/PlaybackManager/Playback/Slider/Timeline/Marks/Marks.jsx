@@ -1,7 +1,7 @@
 import { memo, useContext } from "react";
-import { deserializeKillFlags } from "../../../../../../utils/utils";
+import { deserializeKillFlags } from "@/utils/utils";
 import { Calculator } from "lucide-react";
-import { RoundContext } from "../../../../../../providers/core/AppProviders";
+import { RoundContext } from "@/providers/GameDataProvider";
 import "./Marks.css";
 
 const IntervalMarks = () => {

@@ -9,7 +9,7 @@ import Equipment from "./Equipment/Equipment";
 import Bomb from "./Bomb/Bomb";
 import HoveredGrenade from "./HoveredGrenade/HoveredGrenade";
 import { getGroupedObjects } from "@/data/round";
-import { MatchContext, RoundContext } from "@/providers/core/AppProviders";
+import { MatchContext, RoundContext } from "@/providers/GameDataProvider";
 import { TickContext } from "@/providers/TickProvider";
 import "./Replay.css";
 

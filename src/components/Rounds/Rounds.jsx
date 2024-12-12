@@ -1,13 +1,15 @@
-import React, { memo, useContext } from "react";
+import React, { useContext } from "react";
 import Button from "../ui/Button/Button";
 import classNames from "classnames";
-import { MatchContext } from "../../providers/core/AppProviders";
-import { SetTickContext, TickRefContext } from "../../providers/TickProvider";
-import { SketchReducerDispatchContext } from "../../providers/SketchProvider";
+import { MatchContext } from "@/providers/GameDataProvider";
+import { RoundManagerContext } from "@/providers/GameDataProvider";
+import { SetTickContext, TickRefContext } from "@/providers/TickProvider";
+import { SketchReducerDispatchContext } from "@/providers/SketchProvider";
 import "./Rounds.css";
 
-const Rounds = ({ rounds, roundId, setRoundId }) => {
+const Rounds = () => {
   const match = useContext(MatchContext);
+  const { rounds, roundId, setRoundId } = useContext(RoundManagerContext);
   const setTick = useContext(SetTickContext);
   const tickRef = useContext(TickRefContext);
   const sketchDispatch = useContext(SketchReducerDispatchContext);
@@ -45,4 +47,4 @@ const Rounds = ({ rounds, roundId, setRoundId }) => {
   );
 };
 
-export default memo(Rounds);
+export default Rounds;

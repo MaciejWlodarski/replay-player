@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState, useMemo, useContext } from "react";
-import { RoundContext } from "../../providers/core/AppProviders";
+import { RoundContext } from "@/providers/GameDataProvider";
 import {
   SetTickContext,
   TickContext,
   TickRefContext,
-} from "../../providers/TickProvider";
-import {
-  ArrowLeftContext,
-  ArrowRightContext,
-} from "../../providers/KeyProvider";
+} from "@/providers/TickProvider";
+import { ArrowLeftContext, ArrowRightContext } from "@/providers/KeyProvider";
 
 const usePlaybackControl = () => {
   const round = useContext(RoundContext);

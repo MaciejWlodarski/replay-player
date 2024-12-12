@@ -1,8 +1,8 @@
 import { memo, useContext } from "react";
-import { WepSvg } from "../../../../../assets/icons";
-import { grenadeTypeMap } from "../../../../../utils/utils";
-import { SetHoveredGrenadeContext } from "../../../../../providers/HoveredGrenadeProvider";
-import { RoundContext } from "../../../../../providers/core/AppProviders";
+import { WepSvg } from "@/assets/icons";
+import { grenadeTypeMap } from "@/utils/utils";
+import { SetHoveredGrenadeContext } from "@/providers/HoveredGrenadeProvider";
+import { RoundContext } from "@/providers/GameDataProvider";
 import "./Hover.css";
 
 const Grenade = ({ grenade }) => {

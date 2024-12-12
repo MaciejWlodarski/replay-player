@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Player from "./Player/Player";
-import { RoundContext } from "../../../providers/core/AppProviders";
+import { RoundContext } from "@/providers/GameDataProvider";
 import "./Hud.css";
 
 const Hud = ({ side }) => {
