@@ -1,13 +1,13 @@
 import { useContext, useRef } from "react";
-import useSketchControl from "../../../../hooks/sketch/useSketchControl";
+import useSketchControl from "@/hooks/sketch/useSketchControl";
 import Paths from "./Paths/Paths";
 import Pen from "./Pen/Pen";
 import CurrentPath from "./CurrentPath/CurrentPath";
-import { PenContext } from "../../../../providers/SketchProvider";
+import { PenContext } from "@/providers/SketchProvider";
 import "./SketchCanvas.css";
 
 const SketchCanvas = () => {
-  const { pen, setPen, penSizes } = useContext(PenContext);
+  const { pen, setPen, penSizes, penColors } = useContext(PenContext);
 
   const svgSize = 100;
 
@@ -36,7 +36,13 @@ const SketchCanvas = () => {
     >
       <Paths />
       <CurrentPath pen={pen} path={currentPath} />
-      <Pen pen={pen} setPen={setPen} penSizes={penSizes} pos={mousePos} />
+      <Pen
+        pen={pen}
+        setPen={setPen}
+        penSizes={penSizes}
+        penColors={penColors}
+        pos={mousePos}
+      />
     </svg>
   );
 };

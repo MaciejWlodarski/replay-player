@@ -1,6 +1,9 @@
 .modal-content .settings {
+  display: flex;
+  flex-direction: column;
   color: rgb(255, 255, 255);
   width: 100%;
+  gap: 16px;
 }
 
 .modal-content .settings .title {
@@ -32,9 +35,9 @@
 .settings .subtitle {
   display: flex;
   box-sizing: border-box;
-  padding-right: 8px;
   width: 100%;
-  justify-content: end;
+  justify-content: start;
   font-weight: 300;
   color: var(--border);
+  padding-bottom: 4px;
 }

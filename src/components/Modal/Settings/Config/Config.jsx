@@ -2,8 +2,8 @@ import { memo, useContext } from "react";
 import {
   ConfigReducerDispatchContext,
   ConfigReducerStateContext,
-} from "../../../../providers/ConfigProvider";
-import Button from "../../../ui/Button/Button";
+} from "@/providers/ConfigProvider";
+import Button from "@/components/ui/Button/Button";
 import "./Config.css";
 import { Check } from "lucide-react";
 import classNames from "classnames";
@@ -13,22 +13,24 @@ const Config = () => {
   const configState = useContext(ConfigReducerStateContext);
 
   const renderVisibilityOption = (key, label) => {
-    const value = configState.account.visibility[key];
-    console.log(value);
+    const value = configState.visibility[key];
 
     return (
-      <Button
-        className={classNames("checkbox")}
-        isChecked={value}
-        onLeftClick={() =>
-          configDispatch({
-            type: "TOGGLE_VISIBILITY",
-            payload: { key: key },
-          })
-        }
-      >
-        <Check />
-      </Button>
+      <div className="option">
+        <Button
+          className={classNames("checkbox")}
+          isChecked={value}
+          onLeftClick={() =>
+            configDispatch({
+              type: "TOGGLE_VISIBILITY",
+              payload: { key: key },
+            })
+          }
+        >
+          <Check size={16} />
+        </Button>
+        <span className="checkbox-label">{label}</span>
+      </div>
     );
   };
 
@@ -39,16 +41,11 @@ const Config = () => {
         <span>Config</span>
         <div className="line right" />
       </div>
+      <span className="subtitle">Entities Visibility</span>
       <div className="content">
-        <div className="section">
-          <span className="subtitle">Visibility</span>
-          <div className="options">
-            <div className="option">
-              {renderVisibilityOption("secondary", "xd")}
-            </div>
-          </div>
-        </div>
-        <div className="option"></div>
+        {renderVisibilityOption("grenades", "Grenades")}
+        {renderVisibilityOption("primary", "Primary")}
+        {renderVisibilityOption("secondary", "Secondary")}
       </div>
     </div>
   );

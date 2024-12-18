@@ -7,13 +7,6 @@
   column-gap: 16px;
 }
 
-.settings .keybinds .content .keybind {
-  display: grid;
-  align-items: center;
-  width: 100%;
-  gap: 16px;
-}
-
 .settings .keybinds .key-interaction {
   display: flex;
   justify-content: end;

@@ -15,11 +15,12 @@ const PenProvider = ({ children }) => {
   });
 
   const penSizes = useMemo(() => [5, 8, 12, 18, 27, 40, 60, 90, 135, 200], []);
+  const penColors = useMemo(() => ["white", "t", "ct", "green", "red"], []);
 
   const [state, dispatch] = useReducer(sketchReducer, sketchInitialState);
 
   return (
-    <PenContext.Provider value={{ pen, setPen, penSizes }}>
+    <PenContext.Provider value={{ pen, setPen, penSizes, penColors }}>
       <SketchReducerDispatchContext.Provider value={dispatch}>
         <SketchReducerStateContext.Provider value={state}>
           {children}

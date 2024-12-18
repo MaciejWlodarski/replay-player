@@ -1,28 +1,49 @@
 import { useContext, useMemo } from "react";
 import { AltContext } from "@/providers/KeyProvider";
+import { colorMap } from "@/utils/utils";
 
-const Pen = ({ pen, setPen, penSizes, pos }) => {
+const Pen = ({ pen, setPen, penSizes, penColors, pos }) => {
   const altState = useContext(AltContext);
 
-  const currentIndex = useMemo(
+  const currentSizeIndex = useMemo(
     () => penSizes.indexOf(pen.radius),
     [pen, penSizes]
   );
+
+  const penHexColors = useMemo(
+    () => penColors.map((color) => colorMap[color]),
+    [penColors]
+  );
+
+  const currentColorIndex = useMemo(() => {
+    return penHexColors.indexOf(pen.color);
+  }, [pen, penHexColors]);
 
   if (!altState || !pos) return;
 
   const handleScroll = (event) => {
     setPen((prevPen) => {
-      const { radius } = prevPen;
-      const currentIndex = penSizes.indexOf(radius);
-
       if (event.deltaY < 0) {
-        if (currentIndex === penSizes.length - 1) return prevPen;
-        return { ...prevPen, radius: penSizes[currentIndex + 1] };
+        if (currentSizeIndex === penSizes.length - 1) return prevPen;
+        return { ...prevPen, radius: penSizes[currentSizeIndex + 1] };
       } else {
-        if (currentIndex === 0) return prevPen;
-        return { ...prevPen, radius: penSizes[currentIndex - 1] };
+        if (currentSizeIndex === 0) return prevPen;
+        return { ...prevPen, radius: penSizes[currentSizeIndex - 1] };
       }
+    });
+  };
+
+  const handleMouseDown = (event) => {
+    setPen((prevPen) => {
+      if (event.button === 0) {
+        const newColorIndex =
+          (currentColorIndex - 1 + penHexColors.length) % penHexColors.length;
+        return { ...prevPen, color: penHexColors[newColorIndex] };
+      } else if (event.button === 2) {
+        const newColorIndex = (currentColorIndex + 1) % penHexColors.length;
+        return { ...prevPen, color: penHexColors[newColorIndex] };
+      }
+      return prevPen;
     });
   };
 
@@ -34,13 +55,14 @@ const Pen = ({ pen, setPen, penSizes, pos }) => {
         textAnchor="middle"
         fontSize={1.5}
       >
-        {currentIndex + 1}
+        {currentSizeIndex + 1}
       </text>
       <circle
         cx={pos.x}
         cy={pos.y}
         fill={pen.color}
         r={pen.radius / 100}
+        onMouseDown={handleMouseDown}
         onWheel={handleScroll}
       />
     </>

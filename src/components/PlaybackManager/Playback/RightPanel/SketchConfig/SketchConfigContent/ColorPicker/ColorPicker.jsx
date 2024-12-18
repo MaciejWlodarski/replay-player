@@ -1,14 +1,12 @@
-import { memo, useCallback, useContext, useMemo } from "react";
-import Button from "../../../../../../ui/Button/Button";
-import { colorMap } from "../../../../../../../utils/utils";
+import { memo, useCallback, useContext } from "react";
+import Button from "@/components/ui/Button/Button";
+import { colorMap } from "@/utils/utils";
 import { Check } from "lucide-react";
 import "./ColorPicker.css";
-import { PenContext } from "../../../../../../../providers/SketchProvider";
+import { PenContext } from "@/providers/SketchProvider";
 
 const ColorPicker = () => {
-  const { pen, setPen } = useContext(PenContext);
-
-  const colors = useMemo(() => ["white", "t", "ct", "green", "red"], []);
+  const { pen, setPen, penColors } = useContext(PenContext);
 
   const setColor = useCallback(
     (color) => setPen((prev) => ({ ...prev, color })),
@@ -17,7 +15,7 @@ const ColorPicker = () => {
 
   return (
     <div className="color-picker">
-      {colors.map((name) => {
+      {penColors.map((name) => {
         const color = colorMap[name];
         return (
           <Button

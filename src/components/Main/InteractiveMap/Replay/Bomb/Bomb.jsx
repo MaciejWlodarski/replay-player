@@ -1,6 +1,6 @@
 import React from "react";
 import icons from "/src/assets/icons";
-import { getStrokeDasharray } from "../../../../../utils/utils";
+import { easeInOut, getStrokeDasharray, mapRange } from "@/utils/utils";
 import "./Bomb.css";
 
 const Bomb = ({ events, tick, map }) => {
@@ -19,6 +19,9 @@ const Bomb = ({ events, tick, map }) => {
 
   const bombHeight = 60 * factor;
   const defused = defuse && defuse <= tick;
+
+  const explodeTick = plant.tick + 41 * 64;
+  const exploded = !defuse && explodeTick <= tick;
 
   const renderTimer = () => {
     if (defused) return;
@@ -72,7 +75,7 @@ const Bomb = ({ events, tick, map }) => {
     );
   };
 
-  const renderBomb = () => {
+  const renderBombIcon = () => {
     return (
       <g className={`bomb-icon ${defused ? "defused" : ""}`}>
         <icons.normal.c4
@@ -84,11 +87,42 @@ const Bomb = ({ events, tick, map }) => {
     );
   };
 
+  const renderExplosion = () => {
+    if (!exploded || tick < explodeTick) return;
+
+    const duration = 32;
+    const delta = tick - explodeTick;
+    if (delta > duration) return;
+    const easedDelta = easeInOut(delta / duration);
+    const r = mapRange(easedDelta, 0, 1, 30, 1500) * factor;
+
+    return (
+      <circle
+        className="explosion"
+        cx={bombPos.x}
+        cy={bombPos.y}
+        r={r}
+        strokeWidth={5 * factor}
+        opacity={1 - easedDelta}
+      />
+    );
+  };
+
+  const renderBomb = () => {
+    if (exploded) return;
+    return (
+      <>
+        {renderTimer()}
+        {renderBombBackground()}
+        {renderBombIcon()}
+      </>
+    );
+  };
+
   return (
     <g className="bomb-component">
-      {renderTimer()}
-      {renderBombBackground()}
       {renderBomb()}
+      {renderExplosion()}
     </g>
   );
 };

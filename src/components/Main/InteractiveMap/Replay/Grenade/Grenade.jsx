@@ -72,7 +72,7 @@ const Grenade = ({ grenade, pose, tick, map }) => {
 
     return (
       <circle
-        className="flash-explosion"
+        className="explosion"
         cx={grenadePos.x}
         cy={grenadePos.y}
         r={r}

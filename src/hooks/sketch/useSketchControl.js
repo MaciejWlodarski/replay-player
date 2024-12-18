@@ -6,13 +6,14 @@ import {
   simplify,
 } from "../../utils/sketchUtils";
 import isEditableElement from "../../utils/isEditableElement";
-import { MainRefContext, WrapperRefContext } from "../../providers/RefProvider";
+import { WrapperRefContext } from "../../providers/RefProvider";
 import { SketchReducerDispatchContext } from "../../providers/SketchProvider";
+import { AltContext } from "@/providers/KeyProvider";
 
 const useSketchControl = (svgSize, pen, canvasRef) => {
-  const mainRef = useContext(MainRefContext);
   const wrapperRef = useContext(WrapperRefContext);
   const dispatch = useContext(SketchReducerDispatchContext);
+  const altState = useContext(AltContext);
 
   const [drawing, setDrawing] = useState(false);
   const [mousePos, setMousePos] = useState(null);
@@ -25,13 +26,16 @@ const useSketchControl = (svgSize, pen, canvasRef) => {
   const handleMouseDown = useCallback(
     (event) => {
       if (event.button !== 0) return;
+      if (altState) return;
+
       const boundingRect = canvasRef.current.getBoundingClientRect();
       const startPoint = getPoint(event, boundingRect, svgSize);
       if (!startPoint) return;
+
       setDrawing(true);
       setCurrentPath({ normal: [startPoint], simplified: [] });
     },
-    [svgSize, canvasRef]
+    [svgSize, canvasRef, altState]
   );
 
   const handleMouseMove = useCallback(

@@ -1,6 +1,7 @@
-import React from "react";
-import { equipmentTypeMap, grenadeTypeMap } from "../../../../../utils/utils";
-import { WepSvg } from "../../../../../assets/icons";
+import React, { useContext } from "react";
+import { equipmentTypeMap, grenadeTypeMap } from "@/utils/utils";
+import { WepSvg } from "@/assets/icons";
+import { ConfigReducerStateContext } from "@/providers/ConfigProvider";
 import "./Equipment.css";
 
 const Item = ({ item, pose, map }) => {
@@ -82,11 +83,18 @@ const Item = ({ item, pose, map }) => {
 };
 
 const Equipment = ({ equipment, map }) => {
+  const { visibility } = useContext(ConfigReducerStateContext);
+  const { grenades, primary, secondary } = visibility;
+
   return (
     <g className="equipment">
-      {equipment?.map(({ item, pose }, idx) => (
-        <Item key={idx} item={item} pose={pose} map={map} />
-      ))}
+      {equipment?.map(({ item, pose }, idx) => {
+        const { type } = item;
+        if (!secondary && type < 100) return;
+        if (!primary && type > 100 && type < 400) return;
+        if (!grenades && type > 500) return;
+        return <Item key={idx} item={item} pose={pose} map={map} />;
+      })}
     </g>
   );
 };
