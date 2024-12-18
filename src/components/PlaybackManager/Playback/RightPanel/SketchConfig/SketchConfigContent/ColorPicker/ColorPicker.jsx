@@ -2,8 +2,8 @@ import { memo, useCallback, useContext } from "react";
 import Button from "@/components/ui/Button/Button";
 import { colorMap } from "@/utils/utils";
 import { Check } from "lucide-react";
-import "./ColorPicker.css";
 import { PenContext } from "@/providers/SketchProvider";
+import "./ColorPicker.css";
 
 const ColorPicker = () => {
   const { pen, setPen, penColors } = useContext(PenContext);

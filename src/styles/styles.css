@@ -1,3 +1,6 @@
+@tailwind components;
+@tailwind utilities;
+
 #root {
   --t: rgb(231, 180, 44);
   --ct: rgb(17, 116, 255);
