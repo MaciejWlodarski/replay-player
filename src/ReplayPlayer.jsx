@@ -5,13 +5,14 @@ import PlaybackController from "./components/PlaybackManager/PlaybackManager";
 import TopBar from "./components/TopBar/TopBar";
 import Modal from "./components/Modal/Modal";
 import AppProviders from "./providers/core/AppProviders";
+import { noop } from "./utils/utils";
 import "./styles/sliders.css";
 import "./styles/styles.css";
 
 const ReplayPlayer = ({
   matchId,
   roundNo,
-  onRoundChange = () => {},
+  onRoundChange = noop,
   startTick,
 }) => (
   <div className="replay-player">

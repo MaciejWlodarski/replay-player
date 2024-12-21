@@ -193,3 +193,5 @@ export const colorMap = {
   hover: "rgb(73, 73, 73)",
   border: "rgb(133, 133, 133)",
 };
+
+export const noop = () => {};

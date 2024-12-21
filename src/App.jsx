@@ -1,22 +1,22 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import ReplayPlayer from "./ReplayPlayer";
-import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const navigate = useNavigate();
-
   const { matchId, roundNo } = useParams();
-
   const [searchParams] = useSearchParams();
+
   const startTick = Number(searchParams.get("tick"));
+
+  const handleRoundChange = (newRoundNo) => {
+    navigate(`/match/${matchId}/${newRoundNo}`, { replace: true });
+  };
 
   return (
     <ReplayPlayer
       matchId={matchId}
       roundNo={roundNo}
-      onRoundChange={(roundNo) =>
-        navigate(`/match/${matchId}/${roundNo}`, { replace: true })
-      }
+      onRoundChange={handleRoundChange}
       startTick={startTick}
     />
   );
