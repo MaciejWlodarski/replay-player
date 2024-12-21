@@ -1,11 +1,16 @@
 {
-  "name": "replay-player",
-  "private": true,
-  "version": "0.1.0",
+  "name": "replay-player-cs2",
+  "private": false,
+  "version": "0.0.5",
   "type": "module",
+  "main": "dist/replay-player.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:lib": "vite build --mode lib",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -17,7 +22,6 @@
     "rc-slider": "^11.1.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-router-dom": "^6.26.1",
     "react-tooltip": "^5.28.0",
     "react-zoom-pan-pinch": "^3.4.4",
     "vite-plugin-svgr": "^4.2.0"
@@ -32,6 +36,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.49",
+    "react-router-dom": "^7.1.0",
     "tailwindcss": "^3.4.17",
     "vite": "^5.2.0"
   }

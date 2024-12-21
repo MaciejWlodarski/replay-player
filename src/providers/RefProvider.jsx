@@ -10,13 +10,11 @@ const RefProvider = ({ children }) => {
   const wrapperRef = useRef();
 
   return (
-    <MainRefContext.Provider value={mapContainerRef}>
-      <MapRefContext.Provider value={mapRef}>
-        <WrapperRefContext.Provider value={wrapperRef}>
-          {children}
-        </WrapperRefContext.Provider>
-      </MapRefContext.Provider>
-    </MainRefContext.Provider>
+    <MainRefContext value={mapContainerRef}>
+      <MapRefContext value={mapRef}>
+        <WrapperRefContext value={wrapperRef}>{children}</WrapperRefContext>
+      </MapRefContext>
+    </MainRefContext>
   );
 };
 

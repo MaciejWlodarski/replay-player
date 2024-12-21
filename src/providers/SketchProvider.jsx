@@ -20,13 +20,13 @@ const PenProvider = ({ children }) => {
   const [state, dispatch] = useReducer(sketchReducer, sketchInitialState);
 
   return (
-    <PenContext.Provider value={{ pen, setPen, penSizes, penColors }}>
-      <SketchReducerDispatchContext.Provider value={dispatch}>
-        <SketchReducerStateContext.Provider value={state}>
+    <PenContext value={{ pen, setPen, penSizes, penColors }}>
+      <SketchReducerDispatchContext value={dispatch}>
+        <SketchReducerStateContext value={state}>
           {children}
-        </SketchReducerStateContext.Provider>
-      </SketchReducerDispatchContext.Provider>
-    </PenContext.Provider>
+        </SketchReducerStateContext>
+      </SketchReducerDispatchContext>
+    </PenContext>
   );
 };
 

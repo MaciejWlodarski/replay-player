@@ -8,10 +8,20 @@ import KeyProvider from "../KeyProvider";
 import ConfigProvider from "../ConfigProvider";
 import GameDataProvider from "../GameDataProvider";
 
-const AppProviders = ({ children }) => {
+const AppProviders = ({
+  matchId,
+  roundNo,
+  onRoundChange,
+  startTick,
+  children,
+}) => {
   return (
-    <GameDataProvider>
-      <TickProvider>
+    <GameDataProvider
+      matchId={matchId}
+      roundNo={roundNo}
+      onRoundChange={onRoundChange}
+    >
+      <TickProvider startTick={startTick}>
         <HoveredGrenadeProvider>
           <RefProvider>
             <SketchProvider>

@@ -22,11 +22,11 @@ const ConfigProvider = ({ children }) => {
   }, [state]);
 
   return (
-    <ConfigReducerDispatchContext.Provider value={dispatch}>
-      <ConfigReducerStateContext.Provider value={state}>
+    <ConfigReducerDispatchContext value={dispatch}>
+      <ConfigReducerStateContext value={state}>
         {children}
-      </ConfigReducerStateContext.Provider>
-    </ConfigReducerDispatchContext.Provider>
+      </ConfigReducerStateContext>
+    </ConfigReducerDispatchContext>
   );
 };
 

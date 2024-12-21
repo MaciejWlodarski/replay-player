@@ -6,9 +6,9 @@ const TooltipProvider = ({ children }) => {
   const [activeTooltip, setActiveTooltip] = useState(null);
 
   return (
-    <ActiveTooltipContext.Provider value={[activeTooltip, setActiveTooltip]}>
+    <ActiveTooltipContext value={[activeTooltip, setActiveTooltip]}>
       {children}
-    </ActiveTooltipContext.Provider>
+    </ActiveTooltipContext>
   );
 };
 

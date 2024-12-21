@@ -7,11 +7,11 @@ const HoveredGrenadeProvider = ({ children }) => {
   const [hoveredGrenade, setHoveredGrenade] = useState(null);
 
   return (
-    <SetHoveredGrenadeContext.Provider value={setHoveredGrenade}>
-      <HoveredGrenadeContext.Provider value={hoveredGrenade}>
+    <SetHoveredGrenadeContext value={setHoveredGrenade}>
+      <HoveredGrenadeContext value={hoveredGrenade}>
         {children}
-      </HoveredGrenadeContext.Provider>
-    </SetHoveredGrenadeContext.Provider>
+      </HoveredGrenadeContext>
+    </SetHoveredGrenadeContext>
   );
 };
 

@@ -9,7 +9,8 @@ import "./Rounds.css";
 
 const Rounds = () => {
   const match = useContext(MatchContext);
-  const { rounds, roundId, setRoundId } = useContext(RoundManagerContext);
+  const { rounds, roundId, setRoundId, onRoundChange } =
+    useContext(RoundManagerContext);
   const setTick = useContext(SetTickContext);
   const tickRef = useContext(TickRefContext);
   const sketchDispatch = useContext(SketchReducerDispatchContext);
@@ -19,6 +20,7 @@ const Rounds = () => {
   const handleLeftClick = (roundIdx) => {
     if (roundIdx !== roundId) {
       setRoundId(roundIdx);
+      onRoundChange(roundIdx + 1);
       setTick(0);
       tickRef.current = 0;
 

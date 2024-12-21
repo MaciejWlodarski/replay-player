@@ -5,17 +5,22 @@ export const MatchContext = createContext();
 export const RoundContext = createContext();
 export const RoundManagerContext = createContext();
 
-const GameDataProvider = ({ children }) => {
-  const { match, round, rounds, roundId, setRoundId } = useGameData();
+const GameDataProvider = ({ matchId, roundNo, onRoundChange, children }) => {
+  const { match, round, rounds, roundId, setRoundId } = useGameData(
+    matchId,
+    roundNo
+  );
 
   return (
-    <MatchContext.Provider value={match}>
-      <RoundContext.Provider value={round}>
-        <RoundManagerContext.Provider value={{ rounds, roundId, setRoundId }}>
+    <MatchContext value={match}>
+      <RoundContext value={round}>
+        <RoundManagerContext
+          value={{ rounds, roundId, setRoundId, onRoundChange }}
+        >
           {children}
-        </RoundManagerContext.Provider>
-      </RoundContext.Provider>
-    </MatchContext.Provider>
+        </RoundManagerContext>
+      </RoundContext>
+    </MatchContext>
   );
 };
 

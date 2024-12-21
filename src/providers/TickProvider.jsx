@@ -5,17 +5,15 @@ export const TickContext = createContext();
 export const SetTickContext = createContext();
 export const TickRefContext = createContext();
 
-const TickProvider = ({ children }) => {
-  const [tick, setTick, tickRef] = useInitTick();
+const TickProvider = ({ startTick, children }) => {
+  const [tick, setTick, tickRef] = useInitTick(startTick);
 
   return (
-    <TickContext.Provider value={tick}>
-      <SetTickContext.Provider value={setTick}>
-        <TickRefContext.Provider value={tickRef}>
-          {children}
-        </TickRefContext.Provider>
-      </SetTickContext.Provider>
-    </TickContext.Provider>
+    <TickContext value={tick}>
+      <SetTickContext value={setTick}>
+        <TickRefContext value={tickRef}>{children}</TickRefContext>
+      </SetTickContext>
+    </TickContext>
   );
 };
 

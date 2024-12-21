@@ -1,7 +1,11 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
+body {
+  margin: 0;
+}
+
+.replay-player {
   --t: rgb(231, 180, 44);
   --ct: rgb(17, 116, 255);
   --green: rgb(42, 206, 102);
@@ -11,16 +15,9 @@
   --check: rgb(50, 50, 50);
   --hover: rgb(73, 73, 73);
   --border: rgb(133, 133, 133);
-}
-
-body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-size: 15px;
-  overflow: hidden;
-}
-
-.app {
   background-color: var(--background);
   display: flex;
   flex-direction: column;

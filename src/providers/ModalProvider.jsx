@@ -7,9 +7,9 @@ const ModalProvider = ({ children }) => {
   const [modalTab, setModalTab] = useState(null);
 
   return (
-    <SetModalContext.Provider value={setModalTab}>
-      <ModalContext.Provider value={modalTab}>{children}</ModalContext.Provider>
-    </SetModalContext.Provider>
+    <SetModalContext value={setModalTab}>
+      <ModalContext value={modalTab}>{children}</ModalContext>
+    </SetModalContext>
   );
 };
 
