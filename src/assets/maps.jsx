@@ -5,6 +5,7 @@ import Mirage from "./maps/de_mirage.svg?react";
 import Nuke from "./maps/de_nuke.svg?react";
 import Vertigo from "./maps/de_vertigo.svg?react";
 import Dust2 from "./maps/de_dust2.svg?react";
+import Train from "./maps/de_train.svg?react";
 
 const maps = {
   de_ancient: {
@@ -42,12 +43,6 @@ const maps = {
     lower: -495,
     scale: 7,
   },
-  // de_overpass: {
-  //   src: Overpass,
-  //   start: { x: -4831, y: 1781 },
-  //   lower: null,
-  //   scale: 5.2,
-  // },
   de_vertigo: {
     name: "de_vertigo",
     src: Vertigo,
@@ -61,6 +56,13 @@ const maps = {
     start: { x: -2476, y: 3239 },
     lower: null,
     scale: 4.4,
+  },
+  de_train: {
+    name: "de_train",
+    src: Train,
+    start: { x: -2308, y: 2078 },
+    lower: -50,
+    scale: 4.082077,
   },
 };
 
