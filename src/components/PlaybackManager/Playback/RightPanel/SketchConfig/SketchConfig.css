@@ -16,7 +16,7 @@
 }
 
 .sketch-config-button.open {
-  background-color: var(--check);
+  background-color: var(----hover);
 }
 
 .sketch-config-button:hover,

@@ -16,7 +16,7 @@
 }
 
 .share-button.open {
-  background-color: var(--check);
+  background-color: var(----hover);
 }
 
 .share-button:hover,

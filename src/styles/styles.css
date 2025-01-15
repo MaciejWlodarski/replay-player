@@ -10,11 +10,10 @@ body {
   --ct: rgb(17, 116, 255);
   --green: rgb(42, 206, 102);
   --red: rgb(230, 50, 45);
-  --dark: rgb(23, 23, 23);
-  --background: rgb(35, 35, 35);
-  --check: rgb(50, 50, 50);
-  --hover: rgb(73, 73, 73);
-  --border: rgb(133, 133, 133);
+  --dark: #18181b;
+  --background: #09090b;
+  --hover: #3f3f46;
+  --border: #71717a;
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-size: 15px;
