@@ -65,7 +65,7 @@ const maps = {
     lower: -50,
     scale: 4.082077,
   },
-  de_train: {
+  de_overpass: {
     name: "de_overpass",
     src: Overpass,
     start: { x: -4831, y: 1781 },
