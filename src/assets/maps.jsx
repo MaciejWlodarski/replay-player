@@ -69,6 +69,7 @@ const maps = {
     name: "de_overpass",
     src: Overpass,
     start: { x: -4831, y: 1781 },
+    lower: null,
     scale: 5.2,
   },
 };
