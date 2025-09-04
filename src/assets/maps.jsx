@@ -6,6 +6,7 @@ import Nuke from "./maps/de_nuke.svg?react";
 import Vertigo from "./maps/de_vertigo.svg?react";
 import Dust2 from "./maps/de_dust2.svg?react";
 import Train from "./maps/de_train.svg?react";
+import Overpass from "./maps/de_overpass.svg?react";
 
 const maps = {
   de_ancient: {
@@ -63,6 +64,12 @@ const maps = {
     start: { x: -2308, y: 2078 },
     lower: -50,
     scale: 4.082077,
+  },
+  de_train: {
+    name: "de_overpass",
+    src: Overpass,
+    start: { x: -4831, y: 1781 },
+    scale: 5.2,
   },
 };
 
